@@ -6,4 +6,10 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+
+    #define DNT_WEAK_SELF __weak __typeof(&*self)weakSelf = self;
+    #define DNT_STRING(value) (@#value)
+    #define DNT_YESNO(value) value ? @"YES" : @"NO"
+    #define DNT_PRETTY_METHOD NSStringFromSelector(_cmd)
+
 #endif

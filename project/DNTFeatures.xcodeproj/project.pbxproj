@@ -10,6 +10,10 @@
 		22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4244D744F4C318528C956 /* libPods.a */; };
 		6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF3F190A7C2400A37B47 /* DNTFeature.m */; };
 		6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */; };
+		6551EF48190A88BE00A37B47 /* DNTFeaturesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF46190A88BE00A37B47 /* DNTFeaturesController.m */; };
+		6551EF4C190A892800A37B47 /* DNTFeaturesDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF4B190A892800A37B47 /* DNTFeaturesDataProvider.m */; };
+		6551EF4F190A8A1300A37B47 /* DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF4E190A8A1300A37B47 /* DNTFeatures.m */; };
+		6551EF56190A8C0600A37B47 /* DNTToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF54190A8C0600A37B47 /* DNTToggleCell.m */; };
 		65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
 		65FC16B0190A69270034CA80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16AF190A69270034CA80 /* XCTest.framework */; };
 		65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
@@ -47,6 +51,16 @@
 		6551EF3F190A7C2400A37B47 /* DNTFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeature.m; path = ../../sources/DNTFeature.m; sourceTree = "<group>"; };
 		6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YapDatabase+DNTFeatures.h"; path = "../../sources/YapDatabase+DNTFeatures.h"; sourceTree = "<group>"; };
 		6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "YapDatabase+DNTFeatures.m"; path = "../../sources/YapDatabase+DNTFeatures.m"; sourceTree = "<group>"; };
+		6551EF45190A88BE00A37B47 /* DNTFeaturesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeaturesController.h; path = ../../sources/DNTFeaturesController.h; sourceTree = "<group>"; };
+		6551EF46190A88BE00A37B47 /* DNTFeaturesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeaturesController.m; path = ../../sources/DNTFeaturesController.m; sourceTree = "<group>"; };
+		6551EF47190A88BE00A37B47 /* DNTFeaturesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DNTFeaturesController.xib; path = ../../sources/DNTFeaturesController.xib; sourceTree = "<group>"; };
+		6551EF4A190A892800A37B47 /* DNTFeaturesDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeaturesDataProvider.h; path = ../../sources/DNTFeaturesDataProvider.h; sourceTree = "<group>"; };
+		6551EF4B190A892800A37B47 /* DNTFeaturesDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeaturesDataProvider.m; path = ../../sources/DNTFeaturesDataProvider.m; sourceTree = "<group>"; };
+		6551EF4D190A8A1300A37B47 /* DNTFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeatures.h; path = ../../sources/DNTFeatures.h; sourceTree = "<group>"; };
+		6551EF4E190A8A1300A37B47 /* DNTFeatures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeatures.m; path = ../../sources/DNTFeatures.m; sourceTree = "<group>"; };
+		6551EF53190A8C0600A37B47 /* DNTToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTToggleCell.h; path = ../../sources/DNTToggleCell.h; sourceTree = "<group>"; };
+		6551EF54190A8C0600A37B47 /* DNTToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTToggleCell.m; path = ../../sources/DNTToggleCell.m; sourceTree = "<group>"; };
+		6551EF98190A9B2A00A37B47 /* DNTToggleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DNTToggleCell.xib; path = ../../sources/DNTToggleCell.xib; sourceTree = "<group>"; };
 		65FC169E190A69270034CA80 /* libDNTFeatures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDNTFeatures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FC16A1190A69270034CA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65FC16A5190A69270034CA80 /* DNTFeatures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DNTFeatures-Prefix.pch"; sourceTree = "<group>"; };
@@ -92,8 +106,26 @@
 				6551EF3F190A7C2400A37B47 /* DNTFeature.m */,
 				6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */,
 				6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */,
+				6551EF49190A890600A37B47 /* Controller */,
+				6551EF4D190A8A1300A37B47 /* DNTFeatures.h */,
+				6551EF4E190A8A1300A37B47 /* DNTFeatures.m */,
 			);
 			name = Features;
+			sourceTree = "<group>";
+		};
+		6551EF49190A890600A37B47 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6551EF45190A88BE00A37B47 /* DNTFeaturesController.h */,
+				6551EF46190A88BE00A37B47 /* DNTFeaturesController.m */,
+				6551EF47190A88BE00A37B47 /* DNTFeaturesController.xib */,
+				6551EF4A190A892800A37B47 /* DNTFeaturesDataProvider.h */,
+				6551EF4B190A892800A37B47 /* DNTFeaturesDataProvider.m */,
+				6551EF53190A8C0600A37B47 /* DNTToggleCell.h */,
+				6551EF54190A8C0600A37B47 /* DNTToggleCell.m */,
+				6551EF98190A9B2A00A37B47 /* DNTToggleCell.xib */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		65FC1695190A69270034CA80 = {
@@ -311,8 +343,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6551EF4F190A8A1300A37B47 /* DNTFeatures.m in Sources */,
 				6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */,
+				6551EF56190A8C0600A37B47 /* DNTToggleCell.m in Sources */,
 				6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */,
+				6551EF4C190A892800A37B47 /* DNTFeaturesDataProvider.m in Sources */,
+				6551EF48190A88BE00A37B47 /* DNTFeaturesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

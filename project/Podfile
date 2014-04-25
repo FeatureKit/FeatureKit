@@ -1,0 +1,9 @@
+platform :ios, '6.0'
+
+podspec :path => '../DNTFeatures.podspec'
+
+link_with_first_target=false
+
+target :DNTFeaturesTests, :exclusive => true do
+  pod 'OCMock', '~> 2.0'
+end

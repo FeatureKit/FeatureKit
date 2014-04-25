@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4244D744F4C318528C956 /* libPods.a */; };
+		6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF3F190A7C2400A37B47 /* DNTFeature.m */; };
+		6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */; };
 		65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
 		65FC16B0190A69270034CA80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16AF190A69270034CA80 /* XCTest.framework */; };
 		65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
 		65FC16B3190A69270034CA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16B2190A69270034CA80 /* UIKit.framework */; };
 		65FC16B6190A69270034CA80 /* libDNTFeatures.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC169E190A69270034CA80 /* libDNTFeatures.a */; };
 		65FC16BC190A69270034CA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65FC16BA190A69270034CA80 /* InfoPlist.strings */; };
+		F216A5A8908A4D738E4791D7 /* libPods-DNTFeaturesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C220BFE9B2274B489F3BEC7F /* libPods-DNTFeaturesTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		6551EF3E190A7C2400A37B47 /* DNTFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeature.h; path = ../../sources/DNTFeature.h; sourceTree = "<group>"; };
+		6551EF3F190A7C2400A37B47 /* DNTFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeature.m; path = ../../sources/DNTFeature.m; sourceTree = "<group>"; };
+		6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YapDatabase+DNTFeatures.h"; path = "../../sources/YapDatabase+DNTFeatures.h"; sourceTree = "<group>"; };
+		6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "YapDatabase+DNTFeatures.m"; path = "../../sources/YapDatabase+DNTFeatures.m"; sourceTree = "<group>"; };
 		65FC169E190A69270034CA80 /* libDNTFeatures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDNTFeatures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FC16A1190A69270034CA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65FC16A5190A69270034CA80 /* DNTFeatures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DNTFeatures-Prefix.pch"; sourceTree = "<group>"; };
@@ -46,6 +55,9 @@
 		65FC16B2190A69270034CA80 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		65FC16B9190A69270034CA80 /* DNTFeaturesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DNTFeaturesTests-Info.plist"; sourceTree = "<group>"; };
 		65FC16BB190A69270034CA80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7BB4244D744F4C318528C956 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADD192FD2B074C9D85F04BF4 /* Pods-DNTFeaturesTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DNTFeaturesTests.xcconfig"; path = "Pods/Pods-DNTFeaturesTests.xcconfig"; sourceTree = "<group>"; };
+		C220BFE9B2274B489F3BEC7F /* libPods-DNTFeaturesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DNTFeaturesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */,
+				22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,12 +78,24 @@
 				65FC16B3190A69270034CA80 /* UIKit.framework in Frameworks */,
 				65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */,
 				65FC16B6190A69270034CA80 /* libDNTFeatures.a in Frameworks */,
+				F216A5A8908A4D738E4791D7 /* libPods-DNTFeaturesTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6551EF41190A7C3400A37B47 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				6551EF3E190A7C2400A37B47 /* DNTFeature.h */,
+				6551EF3F190A7C2400A37B47 /* DNTFeature.m */,
+				6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */,
+				6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
 		65FC1695190A69270034CA80 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +103,8 @@
 				65FC16B7190A69270034CA80 /* DNTFeaturesTests */,
 				65FC16A0190A69270034CA80 /* Frameworks */,
 				65FC169F190A69270034CA80 /* Products */,
+				57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */,
+				ADD192FD2B074C9D85F04BF4 /* Pods-DNTFeaturesTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +123,8 @@
 				65FC16A1190A69270034CA80 /* Foundation.framework */,
 				65FC16AF190A69270034CA80 /* XCTest.framework */,
 				65FC16B2190A69270034CA80 /* UIKit.framework */,
+				7BB4244D744F4C318528C956 /* libPods.a */,
+				C220BFE9B2274B489F3BEC7F /* libPods-DNTFeaturesTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				65FC16A4190A69270034CA80 /* Supporting Files */,
+				6551EF41190A7C3400A37B47 /* Features */,
 			);
 			path = DNTFeatures;
 			sourceTree = "<group>";
@@ -140,9 +170,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65FC16C1190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeatures" */;
 			buildPhases = (
+				9058BAE52C4E4DC780E9D261 /* Check Pods Manifest.lock */,
 				65FC169A190A69270034CA80 /* Sources */,
 				65FC169B190A69270034CA80 /* Frameworks */,
 				65FC169C190A69270034CA80 /* CopyFiles */,
+				F1DCA2B76B6642B18B42F50A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65FC16C4190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeaturesTests" */;
 			buildPhases = (
+				370995D62DE740CF933725E3 /* Check Pods Manifest.lock */,
 				65FC16AA190A69270034CA80 /* Sources */,
 				65FC16AB190A69270034CA80 /* Frameworks */,
 				65FC16AC190A69270034CA80 /* Resources */,
+				E50E803EF0D8414BBA2DC905 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -209,11 +243,76 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		370995D62DE740CF933725E3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9058BAE52C4E4DC780E9D261 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E50E803EF0D8414BBA2DC905 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-DNTFeaturesTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1DCA2B76B6642B18B42F50A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		65FC169A190A69270034CA80 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */,
+				6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +415,7 @@
 		};
 		65FC16C2190A69270034CA80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/DNTFeatures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -328,6 +428,7 @@
 		};
 		65FC16C3190A69270034CA80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/DNTFeatures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -340,6 +441,7 @@
 		};
 		65FC16C5190A69270034CA80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADD192FD2B074C9D85F04BF4 /* Pods-DNTFeaturesTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -360,6 +462,7 @@
 		};
 		65FC16C6190A69270034CA80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADD192FD2B074C9D85F04BF4 /* Pods-DNTFeaturesTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -393,6 +496,7 @@
 				65FC16C3190A69270034CA80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65FC16C4190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeaturesTests" */ = {
 			isa = XCConfigurationList;
@@ -401,6 +505,7 @@
 				65FC16C6190A69270034CA80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

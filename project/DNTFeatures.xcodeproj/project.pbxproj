@@ -1,0 +1,408 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
+		65FC16B0190A69270034CA80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16AF190A69270034CA80 /* XCTest.framework */; };
+		65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
+		65FC16B3190A69270034CA80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16B2190A69270034CA80 /* UIKit.framework */; };
+		65FC16B6190A69270034CA80 /* libDNTFeatures.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC169E190A69270034CA80 /* libDNTFeatures.a */; };
+		65FC16BC190A69270034CA80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65FC16BA190A69270034CA80 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65FC16B4190A69270034CA80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65FC1696190A69270034CA80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65FC169D190A69270034CA80;
+			remoteInfo = DNTFeatures;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		65FC169C190A69270034CA80 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		65FC169E190A69270034CA80 /* libDNTFeatures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDNTFeatures.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		65FC16A1190A69270034CA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		65FC16A5190A69270034CA80 /* DNTFeatures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DNTFeatures-Prefix.pch"; sourceTree = "<group>"; };
+		65FC16AE190A69270034CA80 /* DNTFeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DNTFeaturesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65FC16AF190A69270034CA80 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		65FC16B2190A69270034CA80 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		65FC16B9190A69270034CA80 /* DNTFeaturesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DNTFeaturesTests-Info.plist"; sourceTree = "<group>"; };
+		65FC16BB190A69270034CA80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65FC169B190A69270034CA80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65FC16AB190A69270034CA80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65FC16B0190A69270034CA80 /* XCTest.framework in Frameworks */,
+				65FC16B3190A69270034CA80 /* UIKit.framework in Frameworks */,
+				65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */,
+				65FC16B6190A69270034CA80 /* libDNTFeatures.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65FC1695190A69270034CA80 = {
+			isa = PBXGroup;
+			children = (
+				65FC16A3190A69270034CA80 /* DNTFeatures */,
+				65FC16B7190A69270034CA80 /* DNTFeaturesTests */,
+				65FC16A0190A69270034CA80 /* Frameworks */,
+				65FC169F190A69270034CA80 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		65FC169F190A69270034CA80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65FC169E190A69270034CA80 /* libDNTFeatures.a */,
+				65FC16AE190A69270034CA80 /* DNTFeaturesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65FC16A0190A69270034CA80 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65FC16A1190A69270034CA80 /* Foundation.framework */,
+				65FC16AF190A69270034CA80 /* XCTest.framework */,
+				65FC16B2190A69270034CA80 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65FC16A3190A69270034CA80 /* DNTFeatures */ = {
+			isa = PBXGroup;
+			children = (
+				65FC16A4190A69270034CA80 /* Supporting Files */,
+			);
+			path = DNTFeatures;
+			sourceTree = "<group>";
+		};
+		65FC16A4190A69270034CA80 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65FC16A5190A69270034CA80 /* DNTFeatures-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65FC16B7190A69270034CA80 /* DNTFeaturesTests */ = {
+			isa = PBXGroup;
+			children = (
+				65FC16B8190A69270034CA80 /* Supporting Files */,
+			);
+			path = DNTFeaturesTests;
+			sourceTree = "<group>";
+		};
+		65FC16B8190A69270034CA80 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65FC16B9190A69270034CA80 /* DNTFeaturesTests-Info.plist */,
+				65FC16BA190A69270034CA80 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65FC169D190A69270034CA80 /* DNTFeatures */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65FC16C1190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeatures" */;
+			buildPhases = (
+				65FC169A190A69270034CA80 /* Sources */,
+				65FC169B190A69270034CA80 /* Frameworks */,
+				65FC169C190A69270034CA80 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DNTFeatures;
+			productName = DNTFeatures;
+			productReference = 65FC169E190A69270034CA80 /* libDNTFeatures.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		65FC16AD190A69270034CA80 /* DNTFeaturesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65FC16C4190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeaturesTests" */;
+			buildPhases = (
+				65FC16AA190A69270034CA80 /* Sources */,
+				65FC16AB190A69270034CA80 /* Frameworks */,
+				65FC16AC190A69270034CA80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65FC16B5190A69270034CA80 /* PBXTargetDependency */,
+			);
+			name = DNTFeaturesTests;
+			productName = DNTFeaturesTests;
+			productReference = 65FC16AE190A69270034CA80 /* DNTFeaturesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65FC1696190A69270034CA80 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Daniel Thorpe";
+			};
+			buildConfigurationList = 65FC1699190A69270034CA80 /* Build configuration list for PBXProject "DNTFeatures" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 65FC1695190A69270034CA80;
+			productRefGroup = 65FC169F190A69270034CA80 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65FC169D190A69270034CA80 /* DNTFeatures */,
+				65FC16AD190A69270034CA80 /* DNTFeaturesTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65FC16AC190A69270034CA80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65FC16BC190A69270034CA80 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65FC169A190A69270034CA80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65FC16AA190A69270034CA80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65FC16B5190A69270034CA80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65FC169D190A69270034CA80 /* DNTFeatures */;
+			targetProxy = 65FC16B4190A69270034CA80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		65FC16BA190A69270034CA80 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65FC16BB190A69270034CA80 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		65FC16BF190A69270034CA80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		65FC16C0190A69270034CA80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65FC16C2190A69270034CA80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/DNTFeatures.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		65FC16C3190A69270034CA80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/DNTFeatures.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		65FC16C5190A69270034CA80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DNTFeaturesTests/DNTFeaturesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		65FC16C6190A69270034CA80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
+				INFOPLIST_FILE = "DNTFeaturesTests/DNTFeaturesTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65FC1699190A69270034CA80 /* Build configuration list for PBXProject "DNTFeatures" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65FC16BF190A69270034CA80 /* Debug */,
+				65FC16C0190A69270034CA80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65FC16C1190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeatures" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65FC16C2190A69270034CA80 /* Debug */,
+				65FC16C3190A69270034CA80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		65FC16C4190A69270034CA80 /* Build configuration list for PBXNativeTarget "DNTFeaturesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65FC16C5190A69270034CA80 /* Debug */,
+				65FC16C6190A69270034CA80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65FC1696190A69270034CA80 /* Project object */;
+}

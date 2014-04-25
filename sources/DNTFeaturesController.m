@@ -22,8 +22,16 @@
 
 @implementation DNTFeaturesController
 
-+ (instancetype)controller {
-    return [[self alloc] initWithNibName:@"DNTFeaturesController" bundle:nil];
+#pragma mark - Storyboard Support
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Features~iphone" bundle:nil];
+    self = [sb instantiateViewControllerWithIdentifier:@"dnt.features"];
+    return self;
+}
+
+- (void)awakeFromNib {
+    
 }
 
 - (void)viewDidLoad {
@@ -50,7 +58,6 @@
     self.dataProvider.cellConfiguration = [self tableViewCellConfiguration];
     self.dataProvider.headerTitleConfiguration = [self tableViewHeaderTitleConfiguration];
     self.dataProvider.tableView = self.tableView;
-    [self.tableView registerNib:[UINib nibWithNibName:@"DNTToggleCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     self.tableView.dataSource = self.dataProvider;
 }
 
@@ -58,12 +65,20 @@
 
 - (DNTTableViewCellConfiguration)tableViewCellConfiguration {
     return ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, DNTFeature *feature) {
-        DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
         cell.textLabel.text = feature.title;
         cell.toggle.enabled = feature.editable;
         cell.toggle.on = [feature isOn];
         [cell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
-        cell.accessoryType = [feature isToggled] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        if ( [feature hasDebugOptions] ) {
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
+        else if ( [feature isToggled] ) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         [cell.contentView bringSubviewToFront:cell.toggle];
         return cell;
     };

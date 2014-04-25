@@ -57,7 +57,6 @@ static NSString *__collection;
     [aCoder encodeObject:_parentFeatureKey forKey:DNT_STRING(_parentFeatureKey)];
     [aCoder encodeObject:_group forKey:DNT_STRING(_group)];
     [aCoder encodeObject:_groupOrder forKey:DNT_STRING(_groupOrder)];
-    [aCoder encodeObject:_userInfo forKey:DNT_STRING(_userInfo)];
     [aCoder encodeBool:_editable forKey:DNT_STRING(_editable)];
     [aCoder encodeBool:_onByDefault forKey:DNT_STRING(_onByDefault)];
     [aCoder encodeBool:_on forKey:DNT_STRING(_on)];
@@ -77,7 +76,7 @@ static NSString *__collection;
         _parentFeatureKey = [aDecoder decodeObjectForKey:DNT_STRING(_parentFeatureKey)];
         _group = [aDecoder decodeObjectForKey:DNT_STRING(_group)];
         _groupOrder = [aDecoder decodeObjectForKey:DNT_STRING(_groupOrder)];
-        _userInfo = [aDecoder decodeObjectForKey:DNT_STRING(_userInfo)];
+        _userInfo = [aDecoder decodeObjectForKey:DNT_STRING(_userInfo)] ?: [NSMutableDictionary dictionary];
         _editable = [aDecoder decodeBoolForKey:DNT_STRING(_editable)];
         _onByDefault = [aDecoder decodeBoolForKey:DNT_STRING(_onByDefault)];
         _on = [aDecoder decodeBoolForKey:DNT_STRING(_on)];
@@ -117,17 +116,17 @@ static NSString *__collection;
     return feature;
 }
 
-+ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update {
-    [self updateFeatureWithKey:key update:update inDatabase:[self database] collection:[self collection]];
++ (void)featureWithKey:(id)key update:(DNTFeatureBlock)update {
+    [self featureWithKey:key update:update inDatabase:[self database] collection:[self collection]];
 }
 
-+ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection {
++ (void)featureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection {
     NSParameterAssert(key);
     YapDatabaseConnection *connection = [database newConnection];
     __block DNTFeature *feature = nil;
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
         DNTFeature *existing = [transaction objectForKey:key inCollection:collection];
-        feature = update(existing);
+        feature = update(existing, transaction);
         if (feature && existing) {
             feature->_on = feature.on || existing.on;
         }
@@ -145,7 +144,7 @@ static NSString *__collection;
 }
 
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff inDatabase:(YapDatabase *)database collection:(NSString *)collection {
-    [self updateFeatureWithKey:key update:^(DNTFeature *feature) {
+    [self featureWithKey:key update:^(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
         feature->_on = onOrOff;
         return feature;
     } inDatabase:database collection:collection];

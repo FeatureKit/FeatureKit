@@ -1,0 +1,29 @@
+PODS:
+  - CocoaLumberjack (1.6.5.1):
+    - CocoaLumberjack/Core
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.6.5.1)
+  - CocoaLumberjack/Extensions (1.6.5.1):
+    - CocoaLumberjack/Core
+  - DNTFeatures (0.0.1):
+    - YapDatabase (~> 2.4)
+  - YapDatabase (2.4.2):
+    - YapDatabase/standard
+  - YapDatabase/common (2.4.2):
+    - CocoaLumberjack (~> 1.6.3)
+  - YapDatabase/standard (2.4.2):
+    - YapDatabase/common
+
+DEPENDENCIES:
+  - DNTFeatures (from `../../`)
+
+EXTERNAL SOURCES:
+  DNTFeatures:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
+  DNTFeatures: 4412fb29e63a42975d7a087d017e77750b6a666d
+  YapDatabase: 051a7930e3b92097470fe7bcf58d4b715d79997e
+
+COCOAPODS: 0.32.1

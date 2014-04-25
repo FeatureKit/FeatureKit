@@ -1,0 +1,25 @@
+PODS:
+  - CocoaLumberjack (1.6.5.1):
+    - CocoaLumberjack/Core
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.6.5.1)
+  - CocoaLumberjack/Extensions (1.6.5.1):
+    - CocoaLumberjack/Core
+  - OCMock (2.2.4)
+  - YapDatabase (2.4.2):
+    - YapDatabase/standard
+  - YapDatabase/common (2.4.2):
+    - CocoaLumberjack (~> 1.6.3)
+  - YapDatabase/standard (2.4.2):
+    - YapDatabase/common
+
+DEPENDENCIES:
+  - OCMock (~> 2.0)
+  - YapDatabase (~> 2.4)
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
+  OCMock: 5008fae4b4789b8fc3e48cd7660f2eb5ef8ce89e
+  YapDatabase: 051a7930e3b92097470fe7bcf58d4b715d79997e
+
+COCOAPODS: 0.32.1

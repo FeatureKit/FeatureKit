@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @class YapDatabase;
+@class DNTFeature;
+
+typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature);
 
 @interface DNTFeature : NSObject <NSCoding>
 
@@ -39,6 +42,12 @@
 
 + (instancetype)featureWithKey:(id)key inDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
++ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update;
+
++ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection;
+
++ (instancetype)featureWithKey:(id)key inDatabase:(YapDatabase *)database collection:(NSString *)collection;
+
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff;
 
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff inDatabase:(YapDatabase *)database collection:(NSString *)collection;
@@ -46,6 +55,7 @@
 + (void)setDefaultDatabase:(YapDatabase *)database collection:(NSString *)collection;
 + (YapDatabase *)database;
 + (NSString *)collection;
++ (NSInteger)version;
 
 @end
 

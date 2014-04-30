@@ -12,6 +12,8 @@
 #import "DNTFeaturesDataProvider.h"
 #import "DNTToggleCell.h"
 
+#import "DNTDebugSettingsControllerDependencies.h"
+
 @interface DNTFeaturesController ( /* Private */ )
 
 @property (nonatomic, weak) YapDatabase *database;
@@ -28,10 +30,6 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Features~iphone" bundle:nil];
     self = [sb instantiateViewControllerWithIdentifier:@"dnt.features"];
     return self;
-}
-
-- (void)awakeFromNib {
-    
 }
 
 - (void)viewDidLoad {
@@ -97,6 +95,17 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
     DNTFeature *feature = [self.dataProvider objectAtIndexPath:indexPath];
     [feature switchOnOrOff:sender.on];
+}
+
+#pragma mark - BSUIDependencyInjectionSource
+
+- (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)sender];
+    if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingsControllerDependencies)) ) {
+        DNTDebugSettingsControllerDependencies *container = [[DNTDebugSettingsControllerDependencies alloc] init];
+        container.feature = [self.dataProvider objectAtIndexPath:indexPath];
+        return container;
+    }
 }
 
 @end

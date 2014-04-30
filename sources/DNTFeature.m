@@ -61,6 +61,7 @@ static NSString *__collection;
     [aCoder encodeBool:_onByDefault forKey:DNT_STRING(_onByDefault)];
     [aCoder encodeBool:_on forKey:DNT_STRING(_on)];
     [aCoder encodeBool:_toggled forKey:DNT_STRING(_toggled)];
+    [aCoder encodeBool:_debugOptionsAvailable forKey:DNT_STRING(_debugOptionsAvailable)];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -81,6 +82,7 @@ static NSString *__collection;
         _onByDefault = [aDecoder decodeBoolForKey:DNT_STRING(_onByDefault)];
         _on = [aDecoder decodeBoolForKey:DNT_STRING(_on)];
         _toggled = [aDecoder decodeBoolForKey:DNT_STRING(_toggled)];
+        _debugOptionsAvailable = [aDecoder decodeBoolForKey:DNT_STRING(_debugOptionsAvailable)];
     }
     return self;
 }

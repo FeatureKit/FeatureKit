@@ -1,4 +1,8 @@
 PODS:
+  - BSPlatform/Production/Foundation/Core (0.1.12):
+    - CocoaLumberjack (= 1.6.3)
+  - BSPlatform/Production/UI (0.1.12):
+    - BSPlatform/Production/Foundation/Core
   - CocoaLumberjack (1.6.5.1):
     - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
@@ -6,6 +10,7 @@ PODS:
   - CocoaLumberjack/Extensions (1.6.5.1):
     - CocoaLumberjack/Core
   - DNTFeatures (0.0.1):
+    - BSPlatform/Production/UI
     - YapDatabase (~> 2.4)
   - YapDatabase (2.4.2):
     - YapDatabase/standard
@@ -22,8 +27,9 @@ EXTERNAL SOURCES:
     :path: ../../
 
 SPEC CHECKSUMS:
+  BSPlatform: 4e1eb95620a38508ac239fb82dc1c027c10851ce
   CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
-  DNTFeatures: 136c7a820bc45146e3467875f942ad579c7d599e
+  DNTFeatures: 7b87c524293418243e6af09714c39cfbacfe8bdc
   YapDatabase: 051a7930e3b92097470fe7bcf58d4b715d79997e
 
 COCOAPODS: 0.32.1

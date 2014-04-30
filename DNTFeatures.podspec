@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/danthorpe"
 
   s.platform     = :ios
-  s.platform     = :ios, "6.0"
+  s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -63,5 +63,7 @@ Pod::Spec.new do |s|
 
   s.xcconfig = { "DNTFEATURES_VERSION" => "#{s.version}" }
   s.dependency "YapDatabase", "~> 2.4"
+#  s.dependency "BSPlatform/Production/UI", :path => '/Users/daniel/Documents/Work/Blinding\ Skies/Products/'
+  s.dependency "BSPlatform/Production/UI"
 
 end

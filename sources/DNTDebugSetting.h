@@ -26,6 +26,8 @@ typedef DNTDebugSetting *(^DNTDebugSettingUpdateBlock)(id debugSetting);
 
 - (instancetype)initWithKey:(id)key title:(NSString *)title group:(NSString *)group;
 
+- (NSComparisonResult)compareWithOtherDebugSetting:(DNTDebugSetting *)other;
+
 /// @name Persistence
 
 + (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update;

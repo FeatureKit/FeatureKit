@@ -31,6 +31,14 @@ static NSString *__collection;
     return self;
 }
 
+- (NSComparisonResult)compareWithOtherDebugSetting:(DNTDebugSetting *)other {
+    NSComparisonResult result = [self.identifier caseInsensitiveCompare:other.identifier];
+    if ( result == NSOrderedSame ) {
+        result = [self.key caseInsensitiveCompare:other.key];
+    }
+    return result;
+}
+
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {

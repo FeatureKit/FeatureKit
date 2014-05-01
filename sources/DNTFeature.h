@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class YapDatabase;
+@class YapDatabase, YapDatabaseReadWriteTransaction;
 @class DNTFeature;
 
-typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature);
+typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction);
 
 @interface DNTFeature : NSObject <NSCoding>
 
@@ -22,8 +22,9 @@ typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature);
 
 @property (nonatomic, strong) NSString *group;
 @property (nonatomic, strong) NSNumber *groupOrder;
+@property (nonatomic, getter = hasDebugOptions) BOOL debugOptionsAvailable;
 
-@property (nonatomic, strong) NSMutableDictionary *userInfo;
+@property (nonatomic, strong) NSMutableDictionary *userInfo; // Not persisted
 
 @property (nonatomic, getter = isEditable) BOOL editable;
 @property (nonatomic, getter = isOnByDefault) BOOL onByDefault;
@@ -42,11 +43,9 @@ typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature);
 
 + (instancetype)featureWithKey:(id)key inDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
-+ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update;
++ (void)featureWithKey:(id)key update:(DNTFeatureBlock)update;
 
-+ (void)updateFeatureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection;
-
-+ (instancetype)featureWithKey:(id)key inDatabase:(YapDatabase *)database collection:(NSString *)collection;
++ (void)featureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff;
 

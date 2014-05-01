@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BSUIViewControllerDependencyInjection.h"
 
 @class DNTFeaturesDataProvider;
 
-@interface DNTFeaturesController : UITableViewController
+@interface DNTFeaturesController : UITableViewController <BSUIDependencyInjectionSource>
 
 @property (nonatomic, strong) DNTFeaturesDataProvider *dataProvider;
 

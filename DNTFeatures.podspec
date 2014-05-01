@@ -42,13 +42,13 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/danthorpe"
 
   s.platform     = :ios
-  s.platform     = :ios, "6.0"
+  s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
   # s.osx.deployment_target = "10.7"
 
-  s.source       = { :git => "http://github.com:danthorpe/DNTFeatures.git", :tag => "0.0.1" }
+  s.source       = { :git => "http://github.com:danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
   s.source_files  = "sources/*.{h,m}"
   s.prefix_header_contents = '''
   #ifdef __OBJC__    
@@ -58,33 +58,12 @@ Pod::Spec.new do |s|
     #define DNT_PRETTY_METHOD NSStringFromSelector(_cmd)
   #endif
   '''    
-  s.resources = "sources/*.{storyboard,xib}"
-
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
-
-  # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Link your library with frameworks, or libraries. Libraries do not include
-  #  the lib prefix of their name.
-  #
-
-  # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
-
-  # s.library   = "iconv"
-  # s.libraries = "iconv", "xml2"
-
-
-  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  If your library depends on compiler flags you can set them in the xcconfig hash
-  #  where they will only apply to your library. If you depend on other Podspecs
-  #  you can include multiple dependencies to ensure it works.
-
+  s.resources = "sources/*.{storyboard,xib}", "resources/*.{storyboard,xib}"
   s.requires_arc = true
 
-  # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+  s.xcconfig = { "DNTFEATURES_VERSION" => "#{s.version}" }
   s.dependency "YapDatabase", "~> 2.4"
+#  s.dependency "BSPlatform/Production/UI", :path => '/Users/daniel/Documents/Work/Blinding\ Skies/Products/'
+  s.dependency "BSPlatform/Production/UI"
 
 end

@@ -1,21 +1,21 @@
 //
-//  DNTFeaturesDataProvider.m
+//  DNTDebugSettingsDataProvider.m
 //  DNTFeatures
 //
-//  Created by Daniel Thorpe on 25/04/2014.
+//  Created by Daniel Thorpe on 30/04/2014.
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import "DNTFeaturesDataProvider.h"
+#import "DNTDebugSettingsDataProvider.h"
 
 #import <YapDatabase/YapDatabaseView.h>
 #import <YapDatabase/YapDatabaseViewMappings.h>
 
 #import "DNTFeatures.h"
 
-#define VIEW_NAME @"features.view"
+#define VIEW_NAME @"debug-settings.view"
 
-@interface DNTFeaturesDataProvider ( /* Private */ )
+@interface DNTDebugSettingsDataProvider ( /* Private */ )
 
 @property (nonatomic, strong) YapDatabaseConnection *readOnlyConnection;
 @property (nonatomic, strong) YapDatabaseView *databaseView;
@@ -23,17 +23,18 @@
 
 @end
 
-@implementation DNTFeaturesDataProvider
+@implementation DNTDebugSettingsDataProvider
 
 + (NSString *)databaseViewName {
     return VIEW_NAME;
 }
 
-- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection {
+- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection feature:(DNTFeature *)feature {
     self = [super init];
     if (self) {
         _database = database;
         _collection = collection;
+        _feature = feature;
         [self configure];
     }
     return self;
@@ -65,18 +66,26 @@
 
 - (YapDatabaseViewGroupingBlock)databaseViewGroupingBlock {
     NSString *collection = self.collection;
-    return ^NSString *(NSString *collectionName, NSString *key, DNTFeature *feature) {
+    DNT_WEAK_SELF
+    return ^NSString *(NSString *collectionName, NSString *key, id object) {
         NSString *group = nil;
-        if ( [collectionName isEqualToString:collection] ) {
-            group = [NSString stringWithFormat:@"%@.%@", feature.groupOrder, feature.group ?: @"General"];
+        if ( [object isKindOfClass:[DNTFeature class]] && [((DNTFeature *)object).key isEqualToString:weakSelf.feature.key] ) {
+            group = [NSString stringWithFormat:@"%d.%@", -1, NSLocalizedString(@"Feature", nil)];
+        }
+        else if ( [collectionName isEqualToString:collection] ) {
+            DNTDebugSetting *setting = (DNTDebugSetting *)object;
+            if ( (setting.featureKey.length > 0) && ![setting.featureKey isEqualToString:weakSelf.feature.key] ) {
+                return nil;
+            }
+            group = [NSString stringWithFormat:@"%@.%@", setting.groupOrder, setting.group ?: NSLocalizedString(@"Debug Settings", nil)];
         }
         return group;
     };
 }
 
 - (YapDatabaseViewSortingBlock)databaseViewSortingBlock {
-    return ^ NSComparisonResult (NSString *group, NSString *collection1, NSString *key1, DNTFeature *feature1, NSString *collection2, NSString *key2, DNTFeature *feature2) {
-        return [feature1 compareWithOtherFeature:feature2];
+    return ^ NSComparisonResult (NSString *group, NSString *collection1, NSString *key1, id object1, NSString *collection2, NSString *key2, id object2) {
+        return [(DNTDebugSetting *)object1 compareWithOtherDebugSetting:(DNTDebugSetting *)object2];
     };
 }
 
@@ -154,23 +163,30 @@
             } break;
 
             case YapDatabaseViewChangeUpdate: {
-                [self.tableView reloadRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+                if ( [[self objectAtIndexPath:rowChange.indexPath] isKindOfClass:[DNTFeature class]] ) {
+                    self.feature = [self objectAtIndexPath:rowChange.indexPath];
+                    [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
+                }
+                else {
+                    [self.tableView reloadRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+                }
             } break;
         }
     }
-    
+
     [self.tableView endUpdates];
 }
 
 #pragma mark - Public API
 
-- (DNTFeature *)objectAtIndexPath:(NSIndexPath *)indexPath {
-    __block DNTFeature *feature = nil;
+- (DNTDebugSetting *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    __block DNTDebugSetting *setting = nil;
     DNT_WEAK_SELF
     [self.readOnlyConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-        feature = [[transaction extension:VIEW_NAME] objectAtIndexPath:indexPath withMappings:weakSelf.mappings];
+        setting = [[transaction extension:VIEW_NAME] objectAtIndexPath:indexPath withMappings:weakSelf.mappings];
     }];
-    return feature;
+    return setting;
 }
 
 #pragma mark - UITableViewDataSource
@@ -190,7 +206,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.headerTitleConfiguration) {
+    if ( self.feature.key && (section == 0)) {
+        return NSLocalizedString(@"Feature", nil);
+    } else if (self.headerTitleConfiguration) {
         id object = [self objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
         return self.headerTitleConfiguration(tableView, section, object);
     }

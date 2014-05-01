@@ -12,6 +12,10 @@
 #import "DNTFeaturesDataProvider.h"
 #import "DNTToggleCell.h"
 
+#import "DNTDebugSettingsControllerDependencies.h"
+
+#define ONOFF(onoff) onoff ? NSLocalizedString(@"On", nil) : NSLocalizedString(@"Off", nil)
+
 @interface DNTFeaturesController ( /* Private */ )
 
 @property (nonatomic, weak) YapDatabase *database;
@@ -22,8 +26,12 @@
 
 @implementation DNTFeaturesController
 
-+ (instancetype)controller {
-    return [[self alloc] initWithNibName:@"DNTFeaturesController" bundle:nil];
+#pragma mark - Storyboard Support
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Features~iphone" bundle:nil];
+    self = [sb instantiateViewControllerWithIdentifier:@"dnt.features"];
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -50,7 +58,6 @@
     self.dataProvider.cellConfiguration = [self tableViewCellConfiguration];
     self.dataProvider.headerTitleConfiguration = [self tableViewHeaderTitleConfiguration];
     self.dataProvider.tableView = self.tableView;
-    [self.tableView registerNib:[UINib nibWithNibName:@"DNTToggleCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     self.tableView.dataSource = self.dataProvider;
 }
 
@@ -58,13 +65,21 @@
 
 - (DNTTableViewCellConfiguration)tableViewCellConfiguration {
     return ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, DNTFeature *feature) {
-        DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        cell.textLabel.text = feature.title;
-        cell.toggle.enabled = feature.editable;
-        cell.toggle.on = [feature isOn];
-        [cell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
-        cell.accessoryType = [feature isToggled] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-        [cell.contentView bringSubviewToFront:cell.toggle];
+        UITableViewCell *cell = nil;
+        if ( [feature hasDebugOptions] ) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.textLabel.text = feature.title;
+            cell.detailTextLabel.text = ONOFF([feature isOn]);
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
+            DNTToggleCell *toggleCell = (DNTToggleCell *)cell;
+            toggleCell.textLabel.text = feature.title;
+            toggleCell.toggle.enabled = feature.editable;
+            toggleCell.toggle.on = [feature isOn];
+            [toggleCell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
+            [cell.contentView bringSubviewToFront:toggleCell.toggle];
+        }
         return cell;
     };
 }
@@ -75,6 +90,8 @@
     };
 }
 
+#pragma mark - UITableViewDelegate
+
 #pragma mark - Actions
 
 - (IBAction)toggleFeature:(UISwitch *)sender {
@@ -82,6 +99,17 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
     DNTFeature *feature = [self.dataProvider objectAtIndexPath:indexPath];
     [feature switchOnOrOff:sender.on];
+}
+
+#pragma mark - BSUIDependencyInjectionSource
+
+- (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)sender];
+    if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingsControllerDependencies)) ) {
+        DNTDebugSettingsControllerDependencies *container = [[DNTDebugSettingsControllerDependencies alloc] init];
+        container.feature = [self.dataProvider objectAtIndexPath:indexPath];
+        return container;
+    }
 }
 
 @end

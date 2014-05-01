@@ -14,17 +14,41 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    [aCoder encodeObject:_selectOptions forKey:DNT_STRING(_selectOptions)];
-    [aCoder encodeObject:_selection forKey:DNT_STRING(_selection)];
+    [aCoder encodeObject:_optionTitles forKey:DNT_STRING(_optionTitles)];
+    [aCoder encodeObject:_optionKeys forKey:DNT_STRING(_optionKeys)];
+    [aCoder encodeObject:_selectedIndexes forKey:DNT_STRING(_selectedIndexes)];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _selectOptions = [aDecoder decodeObjectForKey:DNT_STRING(_selectOptions)];
-        _selection = [aDecoder decodeObjectForKey:DNT_STRING(_selection)];
+        _selectedIndexes = [aDecoder decodeObjectForKey:DNT_STRING(_selectedIndexes)];
+        _optionTitles = [aDecoder decodeObjectForKey:DNT_STRING(_optionTitles)];
+        _optionKeys = [aDecoder decodeObjectForKey:DNT_STRING(_optionKeys)];
     }
     return self;
+}
+
+- (void)selectTitleAtIndex:(NSInteger)index completion:(void(^)(NSIndexSet *changedIndexes))completion {
+    NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
+    DNT_WEAK_SELF
+    [[self class] updateDebugSettingWithKey:self.key update:^DNTDebugSettingSelect *(DNTDebugSettingSelect * debugSetting) {
+        if ( [weakSelf.selectedIndexes containsIndex:index] ) {
+            [weakSelf.selectedIndexes removeIndex:index];
+            [indexes addIndex:index];
+        }
+        else {
+            if ( !weakSelf.multipleSelectionAllowed ) {
+                [indexes addIndexes:weakSelf.selectedIndexes];
+                [weakSelf.selectedIndexes removeAllIndexes];
+            }
+            [weakSelf.selectedIndexes addIndex:index];
+            [indexes addIndex:index];
+        }
+        return weakSelf;
+    } completion:^{
+        if (completion) completion(indexes);
+    }];
 }
 
 @end

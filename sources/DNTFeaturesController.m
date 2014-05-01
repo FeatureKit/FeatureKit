@@ -14,6 +14,8 @@
 
 #import "DNTDebugSettingsControllerDependencies.h"
 
+#define ONOFF(onoff) onoff ? NSLocalizedString(@"On", nil) : NSLocalizedString(@"Off", nil)
+
 @interface DNTFeaturesController ( /* Private */ )
 
 @property (nonatomic, weak) YapDatabase *database;
@@ -63,21 +65,21 @@
 
 - (DNTTableViewCellConfiguration)tableViewCellConfiguration {
     return ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, DNTFeature *feature) {
-        DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
-        cell.textLabel.text = feature.title;
-        cell.toggle.enabled = feature.editable;
-        cell.toggle.on = [feature isOn];
-        [cell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
+        UITableViewCell *cell = nil;
         if ( [feature hasDebugOptions] ) {
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.textLabel.text = feature.title;
+            cell.detailTextLabel.text = ONOFF([feature isOn]);
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
+            DNTToggleCell *toggleCell = (DNTToggleCell *)cell;
+            toggleCell.textLabel.text = feature.title;
+            toggleCell.toggle.enabled = feature.editable;
+            toggleCell.toggle.on = [feature isOn];
+            [toggleCell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
+            [cell.contentView bringSubviewToFront:toggleCell.toggle];
         }
-        else if ( [feature isToggled] ) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        [cell.contentView bringSubviewToFront:cell.toggle];
         return cell;
     };
 }
@@ -87,6 +89,8 @@
         return feature.group;
     };
 }
+
+#pragma mark - UITableViewDelegate
 
 #pragma mark - Actions
 

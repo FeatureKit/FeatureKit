@@ -30,10 +30,9 @@ typedef DNTDebugSetting *(^DNTDebugSettingUpdateBlock)(id debugSetting);
 
 /// @name Persistence
 
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update;
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection;
++ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update completion:(void(^)(void))completion;
++ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection completion:(void(^)(void))completion;
 + (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update transacation:(YapDatabaseReadWriteTransaction *)transaction collection:(NSString *)collection;
-
 
 + (YapDatabase *)database;
 + (NSString *)collection;

@@ -12,7 +12,7 @@
 @class DNTFeature;
 @class DNTDebugSettingsDataProvider;
 
-@interface DNTDebugSettingsController : UITableViewController <BSUIDependencyInjectionDestination>
+@interface DNTDebugSettingsController : UITableViewController <BSUIDependencyInjectionDestination, BSUIDependencyInjectionSource>
 @property (nonatomic, strong) DNTFeature *feature;
 @property (nonatomic, strong) DNTDebugSettingsDataProvider *dataProvider;
 @end

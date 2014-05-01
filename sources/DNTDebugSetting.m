@@ -66,17 +66,18 @@ static NSString *__collection;
 
 #pragma mark - Persistence
 
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update {
-    return [self updateDebugSettingWithKey:key update:update inDatabase:[self database] collection:[self collection]];
++ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update completion:(void(^)(void))completion {
+    return [self updateDebugSettingWithKey:key update:update inDatabase:[self database] collection:[self collection] completion:completion];
 }
 
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection {
++ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection completion:(void(^)(void))completion {
     NSParameterAssert(key);
     YapDatabaseConnection *connection = [database newConnection];
     DNT_WEAK_SELF
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
         [weakSelf updateDebugSettingWithKey:key update:update transacation:transaction collection:collection];
     } completionBlock:^{
+        if (completion) completion();
         // TODO: post a notification
     }];
 }

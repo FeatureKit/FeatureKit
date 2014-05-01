@@ -40,6 +40,7 @@
 }
 
 - (void)dealloc {
+    [_database unregisterExtension:VIEW_NAME];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:YapDatabaseModifiedNotification object:_database];
 }
 

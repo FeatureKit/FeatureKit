@@ -12,10 +12,12 @@
 #import "DNTFeaturesDataProvider.h"
 
 @class DNTDebugSetting;
+@class DNTFeature;
 
 @interface DNTDebugSettingsDataProvider : NSObject
 
 @property (nonatomic, strong, readonly) YapDatabase *database;
+@property (nonatomic, strong) DNTFeature *feature;
 @property (nonatomic, strong, readonly) NSString *collection;
 
 @property (nonatomic, weak) UITableView *tableView;
@@ -25,7 +27,7 @@
 
 + (NSString *)databaseViewName;
 
-- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection;
+- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection feature:(DNTFeature *)feature;
 
 - (DNTDebugSetting *)objectAtIndexPath:(NSIndexPath *)indexPath;
 

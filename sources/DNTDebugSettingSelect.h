@@ -10,7 +10,11 @@
 
 @interface DNTDebugSettingSelect : DNTDebugSetting
 
-@property (nonatomic, strong) NSDictionary *selectOptions;
-@property (nonatomic, strong) NSString *selection;
+@property (nonatomic, strong) NSArray *optionTitles;
+@property (nonatomic, strong) NSArray *optionKeys;
+@property (nonatomic, strong) NSMutableIndexSet *selectedIndexes;
+@property (nonatomic, getter = isMultipleSelectionAllowed) BOOL multipleSelectionAllowed;
 
-@end    
+- (void)selectTitleAtIndex:(NSInteger)index completion:(void(^)(NSIndexSet *changedIndexes))completion;
+
+@end

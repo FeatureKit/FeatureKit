@@ -1,7 +1,16 @@
 PODS:
-  - BSPlatform/Production/Foundation/Core (0.1.12):
+  - BSPlatform/Production (0.1.13):
+    - BSPlatform/Production/Foundation
+    - BSPlatform/Production/UI
+  - BSPlatform/Production/Foundation (0.1.13):
+    - BSPlatform/Production/Foundation/Core
+    - BSPlatform/Production/Foundation/Legacy
+  - BSPlatform/Production/Foundation/Core (0.1.13):
     - CocoaLumberjack (= 1.6.3)
-  - BSPlatform/Production/UI (0.1.12):
+  - BSPlatform/Production/Foundation/Legacy (0.1.13):
+    - BSPlatform/Production/Foundation/Core
+    - ReactiveCocoa (~> 2.1.8)
+  - BSPlatform/Production/UI (0.1.13):
     - BSPlatform/Production/Foundation/Core
   - CocoaLumberjack (1.6.5.1):
     - CocoaLumberjack/Core
@@ -9,9 +18,14 @@ PODS:
   - CocoaLumberjack/Core (1.6.5.1)
   - CocoaLumberjack/Extensions (1.6.5.1):
     - CocoaLumberjack/Core
-  - DNTFeatures (0.0.1):
-    - BSPlatform/Production/UI
+  - DNTFeatures (0.4):
     - YapDatabase (~> 2.4)
+  - ReactiveCocoa (2.1.8):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.1.8):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.1.8)
   - YapDatabase (2.4.2):
     - YapDatabase/standard
   - YapDatabase/common (2.4.2):
@@ -20,16 +34,18 @@ PODS:
     - YapDatabase/common
 
 DEPENDENCIES:
-  - DNTFeatures (from `../../`)
+  - BSPlatform/Production
+  - DNTFeatures (from `../../DNTFeatures.podspec`)
 
 EXTERNAL SOURCES:
   DNTFeatures:
-    :path: ../../
+    :path: ../../DNTFeatures.podspec
 
 SPEC CHECKSUMS:
-  BSPlatform: 4e1eb95620a38508ac239fb82dc1c027c10851ce
+  BSPlatform: 55dd502584d4fc8b189ed8bda1263d23074b30cc
   CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
-  DNTFeatures: 7b87c524293418243e6af09714c39cfbacfe8bdc
+  DNTFeatures: f448b2a68c62da6163b1bdb177c17cd838497627
+  ReactiveCocoa: 0db710a0afa1c627a64470e5c912a3870d4854ae
   YapDatabase: 051a7930e3b92097470fe7bcf58d4b715d79997e
 
 COCOAPODS: 0.32.1

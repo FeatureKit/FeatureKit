@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   # s.ios.deployment_target = "5.0"
   # s.osx.deployment_target = "10.7"
 
-  s.source       = { :git => "http://github.com:danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com:danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
   s.source_files  = "sources/*.{h,m}"
   s.prefix_header_contents = '''
   #ifdef __OBJC__    
@@ -47,6 +47,4 @@ Pod::Spec.new do |s|
 
   s.xcconfig = { "DNTFEATURES_VERSION" => "#{s.version}" }
   s.dependency "YapDatabase", "~> 2.4"
-  s.dependency "BSPlatform/Production/UI"
-
 end

@@ -77,6 +77,7 @@
     cell.textLabel.text = feature.title;
     cell.toggle.enabled = [feature isEditable];
     cell.toggle.on = [feature isOn];
+    cell.toggle.tintColor = cell.toggle.onTintColor = [feature isToggled] ? [UIColor redColor] : nil;
     [cell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
     [cell.contentView bringSubviewToFront:cell.toggle];
     return cell;
@@ -87,6 +88,7 @@
     cell.textLabel.text = toggle.title;
     cell.toggle.enabled = [self.dataProvider.feature isOn];
     cell.toggle.on = [toggle isOn];
+    cell.toggle.tintColor = cell.toggle.onTintColor = nil;
     [cell.contentView bringSubviewToFront:cell.toggle];
     return cell;
 }

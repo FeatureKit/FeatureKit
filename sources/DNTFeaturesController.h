@@ -19,4 +19,6 @@
 
 - (IBAction)toggleFeature:(id)sender;
 
+- (IBAction)resetFeatures:(id)sender;
+
 @end

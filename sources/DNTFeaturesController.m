@@ -46,6 +46,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
+    [self configureResetButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -59,6 +60,11 @@
     self.dataProvider.headerTitleConfiguration = [self tableViewHeaderTitleConfiguration];
     self.dataProvider.tableView = self.tableView;
     self.tableView.dataSource = self.dataProvider;
+}
+
+- (void)configureResetButton {
+    UINavigationItem *navigationItem = self.parentViewController ? self.parentViewController.navigationItem : self.navigationItem;
+    navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Reset", nil) style:UIBarButtonItemStylePlain target:self action:@selector(resetFeatures:)];
 }
 
 #pragma mark - Table View Configuration
@@ -77,6 +83,7 @@
             toggleCell.textLabel.text = feature.title;
             toggleCell.toggle.enabled = feature.editable;
             toggleCell.toggle.on = [feature isOn];
+            toggleCell.toggle.tintColor = toggleCell.toggle.onTintColor = [feature isToggled] ? [UIColor redColor] : nil;
             [toggleCell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView bringSubviewToFront:toggleCell.toggle];
         }
@@ -99,6 +106,10 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
     DNTFeature *feature = [self.dataProvider objectAtIndexPath:indexPath];
     [feature switchOnOrOff:sender.on];
+}
+
+- (IBAction)resetFeatures:(id)sender {
+    [DNTFeature resetFeaturesToDefaultInDatabase:self.dataProvider.database collection:self.dataProvider.collection];
 }
 
 #pragma mark - BSUIDependencyInjectionSource

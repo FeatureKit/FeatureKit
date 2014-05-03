@@ -37,19 +37,25 @@ typedef DNTFeature *(^DNTFeatureBlock)(DNTFeature *feature, YapDatabaseReadWrite
 
 - (NSComparisonResult)compareWithOtherFeature:(DNTFeature *)feature;
 
+- (void)updateFromExistingFeature:(DNTFeature *)feature;
+
 /// @name Persisted Access
 
-+ (instancetype)featureWithKey:(id)key;
++ (NSArray *)features;
++ (NSArray *)featuresInDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
++ (instancetype)featureWithKey:(id)key;
 + (instancetype)featureWithKey:(id)key inDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
 + (void)featureWithKey:(id)key update:(DNTFeatureBlock)update;
-
 + (void)featureWithKey:(id)key update:(DNTFeatureBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection;
++ (DNTFeature *)featureWithKey:(id)key update:(DNTFeatureBlock)update collection:(NSString *)collection transaction:(YapDatabaseReadWriteTransaction *)transaction;
 
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff;
-
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff inDatabase:(YapDatabase *)database collection:(NSString *)collection;
+
++ (void)resetFeaturesToDefault;
++ (void)resetFeaturesToDefaultInDatabase:(YapDatabase *)database collection:(NSString *)collection;
 
 + (void)setDefaultDatabase:(YapDatabase *)database collection:(NSString *)collection;
 + (YapDatabase *)database;

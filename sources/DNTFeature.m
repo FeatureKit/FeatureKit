@@ -38,7 +38,6 @@ static NSString *__collection;
         _editable = YES;
         _onByDefault = NO;
         _on = NO;
-        _toggled = NO;
     }
     return self;
 }
@@ -60,7 +59,6 @@ static NSString *__collection;
     [aCoder encodeBool:_editable forKey:DNT_STRING(_editable)];
     [aCoder encodeBool:_onByDefault forKey:DNT_STRING(_onByDefault)];
     [aCoder encodeBool:_on forKey:DNT_STRING(_on)];
-    [aCoder encodeBool:_toggled forKey:DNT_STRING(_toggled)];
     [aCoder encodeBool:_debugOptionsAvailable forKey:DNT_STRING(_debugOptionsAvailable)];
 }
 
@@ -81,10 +79,15 @@ static NSString *__collection;
         _editable = [aDecoder decodeBoolForKey:DNT_STRING(_editable)];
         _onByDefault = [aDecoder decodeBoolForKey:DNT_STRING(_onByDefault)];
         _on = [aDecoder decodeBoolForKey:DNT_STRING(_on)];
-        _toggled = [aDecoder decodeBoolForKey:DNT_STRING(_toggled)];
         _debugOptionsAvailable = [aDecoder decodeBoolForKey:DNT_STRING(_debugOptionsAvailable)];
     }
     return self;
+}
+
+#pragma mark - Dynamic Properties
+
+- (BOOL)isToggled {
+    return self.on != self.onByDefault;
 }
 
 #pragma mark - Public API
@@ -92,7 +95,6 @@ static NSString *__collection;
 - (void)switchOnOrOff:(BOOL)onOrOff {
     [self modify:^(DNTFeature *feature) {
         feature->_on = onOrOff;
-        feature->_toggled = (feature.on != feature.onByDefault);
     }];
 }
 
@@ -102,6 +104,37 @@ static NSString *__collection;
         result = [self.key caseInsensitiveCompare:feature.key];
     }
     return result;
+}
+
+- (void)updateFromExistingFeature:(DNTFeature *)feature {
+    if ( [self.key isEqualToString:feature.key] ) {
+        self.title = feature.title;
+        self.group = feature.group;
+        self.groupOrder = feature.groupOrder;
+        self.identifier = feature.identifier;
+        self.editable = feature.editable;
+        self.onByDefault = feature.onByDefault;
+        self->_on = feature.on;
+    }
+}
+
+#pragma mark - Service
+
++ (NSArray *)features {
+    return [self featuresInDatabase:[self database] collection:[self collection]];
+}
+
++ (NSArray *)featuresInDatabase:(YapDatabase *)database collection:(NSString *)collection {
+    __block NSMutableArray *features = [NSMutableArray array];
+    YapDatabaseConnection *connection = [database newConnection];
+    [connection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
+        [transaction enumerateKeysAndObjectsInCollection:collection usingBlock:^(NSString *key, id object, BOOL *stop) {
+            if ( [object isKindOfClass:[DNTFeature class]] ) {
+                [features addObject:object];
+            }
+        }];
+    }];
+    return features;
 }
 
 + (instancetype)featureWithKey:(id)key {
@@ -127,18 +160,20 @@ static NSString *__collection;
     YapDatabaseConnection *connection = [database newConnection];
     __block DNTFeature *feature = nil;
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
-        DNTFeature *existing = [transaction objectForKey:key inCollection:collection];
-        feature = update(existing, transaction);
-        if (feature && existing) {
-            feature->_on = feature.on || existing.on;
-        }
-        if (feature) {
-            feature->_toggled = feature.on != feature.onByDefault;
-        }
-        [transaction setObject:feature forKey:key inCollection:collection];
+        feature = [self featureWithKey:key update:update collection:collection transaction:transaction];
     } completionBlock:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:DNTFeaturesDidChangeNotification object:nil userInfo:@{ DNTFeaturesNotificationFeatureKey : feature }];
     }];
+}
+
++ (DNTFeature *)featureWithKey:(id)key update:(DNTFeatureBlock)update collection:(NSString *)collection transaction:(YapDatabaseReadWriteTransaction *)transaction {
+    DNTFeature *existing = [transaction objectForKey:key inCollection:collection];
+    DNTFeature *feature = update(existing, transaction);
+    if (feature && existing) {
+        feature->_on = feature.on || existing.on;
+    }
+    [transaction setObject:feature forKey:key inCollection:collection];
+    return feature;
 }
 
 + (void)switchFeatureWithKey:(id)key onOrOff:(BOOL)onOrOff {
@@ -150,6 +185,29 @@ static NSString *__collection;
         feature->_on = onOrOff;
         return feature;
     } inDatabase:database collection:collection];
+}
+
++ (void)resetFeaturesToDefault {
+    [self resetFeaturesToDefaultInDatabase:[self database] collection:[self collection]];
+}
+
++ (void)resetFeaturesToDefaultInDatabase:(YapDatabase *)database collection:(NSString *)collection {
+    YapDatabaseConnection *connection = [database newConnection];
+    [connection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        NSMutableArray *requireSaving = [NSMutableArray array];
+        [transaction enumerateKeysAndObjectsInCollection:collection usingBlock:^(NSString *key, id object, BOOL *stop) {
+            if ( [object isKindOfClass:[DNTFeature class]] ) {
+                DNTFeature *feature = (DNTFeature *)object;
+                if ( feature.on != feature.onByDefault ) {
+                    feature->_on = feature.onByDefault;
+                    [requireSaving addObject:feature];
+                }
+            }
+        }];
+        for ( DNTFeature *feature in requireSaving ) {
+            [transaction setObject:feature forKey:feature.key inCollection:collection];
+        }
+    }];
 }
 
 #pragma mark - Private API

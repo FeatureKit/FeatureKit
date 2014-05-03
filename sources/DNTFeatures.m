@@ -18,6 +18,20 @@
     [DNTFeature setDefaultDatabase:database collection:nil];
 }
 
++ (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion {
+    YapDatabaseConnection *connection = [[DNTFeature database] newConnection];
+    [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        for ( DNTFeature *feature in features ) {
+            [DNTFeature featureWithKey:feature.key update:^DNTFeature *(DNTFeature *existing, YapDatabaseReadWriteTransaction *transaction) {
+                [feature updateFromExistingFeature:existing];
+                return feature;
+            } collection:[DNTFeature collection] transaction:transaction];
+        }
+    } completionBlock:^{
+        if (completion) completion();
+    }];
+}
+
 + (NSString *)version {
     return [NSString stringWithFormat:@"%.0lf", (CGFloat)[DNTFeature version]];
 }

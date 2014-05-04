@@ -6,30 +6,15 @@
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <YapDatabase/YapDatabase.h>
+#import "DNTYapDatabaseDataSource.h"
 
-#import "DNTFeaturesDataProvider.h"
-
-@class DNTDebugSetting;
 @class DNTFeature;
 
-@interface DNTDebugSettingsDataProvider : NSObject
+@interface DNTDebugSettingsDataProvider : DNTYapDatabaseDataSource
 
-@property (nonatomic, strong, readonly) YapDatabase *database;
 @property (nonatomic, strong) DNTFeature *feature;
-@property (nonatomic, strong, readonly) NSString *collection;
-
-@property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, copy) DNTTableViewCellConfiguration cellConfiguration;
-@property (nonatomic, copy) DNTTableViewHeaderTitleConfiguration headerTitleConfiguration;
-@property (nonatomic, copy) DNTTableViewFooterTitleConfiguration footerTitleConfiguration;
-
-+ (NSString *)databaseViewName;
 
 - (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection feature:(DNTFeature *)feature;
-
-- (DNTDebugSetting *)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

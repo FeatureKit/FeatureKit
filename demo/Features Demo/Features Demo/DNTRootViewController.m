@@ -16,47 +16,60 @@
     [super viewDidLoad];
 
     // Add some features
-    [DNTFeature featureWithKey:@"feature.bonus" update:^(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
+
+    [[DNTFeature service] settingWithKey:@"feature.bonus" update:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
+
         if ( !feature ) {
             feature = [[DNTFeature alloc] initWithKey:@"feature.bonus" title:@"Show bonus content" group:@"Application Features"];
         }
         feature.title = NSLocalizedString(@"Show bonus content", nil);
-        feature.onByDefault = NO;
+        feature.onByDefault = @NO;
         return feature;
-    }];
 
-    [DNTFeature featureWithKey:@"feature.sync" update:^(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
+    } completion:nil];
+
+    [[DNTFeature service] settingWithKey:@"feature.sync" update:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
 
         if ( !feature ) {
             feature = [[DNTFeature alloc] initWithKey:@"feature.sync" title:@"New Sync" group:@"In Development"];
         }
         feature.title = NSLocalizedString(@"New sync", nil);
-        feature.onByDefault = NO;
+        feature.onByDefault = @NO;
         feature.debugOptionsAvailable = YES;
 
-        [feature debugSettingWithKey:@"feature.sync.debug.verbose-logging" update:^DNTDebugSetting *(DNTDebugSettingToggle *debugSetting) {
-            if ( !debugSetting ) {
-                debugSetting = [[DNTDebugSettingToggle alloc] initWithKey:@"feature.sync.debug.verbose-logging" title:@"Verbose Logging" group:nil];
+        [feature debugSettingWithKey:@"feature.sync.debug.verbose-logging" update:^DNTDebugSetting *(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
+            DNTToggleSetting *setting = (DNTToggleSetting *)debug.setting;
+            if ( !debug ) {
+                setting = [[DNTToggleSetting alloc] initWithKey:@"feature.sync.debug.verbose-logging" title:@"Verbose Logging" group:nil];
+                debug = [[DNTDebugSetting alloc] initWithSetting:setting];
             }
-            debugSetting.title = @"Verbose Logging";
-            debugSetting.onByDefault = @NO;
-            debugSetting.on = @YES;
-            return debugSetting;
-        } inTransaction:transaction];
+            setting.title = @"Verbose Logging";
+            setting.onByDefault = @NO;
+            debug.setting = setting;
+            return debug;
 
-        [feature debugSettingWithKey:@"feature.sync.debug.mode" update:^DNTDebugSetting *(DNTDebugSettingSelect *debugSetting) {
-            if ( !debugSetting ) {
-                debugSetting = [[DNTDebugSettingSelect alloc] initWithKey:@"feature.sync.debug.mode" title:@"Sync Mode" group:nil];
+        } transaction:transaction];
+
+        [feature debugSettingWithKey:@"feature.sync.debug.mode" update:^DNTDebugSetting *(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
+            DNTSelectOptionSetting *setting = (DNTSelectOptionSetting *)debug.setting;
+            if ( !debug ) {
+                setting = [[DNTSelectOptionSetting alloc] initWithKey:@"feature.sync.debug.mode" title:@"Sync Mode" group:nil];
+                debug = [[DNTDebugSetting alloc] initWithSetting:setting];
             }
-            debugSetting.optionKeys = @[ @"standard", @"advanced", @"magic" ];
-            debugSetting.optionTitles = @[ NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Advanced", nil), NSLocalizedString(@"Magic", nil) ];
-            debugSetting.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
-            debugSetting.multipleSelectionAllowed = NO;
-            return debugSetting;
-        } inTransaction:transaction];
+            setting.title = @"Sync Mode";
+            setting.optionKeys = @[ @"standard", @"advanced", @"magic" ];
+            setting.optionTitles = @[ NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Advanced", nil), NSLocalizedString(@"Magic", nil) ];
+            setting.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
+            setting.multipleSelectionAllowed = NO;
+
+            debug.setting = setting;
+            return debug;
+
+        } transaction:transaction];
 
         return feature;
-    }];
+
+    } completion:nil];
 }
 
 - (IBAction)unwindToRoot:(UIStoryboardSegue *)segue { }

@@ -9,16 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BSUIViewControllerDependencyInjection.h"
 
-@class DNTFeaturesDataProvider;
-
 @interface DNTFeaturesController : UITableViewController <BSUIDependencyInjectionSource>
 
-@property (nonatomic, strong) DNTFeaturesDataProvider *dataProvider;
-
-+ (instancetype)controller;
-
+/// @name Actions
 - (IBAction)toggleFeature:(id)sender;
-
 - (IBAction)resetFeatures:(id)sender;
 
 @end

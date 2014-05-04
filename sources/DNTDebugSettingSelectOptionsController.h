@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "BSUIViewControllerDependencyInjection.h"
-@class DNTDebugSettingSelect;
+
+@class DNTSelectOptionSetting;
 
 @interface DNTDebugSettingSelectOptionsController : UITableViewController <BSUIDependencyInjectionDestination>
-@property (nonatomic, strong) DNTDebugSettingSelect *select;
+@property (nonatomic, strong) DNTSelectOptionSetting *select;
 @end

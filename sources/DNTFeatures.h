@@ -12,16 +12,16 @@
 #import "DNTFeaturesController.h"
 
 #import "DNTDebugSetting.h"
-#import "DNTDebugSettingToggle.h"
-#import "DNTDebugSettingSelect.h"
+#import "DNTToggleSetting.h"
+#import "DNTSelectOptionSetting.h"
 
 #import "DNTFeature+DebugSettings.h"
 
 @interface DNTFeatures : NSObject
 
-+ (void)loadWithDatabaseNamed:(NSString *)databaseName;
-
-+ (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion;
+//+ (void)loadWithDatabaseNamed:(NSString *)databaseName;
+//
+//+ (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion;
 
 + (NSString *)version;
 

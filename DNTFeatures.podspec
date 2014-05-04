@@ -47,4 +47,5 @@ Pod::Spec.new do |s|
 
   s.xcconfig = { "DNTFEATURES_VERSION" => "#{s.version}" }
   s.dependency "YapDatabase", "~> 2.4"
+  s.dependency "BSPlatform/Production/UI"
 end

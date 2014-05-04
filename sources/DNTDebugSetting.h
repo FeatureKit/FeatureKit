@@ -7,34 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <YapDatabase/YapDatabase.h>
 
-@class DNTDebugSetting;
+#import "DNTFeature.h"
 
-typedef DNTDebugSetting *(^DNTDebugSettingUpdateBlock)(id debugSetting);
+@protocol DNTSetting;
+@class YapDatabaseReadWriteTransaction;
 
-@interface DNTDebugSetting : NSObject <NSCoding>
-
-@property (nonatomic, strong) NSString *identifier;
-@property (nonatomic, strong) id key;
-@property (nonatomic, strong) NSString *title;
+@interface DNTDebugSetting : NSObject
 @property (nonatomic, strong) NSString *featureKey;
-@property (nonatomic, strong) NSString *group;
-@property (nonatomic, strong) NSNumber *groupOrder;
+@property (nonatomic, strong) id <DNTSetting> setting;
 
-@property (nonatomic, strong) NSMutableDictionary *userInfo;
-
-- (instancetype)initWithKey:(id)key title:(NSString *)title group:(NSString *)group;
-
-- (NSComparisonResult)compareWithOtherDebugSetting:(DNTDebugSetting *)other;
-
-/// @name Persistence
-
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update completion:(void(^)(void))completion;
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inDatabase:(YapDatabase *)database collection:(NSString *)collection completion:(void(^)(void))completion;
-+ (void)updateDebugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update transacation:(YapDatabaseReadWriteTransaction *)transaction collection:(NSString *)collection;
-
-+ (YapDatabase *)database;
-+ (NSString *)collection;
+- (id)initWithSetting:(id <DNTSetting>)setting;
 
 @end
+
+typedef DNTDebugSetting *(^DNTDebugSettingUpdateBlock)(DNTDebugSetting * debug, YapDatabaseReadWriteTransaction *transaction);
+
+@interface DNTFeature ( DNTDebugSetting )
+
+- (void)debugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update transaction:(YapDatabaseReadWriteTransaction *)transaction;
+
+@end
+

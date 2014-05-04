@@ -7,19 +7,19 @@
 //
 
 #import "DNTFeaturesDataProvider.h"
-
-#import <YapDatabase/YapDatabaseView.h>
-#import <YapDatabase/YapDatabaseViewMappings.h>
+#import "DNTYapDatabaseDataSource.h"
 
 #import "DNTFeatures.h"
+#import "DNTToggleCell.h"
 
+#define ONOFF(onoff) onoff ? NSLocalizedString(@"On", nil) : NSLocalizedString(@"Off", nil)
 #define VIEW_NAME @"features.view"
 
 @interface DNTFeaturesDataProvider ( /* Private */ )
 
-@property (nonatomic, strong) YapDatabaseConnection *readOnlyConnection;
-@property (nonatomic, strong) YapDatabaseView *databaseView;
-@property (nonatomic, strong) YapDatabaseViewMappings *mappings;
+@property (nonatomic, strong) NSString *collectionName;
+- (YapDatabaseViewGroupingBlock)createDatabaseViewGroupingBlock;
+- (YapDatabaseViewSortingBlock)createDatabaseViewSortingBlock;
 
 @end
 
@@ -29,42 +29,23 @@
     return VIEW_NAME;
 }
 
-- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection {
-    self = [super init];
+- (id)initWithDatabase:(YapDatabase *)database {
+    self = [super initWithDatabase:database];
     if (self) {
-        _database = database;
-        _collection = collection;
-        [self configure];
+        _collectionName = [[DNTFeature service] collection];
+        self.dataSource = [[DNTYapDatabaseDataSource alloc] initWithDatabase:self.database collection:_collectionName name:VIEW_NAME];
+        self.dataSource.databaseViewGroupingBlock = [self createDatabaseViewGroupingBlock];
+        self.dataSource.databaseViewSortingBlock = [self createDatabaseViewSortingBlock];
+        self.dataSource.cellConfiguration = [self createTableViewCellConfigurationBlock];
+        self.dataSource.headerTitleConfiguration = [self createTableViewHeaderTitleConfigurationBlock];
     }
     return self;
 }
 
-- (void)dealloc {
-    [_database unregisterExtension:VIEW_NAME];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:YapDatabaseModifiedNotification object:_database];
-}
+#pragma mark - Datasource Configuration
 
-#pragma mark - Configure
-
-- (void)configure {
-    self.databaseView = [self createDatabaseView];
-    [self.database registerExtension:self.databaseView withName:VIEW_NAME];
-
-    self.readOnlyConnection = [self.database newConnection];
-    [self.readOnlyConnection beginLongLivedReadTransaction];
-
-    self.mappings = [self createDatabaseViewMappings];
-    DNT_WEAK_SELF
-    [self.readOnlyConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-        [weakSelf.mappings updateWithTransaction:transaction];
-    }];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseModified:) name:YapDatabaseModifiedNotification object:self.database];
-}
-
-#pragma mark - Database View
-
-- (YapDatabaseViewGroupingBlock)databaseViewGroupingBlock {
-    NSString *collection = self.collection;
+- (YapDatabaseViewGroupingBlock)createDatabaseViewGroupingBlock {
+    NSString *collection = self.collectionName;
     return ^NSString *(NSString *collectionName, NSString *key, DNTFeature *feature) {
         NSString *group = nil;
         if ( [collectionName isEqualToString:collection] ) {
@@ -74,134 +55,40 @@
     };
 }
 
-- (YapDatabaseViewSortingBlock)databaseViewSortingBlock {
+- (YapDatabaseViewSortingBlock)createDatabaseViewSortingBlock {
     return ^ NSComparisonResult (NSString *group, NSString *collection1, NSString *key1, DNTFeature *feature1, NSString *collection2, NSString *key2, DNTFeature *feature2) {
-        return [feature1 compareWithOtherFeature:feature2];
+        return [feature1 compareWithOtherSetting:feature2];
     };
 }
 
-- (YapDatabaseView *)createDatabaseView {
-    YapDatabaseView *view = [[YapDatabaseView alloc] initWithGroupingBlock:[self databaseViewGroupingBlock] groupingBlockType:YapDatabaseViewBlockTypeWithObject sortingBlock:[self databaseViewSortingBlock] sortingBlockType:YapDatabaseViewBlockTypeWithObject versionTag:[DNTFeatures version]];
-    return view;
-}
+#pragma mark - Table View Configuration
 
-#pragma mark - Database Mapping
-
-- (YapDatabaseViewMappingGroupFilter)databaseViewMappingsGroupFilter {
-    return ^BOOL(NSString *group, YapDatabaseReadTransaction *transaction) {
-        return YES;
-    };
-}
-
-- (YapDatabaseViewMappingGroupSort)databaseViewMappingsGroupSorter {
-    return ^NSComparisonResult(NSString *group1, NSString *group2, YapDatabaseReadTransaction *transaction) {
-        return [group1 caseInsensitiveCompare:group2];
-    };
-}
-
-- (YapDatabaseViewMappings *)createDatabaseViewMappings {
-    YapDatabaseViewMappings *mappings = [[YapDatabaseViewMappings alloc] initWithGroupFilterBlock:[self databaseViewMappingsGroupFilter] sortBlock:[self databaseViewMappingsGroupSorter] view:VIEW_NAME];
-    return mappings;
-}
-
-#pragma mark - Changes
-
-- (void)databaseModified:(NSNotification *)notification {
-
-    NSArray *notifications = [self.readOnlyConnection beginLongLivedReadTransaction];
-
-    NSArray *sectionChanges = nil;
-    NSArray *rowChanges = nil;
-
-    [[self.readOnlyConnection extension:VIEW_NAME] getSectionChanges:&sectionChanges rowChanges:&rowChanges forNotifications:notifications withMappings:self.mappings];
-
-    if ( ( [sectionChanges count] == 0 ) && ( [rowChanges count] == 0 ) ) {
-        return; // Nothing has changed.
-    }
-
-    [self.tableView beginUpdates];
-
-    for ( YapDatabaseViewSectionChange *sectionChange in sectionChanges ) {
-        switch (sectionChange.type) {
-            case YapDatabaseViewChangeDelete: {
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionChange.index] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } break;
-
-            case YapDatabaseViewChangeInsert: {
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionChange.index] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } break;
-
-            case YapDatabaseViewChangeMove:
-            case YapDatabaseViewChangeUpdate:
-            default:
-                break;
+- (DNTTableViewCellConfiguration)createTableViewCellConfigurationBlock {
+    return ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, DNTFeature *feature) {
+        UITableViewCell *cell = nil;
+        if ( [feature hasDebugOptions] ) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.textLabel.text = feature.title;
+            cell.detailTextLabel.text = ONOFF([feature isOn]);
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
+            DNTToggleCell *toggleCell = (DNTToggleCell *)cell;
+            toggleCell.textLabel.text = feature.title;
+            toggleCell.toggle.enabled = feature.editable;
+            toggleCell.toggle.on = [feature isOn];
+            toggleCell.toggle.tintColor = toggleCell.toggle.onTintColor = [feature isToggled] ? [UIColor redColor] : nil;
+            [toggleCell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
+            [cell.contentView bringSubviewToFront:toggleCell.toggle];
         }
-    }
-
-    for ( YapDatabaseViewRowChange *rowChange in rowChanges ) {
-        switch (rowChange.type) {
-            case YapDatabaseViewChangeDelete: {
-                [self.tableView deleteRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } break;
-
-            case YapDatabaseViewChangeInsert: {
-                [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } break;
-
-            case YapDatabaseViewChangeMove: {
-                [self.tableView deleteRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } break;
-
-            case YapDatabaseViewChangeUpdate: {
-                [self.tableView reloadRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationNone];
-            } break;
-        }
-    }
-    
-    [self.tableView endUpdates];
+        return cell;
+    };
 }
 
-#pragma mark - Public API
-
-- (DNTFeature *)objectAtIndexPath:(NSIndexPath *)indexPath {
-    __block DNTFeature *feature = nil;
-    DNT_WEAK_SELF
-    [self.readOnlyConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-        feature = [[transaction extension:VIEW_NAME] objectAtIndexPath:indexPath withMappings:weakSelf.mappings];
-    }];
-    return feature;
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.mappings numberOfSections];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.mappings numberOfItemsInSection:section];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSAssert(self.cellConfiguration, @"Must set the cell configuration block.");
-    id object = [self objectAtIndexPath:indexPath];
-    return self.cellConfiguration(tableView, indexPath, object);
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.headerTitleConfiguration) {
-        id object = [self objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
-        return self.headerTitleConfiguration(tableView, section, object);
-    }
-    return nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (self.footerTitleConfiguration) {
-        return self.footerTitleConfiguration(tableView, section);
-    }
-    return nil;
+- (DNTTableViewHeaderTitleConfiguration)createTableViewHeaderTitleConfigurationBlock {
+    return ^ NSString *(UITableView *tableView, NSInteger section, DNTFeature *feature) {
+        return feature.group;
+    };
 }
 
 @end

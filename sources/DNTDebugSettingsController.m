@@ -42,7 +42,7 @@
 }
 
 - (void)configureDataProvider {
-    self.dataProvider = [[DNTDebugSettingsDataProvider alloc] initWithDatabase:[DNTDebugSetting database] collection:[DNTDebugSetting collection] feature:self.feature];
+    self.dataProvider = [[DNTDebugSettingsDataProvider alloc] initWithDatabase:[[DNTSetting service] database] collection:[[DNTSetting service] collection] feature:self.feature];
     self.dataProvider.cellConfiguration = [self tableViewCellConfiguration];
     self.dataProvider.headerTitleConfiguration = [self tableViewHeaderTitleConfiguration];
     self.dataProvider.tableView = self.tableView;
@@ -59,13 +59,11 @@
             return [weakSelf configuredCellWithFeature:(DNTFeature *)object inTableView:tableView atIndexPath:indexPath];
         } else if ( [object isKindOfClass:[DNTDebugSetting class]] ) {
             DNTDebugSetting *setting = (DNTDebugSetting *)object;
-            if ( [setting isKindOfClass:[DNTDebugSettingToggle class]] ) {
-                DNTDebugSettingToggle *toggle = (DNTDebugSettingToggle *)setting;
-                return [weakSelf configuredCellWithToggleSetting:(DNTDebugSettingToggle *)setting inTableView:tableView atIndexPath:indexPath];
+            if ( [setting isKindOfClass:[DNTToggleSetting class]] ) {
+                return [weakSelf configuredCellWithToggleSetting:(DNTToggleSetting *)setting inTableView:tableView atIndexPath:indexPath];
             }
-            else if ( [setting isKindOfClass:[DNTDebugSettingSelect class]] ) {
-                DNTDebugSettingSelect *select = (DNTDebugSettingSelect *)setting;
-                return [weakSelf configuredCellWithSelectSetting:(DNTDebugSettingSelect *)setting inTableView:tableView atIndexPath:indexPath];
+            else if ( [setting isKindOfClass:[DNTSelectOptionSetting class]] ) {
+                return [weakSelf configuredCellWithSelectSetting:(DNTSelectOptionSetting *)setting inTableView:tableView atIndexPath:indexPath];
             }
         }
         return nil;
@@ -83,7 +81,7 @@
     return cell;
 }
 
-- (UITableViewCell *)configuredCellWithToggleSetting:(DNTDebugSettingToggle *)toggle inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)configuredCellWithToggleSetting:(DNTToggleSetting *)toggle inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
     DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
     cell.textLabel.text = toggle.title;
     cell.toggle.enabled = [self.dataProvider.feature isOn];
@@ -93,7 +91,7 @@
     return cell;
 }
 
-- (UITableViewCell *)configuredCellWithSelectSetting:(DNTDebugSettingSelect *)select inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)configuredCellWithSelectSetting:(DNTSelectOptionSetting *)select inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Select" forIndexPath:indexPath];
     cell.textLabel.text = select.title;
     if ( [select.selectedIndexes count] > 1 ) {
@@ -106,8 +104,8 @@
 }
 
 - (DNTTableViewHeaderTitleConfiguration)tableViewHeaderTitleConfiguration {
-    return ^ NSString *(UITableView *tableView, NSInteger section, DNTDebugSetting *setting) {
-        return setting.group ?: NSLocalizedString(@"Debug Settings", nil);
+    return ^ NSString *(UITableView *tableView, NSInteger section, DNTDebugSetting *debug) {
+        return debug.setting.group ?: NSLocalizedString(@"Debug Settings", nil);
     };
 }
 
@@ -126,7 +124,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ( [self.feature isOn] ) {
         id object = [self.dataProvider objectAtIndexPath:indexPath];
-        if ( [object isKindOfClass:[DNTDebugSettingSelect class]] ) {
+        if ( [object isKindOfClass:[DNTSelectOptionSetting class]] ) {
             [self performSegueWithIdentifier:@"pushSelectOptions" sender:object];
         }
     }
@@ -147,7 +145,7 @@
 - (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
     if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingSelectOptionsControllerDependencies)) ) {
         DNTDebugSettingSelectOptionsControllerDependencies *container = [[DNTDebugSettingSelectOptionsControllerDependencies alloc] init];
-        container.select = (DNTDebugSettingSelect *)sender;
+        container.select = (DNTSelectOptionSetting *)((DNTDebugSetting *)sender).setting;
         return container;
     }
     return nil;

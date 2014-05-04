@@ -12,7 +12,4 @@
 @class YapDatabaseReadWriteTransaction;
 
 @interface DNTFeature (DebugSettings)
-
-- (void)debugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inTransaction:(YapDatabaseReadWriteTransaction *)transaction;
-
 @end

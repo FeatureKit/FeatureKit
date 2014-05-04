@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4244D744F4C318528C956 /* libPods.a */; };
+		6526A22519159E2500E089CC /* DNTYapDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6526A22419159E2500E089CC /* DNTYapDatabaseDataSource.m */; };
 		6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF3F190A7C2400A37B47 /* DNTFeature.m */; };
 		6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */; };
 		6551EF48190A88BE00A37B47 /* DNTFeaturesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF46190A88BE00A37B47 /* DNTFeaturesController.m */; };
@@ -15,12 +16,19 @@
 		6551EF4F190A8A1300A37B47 /* DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF4E190A8A1300A37B47 /* DNTFeatures.m */; };
 		6551EF56190A8C0600A37B47 /* DNTToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF54190A8C0600A37B47 /* DNTToggleCell.m */; };
 		6551EF9C190AD21A00A37B47 /* DNTDebugSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF9B190AD21A00A37B47 /* DNTDebugSetting.m */; };
-		6551EF9F190AD4E900A37B47 /* DNTDebugSettingToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF9E190AD4E900A37B47 /* DNTDebugSettingToggle.m */; };
-		6551EFA2190AD62600A37B47 /* DNTDebugSettingSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EFA1190AD62600A37B47 /* DNTDebugSettingSelect.m */; };
+		6551EF9F190AD4E900A37B47 /* DNTToggleSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF9E190AD4E900A37B47 /* DNTToggleSetting.m */; };
+		6551EFA2190AD62600A37B47 /* DNTSelectOptionSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EFA1190AD62600A37B47 /* DNTSelectOptionSetting.m */; };
 		6551EFA5190ADD4100A37B47 /* DNTFeature+DebugSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EFA4190ADD4100A37B47 /* DNTFeature+DebugSettings.m */; };
 		6551EFA9190AE23400A37B47 /* DNTDebugSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EFA8190AE23400A37B47 /* DNTDebugSettingsController.m */; };
 		6551F00F191115A600A37B47 /* DNTDebugSettingsControllerDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551F00E191115A600A37B47 /* DNTDebugSettingsControllerDependencies.m */; };
 		6551F01719111B1A00A37B47 /* DNTDebugSettingsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551F01619111B1A00A37B47 /* DNTDebugSettingsDataProvider.m */; };
+		65646FD219169ECE0080B144 /* DNTSettingsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FD119169ECE0080B144 /* DNTSettingsDataProvider.m */; };
+		65646FD51916A8840080B144 /* DNTSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FD41916A8840080B144 /* DNTSetting.m */; };
+		65646FD81916B6400080B144 /* DNTSettingsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FD71916B6400080B144 /* DNTSettingsService.m */; };
+		65646FDB1916CAD90080B144 /* DNTFeaturesService.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FDA1916CAD90080B144 /* DNTFeaturesService.m */; };
+		65646FE31916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FDF1916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m */; };
+		65646FE41916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE11916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m */; };
+		65646FE71916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */; };
 		65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
 		65FC16B0190A69270034CA80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16AF190A69270034CA80 /* XCTest.framework */; };
 		65FC16B1190A69270034CA80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC16A1190A69270034CA80 /* Foundation.framework */; };
@@ -54,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		6526A22319159E2500E089CC /* DNTYapDatabaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTYapDatabaseDataSource.h; path = ../../sources/DNTYapDatabaseDataSource.h; sourceTree = "<group>"; };
+		6526A22419159E2500E089CC /* DNTYapDatabaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTYapDatabaseDataSource.m; path = ../../sources/DNTYapDatabaseDataSource.m; sourceTree = "<group>"; };
 		6551EF3E190A7C2400A37B47 /* DNTFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeature.h; path = ../../sources/DNTFeature.h; sourceTree = "<group>"; };
 		6551EF3F190A7C2400A37B47 /* DNTFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeature.m; path = ../../sources/DNTFeature.m; sourceTree = "<group>"; };
 		6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YapDatabase+DNTFeatures.h"; path = "../../sources/YapDatabase+DNTFeatures.h"; sourceTree = "<group>"; };
@@ -68,10 +78,10 @@
 		6551EF54190A8C0600A37B47 /* DNTToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTToggleCell.m; path = ../../sources/DNTToggleCell.m; sourceTree = "<group>"; };
 		6551EF9A190AD21A00A37B47 /* DNTDebugSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSetting.h; path = ../../sources/DNTDebugSetting.h; sourceTree = "<group>"; };
 		6551EF9B190AD21A00A37B47 /* DNTDebugSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSetting.m; path = ../../sources/DNTDebugSetting.m; sourceTree = "<group>"; };
-		6551EF9D190AD4E900A37B47 /* DNTDebugSettingToggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingToggle.h; path = ../../sources/DNTDebugSettingToggle.h; sourceTree = "<group>"; };
-		6551EF9E190AD4E900A37B47 /* DNTDebugSettingToggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingToggle.m; path = ../../sources/DNTDebugSettingToggle.m; sourceTree = "<group>"; };
-		6551EFA0190AD62600A37B47 /* DNTDebugSettingSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingSelect.h; path = ../../sources/DNTDebugSettingSelect.h; sourceTree = "<group>"; };
-		6551EFA1190AD62600A37B47 /* DNTDebugSettingSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingSelect.m; path = ../../sources/DNTDebugSettingSelect.m; sourceTree = "<group>"; };
+		6551EF9D190AD4E900A37B47 /* DNTToggleSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTToggleSetting.h; path = ../../sources/DNTToggleSetting.h; sourceTree = "<group>"; };
+		6551EF9E190AD4E900A37B47 /* DNTToggleSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTToggleSetting.m; path = ../../sources/DNTToggleSetting.m; sourceTree = "<group>"; };
+		6551EFA0190AD62600A37B47 /* DNTSelectOptionSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTSelectOptionSetting.h; path = ../../sources/DNTSelectOptionSetting.h; sourceTree = "<group>"; };
+		6551EFA1190AD62600A37B47 /* DNTSelectOptionSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTSelectOptionSetting.m; path = ../../sources/DNTSelectOptionSetting.m; sourceTree = "<group>"; };
 		6551EFA3190ADD4100A37B47 /* DNTFeature+DebugSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DNTFeature+DebugSettings.h"; path = "../../sources/DNTFeature+DebugSettings.h"; sourceTree = "<group>"; };
 		6551EFA4190ADD4100A37B47 /* DNTFeature+DebugSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DNTFeature+DebugSettings.m"; path = "../../sources/DNTFeature+DebugSettings.m"; sourceTree = "<group>"; };
 		6551EFA6190AE12000A37B47 /* Features~iphone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Features~iphone.storyboard"; path = "../../resources/Features~iphone.storyboard"; sourceTree = "<group>"; };
@@ -81,6 +91,20 @@
 		6551F00E191115A600A37B47 /* DNTDebugSettingsControllerDependencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingsControllerDependencies.m; path = ../../sources/DNTDebugSettingsControllerDependencies.m; sourceTree = "<group>"; };
 		6551F01519111B1A00A37B47 /* DNTDebugSettingsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingsDataProvider.h; path = ../../sources/DNTDebugSettingsDataProvider.h; sourceTree = "<group>"; };
 		6551F01619111B1A00A37B47 /* DNTDebugSettingsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingsDataProvider.m; path = ../../sources/DNTDebugSettingsDataProvider.m; sourceTree = "<group>"; };
+		65646FD019169ECE0080B144 /* DNTSettingsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTSettingsDataProvider.h; path = ../../sources/DNTSettingsDataProvider.h; sourceTree = "<group>"; };
+		65646FD119169ECE0080B144 /* DNTSettingsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTSettingsDataProvider.m; path = ../../sources/DNTSettingsDataProvider.m; sourceTree = "<group>"; };
+		65646FD31916A8840080B144 /* DNTSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTSetting.h; path = ../../sources/DNTSetting.h; sourceTree = "<group>"; };
+		65646FD41916A8840080B144 /* DNTSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTSetting.m; path = ../../sources/DNTSetting.m; sourceTree = "<group>"; };
+		65646FD61916B6400080B144 /* DNTSettingsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTSettingsService.h; path = ../../sources/DNTSettingsService.h; sourceTree = "<group>"; };
+		65646FD71916B6400080B144 /* DNTSettingsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTSettingsService.m; path = ../../sources/DNTSettingsService.m; sourceTree = "<group>"; };
+		65646FD91916CAD90080B144 /* DNTFeaturesService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeaturesService.h; path = ../../sources/DNTFeaturesService.h; sourceTree = "<group>"; };
+		65646FDA1916CAD90080B144 /* DNTFeaturesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTFeaturesService.m; path = ../../sources/DNTFeaturesService.m; sourceTree = "<group>"; };
+		65646FDF1916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingSelectOptionsControllerDependencies.m; path = ../../sources/DNTDebugSettingSelectOptionsControllerDependencies.m; sourceTree = "<group>"; };
+		65646FE01916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingSelectOptionsControllerDependencies.h; path = ../../sources/DNTDebugSettingSelectOptionsControllerDependencies.h; sourceTree = "<group>"; };
+		65646FE11916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTDebugSettingSelectOptionsController.m; path = ../../sources/DNTDebugSettingSelectOptionsController.m; sourceTree = "<group>"; };
+		65646FE21916DDE10080B144 /* DNTDebugSettingSelectOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingSelectOptionsController.h; path = ../../sources/DNTDebugSettingSelectOptionsController.h; sourceTree = "<group>"; };
+		65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DNTSelectOptionSetting+UITableViewDataSource.m"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.m"; sourceTree = "<group>"; };
+		65646FE61916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DNTSelectOptionSetting+UITableViewDataSource.h"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.h"; sourceTree = "<group>"; };
 		65FC169E190A69270034CA80 /* libDNTFeatures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDNTFeatures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FC16A1190A69270034CA80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65FC16A5190A69270034CA80 /* DNTFeatures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DNTFeatures-Prefix.pch"; sourceTree = "<group>"; };
@@ -119,19 +143,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6551EF41190A7C3400A37B47 /* Features */ = {
+		6551EF41190A7C3400A37B47 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				6551F01419111AEC00A37B47 /* Models */,
 				6551EF99190AD1FB00A37B47 /* Debug */,
-				6551EF3E190A7C2400A37B47 /* DNTFeature.h */,
-				6551EF3F190A7C2400A37B47 /* DNTFeature.m */,
 				6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */,
 				6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */,
 				6551EF49190A890600A37B47 /* Controllers */,
 				6551EF4D190A8A1300A37B47 /* DNTFeatures.h */,
 				6551EF4E190A8A1300A37B47 /* DNTFeatures.m */,
+				65646FD61916B6400080B144 /* DNTSettingsService.h */,
+				65646FD71916B6400080B144 /* DNTSettingsService.m */,
+				65646FD91916CAD90080B144 /* DNTFeaturesService.h */,
+				65646FDA1916CAD90080B144 /* DNTFeaturesService.m */,
 			);
-			name = Features;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		6551EF49190A890600A37B47 /* Controllers */ = {
@@ -139,15 +166,23 @@
 			children = (
 				6551EFA7190AE23400A37B47 /* DNTDebugSettingsController.h */,
 				6551EFA8190AE23400A37B47 /* DNTDebugSettingsController.m */,
+				6551F01519111B1A00A37B47 /* DNTDebugSettingsDataProvider.h */,
+				6551F01619111B1A00A37B47 /* DNTDebugSettingsDataProvider.m */,
+				65646FE21916DDE10080B144 /* DNTDebugSettingSelectOptionsController.h */,
+				65646FE11916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m */,
+				65646FE01916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.h */,
+				65646FDF1916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m */,
 				6551EF45190A88BE00A37B47 /* DNTFeaturesController.h */,
 				6551EF46190A88BE00A37B47 /* DNTFeaturesController.m */,
 				6551EF4A190A892800A37B47 /* DNTFeaturesDataProvider.h */,
 				6551EF4B190A892800A37B47 /* DNTFeaturesDataProvider.m */,
+				65646FD019169ECE0080B144 /* DNTSettingsDataProvider.h */,
+				65646FD119169ECE0080B144 /* DNTSettingsDataProvider.m */,
 				6551EF53190A8C0600A37B47 /* DNTToggleCell.h */,
 				6551EF54190A8C0600A37B47 /* DNTToggleCell.m */,
+				6526A22319159E2500E089CC /* DNTYapDatabaseDataSource.h */,
+				6526A22419159E2500E089CC /* DNTYapDatabaseDataSource.m */,
 				6551EFA6190AE12000A37B47 /* Features~iphone.storyboard */,
-				6551F01519111B1A00A37B47 /* DNTDebugSettingsDataProvider.h */,
-				6551F01619111B1A00A37B47 /* DNTDebugSettingsDataProvider.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -155,7 +190,6 @@
 		6551EF99190AD1FB00A37B47 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
-				6551F01419111AEC00A37B47 /* Models */,
 				6551EFA3190ADD4100A37B47 /* DNTFeature+DebugSettings.h */,
 				6551EFA4190ADD4100A37B47 /* DNTFeature+DebugSettings.m */,
 				6551F00D191115A600A37B47 /* DNTDebugSettingsControllerDependencies.h */,
@@ -169,10 +203,16 @@
 			children = (
 				6551EF9A190AD21A00A37B47 /* DNTDebugSetting.h */,
 				6551EF9B190AD21A00A37B47 /* DNTDebugSetting.m */,
-				6551EF9D190AD4E900A37B47 /* DNTDebugSettingToggle.h */,
-				6551EF9E190AD4E900A37B47 /* DNTDebugSettingToggle.m */,
-				6551EFA0190AD62600A37B47 /* DNTDebugSettingSelect.h */,
-				6551EFA1190AD62600A37B47 /* DNTDebugSettingSelect.m */,
+				6551EF3E190A7C2400A37B47 /* DNTFeature.h */,
+				6551EF3F190A7C2400A37B47 /* DNTFeature.m */,
+				65646FE61916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.h */,
+				65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */,
+				6551EFA0190AD62600A37B47 /* DNTSelectOptionSetting.h */,
+				6551EFA1190AD62600A37B47 /* DNTSelectOptionSetting.m */,
+				65646FD31916A8840080B144 /* DNTSetting.h */,
+				65646FD41916A8840080B144 /* DNTSetting.m */,
+				6551EF9D190AD4E900A37B47 /* DNTToggleSetting.h */,
+				6551EF9E190AD4E900A37B47 /* DNTToggleSetting.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -214,7 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				65FC16A4190A69270034CA80 /* Supporting Files */,
-				6551EF41190A7C3400A37B47 /* Features */,
+				6551EF41190A7C3400A37B47 /* Settings */,
 			);
 			path = DNTFeatures;
 			sourceTree = "<group>";
@@ -392,19 +432,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6526A22519159E2500E089CC /* DNTYapDatabaseDataSource.m in Sources */,
 				6551EF4F190A8A1300A37B47 /* DNTFeatures.m in Sources */,
 				6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */,
 				6551EFA5190ADD4100A37B47 /* DNTFeature+DebugSettings.m in Sources */,
 				6551F01719111B1A00A37B47 /* DNTDebugSettingsDataProvider.m in Sources */,
+				65646FE71916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m in Sources */,
 				6551EF56190A8C0600A37B47 /* DNTToggleCell.m in Sources */,
 				6551F00F191115A600A37B47 /* DNTDebugSettingsControllerDependencies.m in Sources */,
+				65646FDB1916CAD90080B144 /* DNTFeaturesService.m in Sources */,
+				65646FE41916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m in Sources */,
+				65646FD81916B6400080B144 /* DNTSettingsService.m in Sources */,
+				65646FE31916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m in Sources */,
 				6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */,
+				65646FD219169ECE0080B144 /* DNTSettingsDataProvider.m in Sources */,
 				6551EF4C190A892800A37B47 /* DNTFeaturesDataProvider.m in Sources */,
 				6551EF9C190AD21A00A37B47 /* DNTDebugSetting.m in Sources */,
+				65646FD51916A8840080B144 /* DNTSetting.m in Sources */,
 				6551EFA9190AE23400A37B47 /* DNTDebugSettingsController.m in Sources */,
 				6551EF48190A88BE00A37B47 /* DNTFeaturesController.m in Sources */,
-				6551EFA2190AD62600A37B47 /* DNTDebugSettingSelect.m in Sources */,
-				6551EF9F190AD4E900A37B47 /* DNTDebugSettingToggle.m in Sources */,
+				6551EFA2190AD62600A37B47 /* DNTSelectOptionSetting.m in Sources */,
+				6551EF9F190AD4E900A37B47 /* DNTToggleSetting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import "DNTDebugSettingSelectOptionsController.h"
 #import "DNTDebugSettingSelectOptionsControllerDependencies.h"
-#import "DNTDebugSettingSelect+UITableViewDataSource.h"
+#import "DNTSelectOptionSetting+UITableViewDataSource.h"
 
 @implementation DNTDebugSettingSelectOptionsController
 

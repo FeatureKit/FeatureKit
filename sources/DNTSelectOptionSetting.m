@@ -1,14 +1,14 @@
 //
-//  DNTDebugSettingSelect.m
+//  DNTSelectOptionSetting.m
 //  DNTFeatures
 //
 //  Created by Daniel Thorpe on 25/04/2014.
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import "DNTDebugSettingSelect.h"
+#import "DNTSelectOptionSetting.h"
 
-@implementation DNTDebugSettingSelect
+@implementation DNTSelectOptionSetting
 
 #pragma mark - NSCoding
 
@@ -32,7 +32,8 @@
 - (void)selectTitleAtIndex:(NSInteger)index completion:(void(^)(NSIndexSet *changedIndexes))completion {
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
     DNT_WEAK_SELF
-    [[self class] updateDebugSettingWithKey:self.key update:^DNTDebugSettingSelect *(DNTDebugSettingSelect * debugSetting) {
+    [[[self class] service] settingWithKey:self.key update:^id(id setting, YapDatabaseReadWriteTransaction *transaction) {
+
         if ( [weakSelf.selectedIndexes containsIndex:index] ) {
             [weakSelf.selectedIndexes removeIndex:index];
             [indexes addIndex:index];
@@ -46,6 +47,7 @@
             [indexes addIndex:index];
         }
         return weakSelf;
+
     } completion:^{
         if (completion) completion(indexes);
     }];

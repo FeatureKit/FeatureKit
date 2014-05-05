@@ -1,3 +1,5 @@
 platform :ios, '7.0'
 inhibit_all_warnings!
-pod 'DNTFeatures', :path => '../../'
+
+pod 'DNTFeatures', :path => '../../DNTFeatures.podspec'
+pod 'BSPlatform/Production/UI'

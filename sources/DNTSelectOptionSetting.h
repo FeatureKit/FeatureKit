@@ -1,5 +1,5 @@
 //
-//  DNTDebugSettingSelect.h
+//  DNTSelectOptionSetting.h
 //  DNTFeatures
 //
 //  Created by Daniel Thorpe on 25/04/2014.
@@ -8,7 +8,7 @@
 
 #import "DNTDebugSetting.h"
 
-@interface DNTDebugSettingSelect : DNTDebugSetting
+@interface DNTSelectOptionSetting : DNTDebugSetting
 
 @property (nonatomic, strong) NSArray *optionTitles;
 @property (nonatomic, strong) NSArray *optionKeys;

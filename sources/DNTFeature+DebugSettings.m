@@ -9,14 +9,4 @@
 #import "DNTFeature+DebugSettings.h"
 
 @implementation DNTFeature (DebugSettings)
-
-- (void)debugSettingWithKey:(id)key update:(DNTDebugSettingUpdateBlock)update inTransaction:(YapDatabaseReadWriteTransaction *)transaction {
-    DNT_WEAK_SELF
-    [DNTDebugSetting updateDebugSettingWithKey:key update:^DNTDebugSetting *(DNTDebugSetting * debugSetting) {
-        debugSetting = (DNTDebugSetting *)update(debugSetting);
-        debugSetting.featureKey = weakSelf.key;
-        return debugSetting;
-    } transacation:transaction collection:[DNTDebugSetting collection]];
-}
-
 @end

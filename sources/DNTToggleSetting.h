@@ -1,5 +1,5 @@
 //
-//  DNTDebugSettingToggle.h
+//  DNTToggleSetting.h
 //  DNTFeatures
 //
 //  Created by Daniel Thorpe on 25/04/2014.
@@ -8,11 +8,15 @@
 
 #import "DNTDebugSetting.h"
 
-@interface DNTDebugSettingToggle : DNTDebugSetting
+@interface DNTToggleSetting : DNTDebugSetting
 
 @property (nonatomic, strong) NSNumber *onByDefault;
 @property (nonatomic, strong) NSNumber *on;
 
+- (BOOL)isOnByDefault;
 - (BOOL)isOn;
+- (BOOL)isToggled;
+
+- (void)toggleSetting:(id)sender;
 
 @end

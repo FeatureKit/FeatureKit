@@ -1,14 +1,14 @@
 //
-//  DNTDebugSettingSelect+UITableViewDataSource.m
+//  DNTSelectOptionSetting+UITableViewDataSource.m
 //  Pods
 //
 //  Created by Daniel Thorpe on 01/05/2014.
 //
 //
 
-#import "DNTDebugSettingSelect+UITableViewDataSource.h"
+#import "DNTSelectOptionSetting+UITableViewDataSource.h"
 
-@implementation DNTDebugSettingSelect (UITableViewDataSource)
+@implementation DNTSelectOptionSetting (UITableViewDataSource)
 
 #pragma mark - UITableViewDataSource
 

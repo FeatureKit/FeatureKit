@@ -35,11 +35,11 @@ static YapDatabase *__database;
 #pragma mark - DNTSettingsService
 
 - (void)settingWithKey:(id)key update:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion {
-    return [self settingWithKey:key update:update database:self.database collection:self.collection completion:completion];
+    [self settingWithKey:key update:update database:self.database collection:self.collection completion:completion];
 }
 
-- (void)updateSettings:(NSArray *)settings update:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion {
-    return [self updateSettings:settings update:update database:self.database collection:self.collection completion:completion];
+- (void)updateSettings:(NSArray *)settings update:(DNTSettingArrayUpdateBlock)update completion:(DNTVoidCompletionBlock)completion {
+    [self updateSettings:settings update:update database:self.database collection:self.collection completion:completion];
 }
 
 #pragma mark - Public API
@@ -58,7 +58,7 @@ static YapDatabase *__database;
     }];
 }
 
-- (void)updateSettings:(NSArray *)settings update:(DNTSettingUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion {
+- (void)updateSettings:(NSArray *)settings update:(DNTSettingArrayUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion {
 
     YapDatabaseConnection *connection = [database newConnection];
     [connection asyncReadWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
@@ -66,10 +66,11 @@ static YapDatabase *__database;
         for ( id object in settings ) {
             if ( [object conformsToProtocol:@protocol(DNTSetting)] ) {
                 id <DNTSetting> setting = (id <DNTSetting>)object;
+                id <DNTSetting> existing = [transaction objectForKey:setting.key inCollection:collection];
                 if (update) {
-                    setting = update((id <DNTSetting>)object, transaction);
+                    setting = update(existing, setting, transaction);
                 }
-                [transaction setObject:settings forKey:setting.key inCollection:collection];
+                [transaction setObject:setting forKey:setting.key inCollection:collection];
             }
         }
     } completionBlock:^{

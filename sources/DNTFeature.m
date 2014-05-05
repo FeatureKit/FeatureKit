@@ -25,7 +25,7 @@
     return @"dnt.features";
 }
 
-+ (id <DNTSettingsService>)service {
++ (id <DNTFeaturesService>)service {
     id <DNTSettingsService> service = [DNTFeaturesService service];
     service.collection = [self collection];
     return service;

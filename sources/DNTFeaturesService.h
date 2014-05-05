@@ -12,6 +12,8 @@
 
 - (void)resetToDefaults;
 
+- (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion;
+
 @end
 
 @interface DNTFeaturesService : DNTSettingsService <DNTFeaturesService>

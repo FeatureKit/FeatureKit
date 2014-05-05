@@ -37,4 +37,14 @@
     [self updateSettings:requireSaving update:nil database:database collection:collection completion:nil];
 }
 
+- (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion {
+    [self updateSettings:features update:^id<DNTSetting>(id<DNTSetting> existing, id<DNTSetting> setting, YapDatabaseReadWriteTransaction *transaction) {
+        if (existing) {
+            [existing updateFromSetting:setting];
+            return existing;
+        }
+        return setting;
+    } completion:completion];
+}
+
 @end

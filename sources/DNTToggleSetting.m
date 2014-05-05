@@ -14,7 +14,6 @@
     self = [super initWithKey:key title:title group:group];
     if (self) {
         _onByDefault = @NO;
-        _on = @NO;
     }
     return self;
 }

@@ -14,6 +14,8 @@
 
 typedef void(^DNTVoidCompletionBlock)(void);
 typedef id <DNTSetting>(^DNTSettingUpdateBlock)(id <DNTSetting> setting, YapDatabaseReadWriteTransaction *transaction);
+typedef id <DNTSetting>(^DNTSettingArrayUpdateBlock)(id <DNTSetting> existing, id <DNTSetting> setting, YapDatabaseReadWriteTransaction *transaction);
+
 
 @protocol DNTSettingsService <NSObject>
 
@@ -24,7 +26,7 @@ typedef id <DNTSetting>(^DNTSettingUpdateBlock)(id <DNTSetting> setting, YapData
 
 - (void)settingWithKey:(id)key update:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion;
 
-- (void)updateSettings:(NSArray *)settings update:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion;
+- (void)updateSettings:(NSArray *)settings update:(DNTSettingArrayUpdateBlock)update completion:(DNTVoidCompletionBlock)completion;
 
 @end
 
@@ -32,7 +34,7 @@ typedef id <DNTSetting>(^DNTSettingUpdateBlock)(id <DNTSetting> setting, YapData
 
 - (void)settingWithKey:(id)key update:(DNTSettingUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion;
 
-- (void)updateSettings:(NSArray *)settings update:(DNTSettingUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion;
+- (void)updateSettings:(NSArray *)settings update:(DNTSettingArrayUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion;
 
 @end
 

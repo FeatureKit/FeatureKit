@@ -52,6 +52,13 @@
     return [self isOn] != [self isOnByDefault];
 }
 
+- (void)toggleSetting:(id)sender {
+    [[[self class] service] settingWithKey:self.key update:^id<DNTSetting>(DNTToggleSetting *toggle, YapDatabaseReadWriteTransaction *transaction) {
+        toggle.on = toggle.on ? @(![toggle.on boolValue]) : @(![toggle.onByDefault boolValue]);
+        return toggle;
+    } completion:nil];
+}
+
 - (BOOL)updateFromSetting:(DNTToggleSetting *)setting {
     if ( [super updateFromSetting:setting] ) {
         self.onByDefault = setting.onByDefault;

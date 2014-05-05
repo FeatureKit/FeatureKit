@@ -62,13 +62,6 @@
 
 #pragma mark - Actions
 
-- (IBAction)toggleFeature:(UISwitch *)sender {
-    CGPoint center = [sender.superview convertPoint:sender.frame.origin toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
-    DNTFeature *feature = [self.dataProvider.dataSource objectAtIndexPath:indexPath];
-    [feature switchOnOrOff:sender.on];
-}
-
 - (IBAction)resetFeatures:(id)sender {
     [[DNTFeature service] resetToDefaults];
 }
@@ -79,7 +72,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)sender];
     if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingsControllerDependencies)) ) {
         DNTDebugSettingsControllerDependencies *container = [[DNTDebugSettingsControllerDependencies alloc] init];
-        container.feature = [self.dataProvider.dataSource objectAtIndexPath:indexPath];
+        container.feature = [self.dataProvider objectAtIndexPath:indexPath];
         return container;
     }
     return nil;

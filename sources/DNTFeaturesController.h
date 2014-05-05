@@ -12,7 +12,6 @@
 @interface DNTFeaturesController : UITableViewController <BSUIDependencyInjectionSource>
 
 /// @name Actions
-- (IBAction)toggleFeature:(id)sender;
 - (IBAction)resetFeatures:(id)sender;
 
 @end

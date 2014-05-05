@@ -10,8 +10,6 @@
 #import "DNTDebugSettingsDataProvider.h"
 #import "DNTFeatures.h"
 
-#import "DNTToggleCell.h"
-
 #import "DNTDebugSettingsControllerDependencies.h"
 #import "DNTDebugSettingSelectOptionsControllerDependencies.h"
 
@@ -42,87 +40,15 @@
 }
 
 - (void)configureDataProvider {
-    self.dataProvider = [[DNTDebugSettingsDataProvider alloc] initWithDatabase:[[DNTSetting service] database] collection:[[DNTSetting service] collection] feature:self.feature];
-    self.dataProvider.cellConfiguration = [self tableViewCellConfiguration];
-    self.dataProvider.headerTitleConfiguration = [self tableViewHeaderTitleConfiguration];
-    self.dataProvider.tableView = self.tableView;
-    self.tableView.dataSource = self.dataProvider;
-}
-
-#pragma mark - Table View Configuration
-
-- (DNTTableViewCellConfiguration)tableViewCellConfiguration {
-    DNT_WEAK_SELF
-    return ^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath, id object) {
-
-        if ( [object isKindOfClass:[DNTFeature class]] ) {
-            return [weakSelf configuredCellWithFeature:(DNTFeature *)object inTableView:tableView atIndexPath:indexPath];
-        } else if ( [object isKindOfClass:[DNTDebugSetting class]] ) {
-            DNTDebugSetting *setting = (DNTDebugSetting *)object;
-            if ( [setting isKindOfClass:[DNTToggleSetting class]] ) {
-                return [weakSelf configuredCellWithToggleSetting:(DNTToggleSetting *)setting inTableView:tableView atIndexPath:indexPath];
-            }
-            else if ( [setting isKindOfClass:[DNTSelectOptionSetting class]] ) {
-                return [weakSelf configuredCellWithSelectSetting:(DNTSelectOptionSetting *)setting inTableView:tableView atIndexPath:indexPath];
-            }
-        }
-        return nil;
-    };
-}
-
-- (UITableViewCell *)configuredCellWithFeature:(DNTFeature *)feature inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
-    DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
-    cell.textLabel.text = feature.title;
-    cell.toggle.enabled = [feature isEditable];
-    cell.toggle.on = [feature isOn];
-    cell.toggle.tintColor = cell.toggle.onTintColor = [feature isToggled] ? [UIColor redColor] : nil;
-    [cell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
-    [cell.contentView bringSubviewToFront:cell.toggle];
-    return cell;
-}
-
-- (UITableViewCell *)configuredCellWithToggleSetting:(DNTToggleSetting *)toggle inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
-    DNTToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Toggle" forIndexPath:indexPath];
-    cell.textLabel.text = toggle.title;
-    cell.toggle.enabled = [self.dataProvider.feature isOn];
-    cell.toggle.on = [toggle isOn];
-    cell.toggle.tintColor = cell.toggle.onTintColor = nil;
-    [cell.contentView bringSubviewToFront:cell.toggle];
-    return cell;
-}
-
-- (UITableViewCell *)configuredCellWithSelectSetting:(DNTSelectOptionSetting *)select inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Select" forIndexPath:indexPath];
-    cell.textLabel.text = select.title;
-    if ( [select.selectedIndexes count] > 1 ) {
-        cell.detailTextLabel.text = NSLocalizedString(@"Multiple", nil);
-    }
-    else {
-            cell.detailTextLabel.text = select.optionTitles[[select.selectedIndexes firstIndex]];
-    }
-    return cell;
-}
-
-- (DNTTableViewHeaderTitleConfiguration)tableViewHeaderTitleConfiguration {
-    return ^ NSString *(UITableView *tableView, NSInteger section, DNTDebugSetting *debug) {
-        return debug.setting.group ?: NSLocalizedString(@"Debug Settings", nil);
-    };
-}
-
-#pragma mark - Actions
-
-- (IBAction)toggleFeature:(UISwitch *)sender {
-    CGPoint center = [sender.superview convertPoint:sender.frame.origin toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:center];
-    DNTFeature *feature = [self.dataProvider objectAtIndexPath:indexPath];
-    [feature switchOnOrOff:sender.on];
-    self.feature = feature;
+    self.dataProvider = [[DNTDebugSettingsDataProvider alloc] initWithDatabase:[[DNTSetting service] database] feature:self.feature];
+    self.dataProvider.dataSource.tableView = self.tableView;
+    self.tableView.dataSource = self.dataProvider.dataSource;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ( [self.feature isOn] ) {
+    if ( [self.dataProvider.feature isOn] ) {
         id object = [self.dataProvider objectAtIndexPath:indexPath];
         if ( [object isKindOfClass:[DNTSelectOptionSetting class]] ) {
             [self performSegueWithIdentifier:@"pushSelectOptions" sender:object];
@@ -145,7 +71,7 @@
 - (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
     if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingSelectOptionsControllerDependencies)) ) {
         DNTDebugSettingSelectOptionsControllerDependencies *container = [[DNTDebugSettingSelectOptionsControllerDependencies alloc] init];
-        container.select = (DNTSelectOptionSetting *)((DNTDebugSetting *)sender).setting;
+        container.select = (DNTSelectOptionSetting *)sender;
         return container;
     }
     return nil;

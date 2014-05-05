@@ -26,5 +26,8 @@
     return nil;
 }
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.dataSource objectAtIndexPath:indexPath];
+}
 
 @end

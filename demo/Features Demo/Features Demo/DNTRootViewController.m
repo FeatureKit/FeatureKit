@@ -16,7 +16,6 @@
     [super viewDidLoad];
 
     // Add some features
-
     [[DNTFeature service] settingWithKey:@"feature.bonus" update:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
 
         if ( !feature ) {
@@ -37,39 +36,36 @@
         feature.onByDefault = @NO;
         feature.debugOptionsAvailable = YES;
 
-        [feature debugSettingWithKey:@"feature.sync.debug.verbose-logging" update:^DNTDebugSetting *(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
-            DNTToggleSetting *setting = (DNTToggleSetting *)debug.setting;
-            if ( !debug ) {
-                setting = [[DNTToggleSetting alloc] initWithKey:@"feature.sync.debug.verbose-logging" title:@"Verbose Logging" group:nil];
-                debug = [[DNTDebugSetting alloc] initWithSetting:setting];
+        [feature debugSettingWithKey:@"feature.sync.debug.verbose-logging" update:^id<DNTSetting>(DNTToggleSetting *toggle, YapDatabaseReadWriteTransaction *transaction) {
+            if ( !toggle ) {
+                toggle = [[DNTToggleSetting alloc] initWithKey:@"feature.sync.debug.verbose-logging" title:@"Verbose Logging" group:nil];
             }
-            setting.title = @"Verbose Logging";
-            setting.onByDefault = @NO;
-            debug.setting = setting;
-            return debug;
-
+            toggle.title = @"Verbose Logging";
+            toggle.onByDefault = @NO;
+            return toggle;
         } transaction:transaction];
 
-        [feature debugSettingWithKey:@"feature.sync.debug.mode" update:^DNTDebugSetting *(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
-            DNTSelectOptionSetting *setting = (DNTSelectOptionSetting *)debug.setting;
-            if ( !debug ) {
-                setting = [[DNTSelectOptionSetting alloc] initWithKey:@"feature.sync.debug.mode" title:@"Sync Mode" group:nil];
-                debug = [[DNTDebugSetting alloc] initWithSetting:setting];
+        [feature debugSettingWithKey:@"feature.sync.debug.mode" update:^id<DNTSetting>(DNTSelectOptionSetting *select, YapDatabaseReadWriteTransaction *transaction) {
+            if ( !select ) {
+                select = [[DNTSelectOptionSetting alloc] initWithKey:@"feature.sync.debug.mode" title:@"Sync Mode" group:nil];
             }
-            setting.title = @"Sync Mode";
-            setting.optionKeys = @[ @"standard", @"advanced", @"magic" ];
-            setting.optionTitles = @[ NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Advanced", nil), NSLocalizedString(@"Magic", nil) ];
-            setting.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
-            setting.multipleSelectionAllowed = NO;
-
-            debug.setting = setting;
-            return debug;
-
+            select.title = @"Sync Mode";
+            select.optionKeys = @[ @"standard", @"advanced", @"magic" ];
+            select.optionTitles = @[ NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Advanced", nil), NSLocalizedString(@"Magic", nil) ];
+            select.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
+            select.multipleSelectionAllowed = NO;
+            return select;
         } transaction:transaction];
 
         return feature;
 
     } completion:nil];
+
+    // For demonstration purpose, listen for when settings change.
+    [[NSNotificationCenter defaultCenter] addObserverForName:DNTSettingsDidChangeNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        id <DNTSetting> setting = note.userInfo[DNTSettingsNotificationSettingKey];
+        NSLog(@"%@%@", note.name, setting ? [NSString stringWithFormat:@", %@", setting] : nil);
+    }];
 }
 
 - (IBAction)unwindToRoot:(UIStoryboardSegue *)segue { }

@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import "DNTYapDatabaseDataSource.h"
+#import "DNTSettingsDataProvider.h"
 
 @class DNTFeature;
 
-@interface DNTDebugSettingsDataProvider : DNTYapDatabaseDataSource
+@interface DNTDebugSettingsDataProvider : DNTSettingsDataProvider
 
 @property (nonatomic, strong) DNTFeature *feature;
 
-- (id)initWithDatabase:(YapDatabase *)database collection:(NSString *)collection feature:(DNTFeature *)feature;
+- (id)initWithDatabase:(YapDatabase *)database feature:(DNTFeature *)feature;
 
 @end
 

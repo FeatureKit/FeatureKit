@@ -142,13 +142,14 @@
     [self.tableView beginUpdates];
 
     for ( YapDatabaseViewSectionChange *sectionChange in sectionChanges ) {
+        NSIndexSet *indexes = [NSIndexSet indexSetWithIndex:sectionChange.index];
         switch (sectionChange.type) {
             case YapDatabaseViewChangeDelete: {
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionChange.index] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView deleteSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
             } break;
 
             case YapDatabaseViewChangeInsert: {
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionChange.index] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertSections:indexes withRowAnimation:UITableViewRowAnimationAutomatic];
             } break;
 
             case YapDatabaseViewChangeMove:
@@ -159,22 +160,31 @@
     }
 
     for ( YapDatabaseViewRowChange *rowChange in rowChanges ) {
+
         switch (rowChange.type) {
             case YapDatabaseViewChangeDelete: {
-                [self.tableView deleteRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if ( !self.delegate || [self.delegate datasource:self shouldDeleteRowInTableView:self.tableView atIndexPath:rowChange.indexPath] ) {
+                    [self.tableView deleteRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
             } break;
 
             case YapDatabaseViewChangeInsert: {
-                [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if ( !self.delegate || [self.delegate datasource:self shouldInsertRowInTableView:self.tableView atIndexPath:rowChange.newIndexPath] ) {
+                    [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
             } break;
 
             case YapDatabaseViewChangeMove: {
-                [self.tableView deleteRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if ( !self.delegate || [self.delegate datasource:self shouldMoveRowInTableView:self.tableView fromIndexPath:rowChange.indexPath toIndexPath:rowChange.newIndexPath] ) {
+                    [self.tableView deleteRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView insertRowsAtIndexPaths:@[ rowChange.newIndexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
             } break;
 
             case YapDatabaseViewChangeUpdate: {
-                [self.tableView reloadRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+                if ( !self.delegate || [self.delegate datasource:self shouldReloadRowInTableView:self.tableView atIndexPath:rowChange.indexPath] ) {
+                    [self.tableView reloadRowsAtIndexPaths:@[ rowChange.indexPath ] withRowAnimation:UITableViewRowAnimationNone];
+                }
             } break;
         }
     }

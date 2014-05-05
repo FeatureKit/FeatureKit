@@ -26,6 +26,21 @@ typedef NSString * (^DNTTableViewFooterTitleConfiguration) (UITableView *tableVi
 - (YapDatabaseViewSortingBlock)createDatabaseViewSortingBlock;
 @end
 
+@class DNTYapDatabaseDataSource;
+
+@protocol DNTYapDatabaseDataSourceDelegate <NSObject>
+
+- (BOOL)datasource:(DNTYapDatabaseDataSource *)dataSource shouldDeleteRowInTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath;
+
+- (BOOL)datasource:(DNTYapDatabaseDataSource *)dataSource shouldInsertRowInTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath;
+
+
+- (BOOL)datasource:(DNTYapDatabaseDataSource *)dataSource shouldMoveRowInTableView:(UITableView *)tableView fromIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
+
+- (BOOL)datasource:(DNTYapDatabaseDataSource *)dataSource shouldReloadRowInTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 /**
  * @abstract
  * Generic data provider for settings.
@@ -34,6 +49,8 @@ typedef NSString * (^DNTTableViewFooterTitleConfiguration) (UITableView *tableVi
  * @notes It assumes that you need Object block types for the DatabaseView.
  */
 @interface DNTYapDatabaseDataSource : NSObject <UITableViewDataSource, DNTYapDatabaseDataSourceDefaultConfiguration>
+
+@property (nonatomic, weak) id <DNTYapDatabaseDataSourceDelegate> delegate;
 
 @property (nonatomic, strong) NSString *extensionName;
 @property (nonatomic, strong, readonly) NSString *collection;

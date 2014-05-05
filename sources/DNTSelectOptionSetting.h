@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import "DNTSetting.h"
+#import "DNTDebugSetting.h"
 
-@interface DNTSelectOptionSetting : DNTSetting
+@interface DNTSelectOptionSetting : DNTDebugSetting
 
 @property (nonatomic, strong) NSArray *optionTitles;
 @property (nonatomic, strong) NSArray *optionKeys;

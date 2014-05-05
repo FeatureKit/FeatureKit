@@ -17,7 +17,7 @@
 
 @interface DNTFeaturesDataProvider ( /* Private */ )
 
-@property (nonatomic, strong) NSString *collectionName;
+@property (nonatomic, strong) NSString *collection;
 - (YapDatabaseViewGroupingBlock)createDatabaseViewGroupingBlock;
 - (YapDatabaseViewSortingBlock)createDatabaseViewSortingBlock;
 
@@ -32,8 +32,8 @@
 - (id)initWithDatabase:(YapDatabase *)database {
     self = [super initWithDatabase:database];
     if (self) {
-        _collectionName = [[DNTFeature service] collection];
-        self.dataSource = [[DNTYapDatabaseDataSource alloc] initWithDatabase:self.database collection:_collectionName name:VIEW_NAME];
+        _collection = [[DNTFeature service] collection];
+        self.dataSource = [[DNTYapDatabaseDataSource alloc] initWithDatabase:self.database collection:_collection name:VIEW_NAME];
         self.dataSource.databaseViewGroupingBlock = [self createDatabaseViewGroupingBlock];
         self.dataSource.databaseViewSortingBlock = [self createDatabaseViewSortingBlock];
         self.dataSource.cellConfiguration = [self createTableViewCellConfigurationBlock];
@@ -45,7 +45,7 @@
 #pragma mark - Datasource Configuration
 
 - (YapDatabaseViewGroupingBlock)createDatabaseViewGroupingBlock {
-    NSString *collection = self.collectionName;
+    NSString *collection = self.collection;
     return ^NSString *(NSString *collectionName, NSString *key, DNTFeature *feature) {
         NSString *group = nil;
         if ( [collectionName isEqualToString:collection] ) {
@@ -78,7 +78,8 @@
             toggleCell.toggle.enabled = feature.editable;
             toggleCell.toggle.on = [feature isOn];
             toggleCell.toggle.tintColor = toggleCell.toggle.onTintColor = [feature isToggled] ? [UIColor redColor] : nil;
-            [toggleCell.toggle addTarget:self action:@selector(toggleFeature:) forControlEvents:UIControlEventValueChanged];
+            [toggleCell.toggle removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+            [toggleCell.toggle addTarget:feature action:@selector(toggleSetting:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView bringSubviewToFront:toggleCell.toggle];
         }
         return cell;

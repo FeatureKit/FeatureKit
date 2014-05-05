@@ -9,6 +9,8 @@
 #import "DNTFeature.h"
 #import "DNTFeaturesService.h"
 
+#import <YapDatabase/YapDatabaseTransaction.h>
+
 @interface DNTFeature ( /* Private */ )
 
 //- (void)modify:(void(^)(DNTFeature *feature))modifications;
@@ -46,12 +48,19 @@
 
 #pragma mark - Public API
 
-- (void)switchOnOrOff:(BOOL)onOrOff {
-    [[[self class] service] settingWithKey:self.key update:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
-        feature.on = @(onOrOff);
-        return feature;
-    } completion:nil];
+- (void)debugSettingWithKey:(id)key update:(DNTSettingUpdateBlock)update transaction:(YapDatabaseReadWriteTransaction *)transaction {
+    NSString *collection = [DNTSetting collection];
+    DNTDebugSetting *debug = (DNTDebugSetting *)update([transaction objectForKey:key inCollection:collection], transaction);
+    debug.featureKey = self.key;
+    [transaction setObject:debug forKey:key inCollection:collection];
 }
+
+//- (void)switchOnOrOff:(BOOL)onOrOff {
+//    [[[self class] service] settingWithKey:self.key update:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
+//        feature.on = @(onOrOff);
+//        return feature;
+//    } completion:nil];
+//}
 
 //#pragma mark - Service
 //

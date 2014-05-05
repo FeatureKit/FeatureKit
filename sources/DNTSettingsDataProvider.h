@@ -20,5 +20,8 @@
 
 - (DNTTableViewCellConfiguration)createTableViewCellConfigurationBlock;
 - (DNTTableViewHeaderTitleConfiguration)createTableViewHeaderTitleConfigurationBlock;
+
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
-#import "DNTSetting.h"
+#import "DNTDebugSetting.h"
 
-@interface DNTToggleSetting : DNTSetting
+@interface DNTToggleSetting : DNTDebugSetting
 
 @property (nonatomic, strong) NSNumber *onByDefault;
 @property (nonatomic, strong) NSNumber *on;
@@ -16,5 +16,7 @@
 - (BOOL)isOnByDefault;
 - (BOOL)isOn;
 - (BOOL)isToggled;
+
+- (void)toggleSetting:(id)sender;
 
 @end

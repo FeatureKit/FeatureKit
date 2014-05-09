@@ -21,7 +21,7 @@
         if ( !feature ) {
             feature = [[DNTFeature alloc] initWithKey:@"feature.bonus" title:@"Show bonus content" group:@"Application Features"];
         }
-        feature.title = NSLocalizedString(@"Show bonus content", nil);
+        feature.title = @"Show bonus content";
         feature.onByDefault = @NO;
         return feature;
 
@@ -32,7 +32,7 @@
         if ( !feature ) {
             feature = [[DNTFeature alloc] initWithKey:@"feature.sync" title:@"New Sync" group:@"In Development"];
         }
-        feature.title = NSLocalizedString(@"New sync", nil);
+        feature.title = @"New sync";
         feature.onByDefault = @NO;
         feature.debugOptionsAvailable = YES;
 
@@ -51,10 +51,22 @@
             }
             select.title = @"Sync Mode";
             select.optionKeys = @[ @"standard", @"advanced", @"magic" ];
-            select.optionTitles = @[ NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Advanced", nil), NSLocalizedString(@"Magic", nil) ];
+            select.optionTitles = @[ @"Standard", @"Advanced", @"Magic" ];
             select.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
             select.multipleSelectionAllowed = NO;
             return select;
+        } transaction:transaction];
+
+        [feature debugSettingWithKey:@"feature.sync.debug.clear-cache" update:^id<DNTSetting>(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
+            if ( !debug ) {
+                debug = [[DNTDebugSetting alloc] initWithKey:@"feature.sync.debug.clear-cache" title:@"Clear Cache" group:nil];
+            }
+
+            debug.title = @"Clear Cache";
+            debug.userInfo[@"special key"] = @"special value";
+            debug.notificationName = @"ClearCacheNotification";
+            return debug;
+
         } transaction:transaction];
 
         return feature;
@@ -66,6 +78,12 @@
         id <DNTSetting> setting = note.userInfo[DNTSettingsNotificationSettingKey];
         NSLog(@"%@%@", note.name, setting ? [NSString stringWithFormat:@", %@", setting] : nil);
     }];
+
+    // For demonstration purpose, listen for when settings change.
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"ClearCacheNotification" object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {
+        NSLog(@"%@ userInfo: %@", note.name, note.userInfo ?: @"none");
+    }];
+
 }
 
 - (IBAction)unwindToRoot:(UIStoryboardSegue *)segue { }

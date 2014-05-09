@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB4244D744F4C318528C956 /* libPods.a */; };
+		651C60EF191A94840010D0A3 /* DNTButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 651C60EE191A94840010D0A3 /* DNTButtonCell.m */; };
 		6526A22519159E2500E089CC /* DNTYapDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6526A22419159E2500E089CC /* DNTYapDatabaseDataSource.m */; };
 		6551EF40190A7C2400A37B47 /* DNTFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF3F190A7C2400A37B47 /* DNTFeature.m */; };
 		6551EF44190A828F00A37B47 /* YapDatabase+DNTFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF43190A828F00A37B47 /* YapDatabase+DNTFeatures.m */; };
@@ -62,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		57295270A62A4A33BDE7BDB6 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		651C60ED191A94840010D0A3 /* DNTButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTButtonCell.h; path = ../../sources/DNTButtonCell.h; sourceTree = "<group>"; };
+		651C60EE191A94840010D0A3 /* DNTButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTButtonCell.m; path = ../../sources/DNTButtonCell.m; sourceTree = "<group>"; };
 		6526A22319159E2500E089CC /* DNTYapDatabaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTYapDatabaseDataSource.h; path = ../../sources/DNTYapDatabaseDataSource.h; sourceTree = "<group>"; };
 		6526A22419159E2500E089CC /* DNTYapDatabaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DNTYapDatabaseDataSource.m; path = ../../sources/DNTYapDatabaseDataSource.m; sourceTree = "<group>"; };
 		6551EF3E190A7C2400A37B47 /* DNTFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTFeature.h; path = ../../sources/DNTFeature.h; sourceTree = "<group>"; };
@@ -146,6 +149,10 @@
 		6551EF41190A7C3400A37B47 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				65646FD61916B6400080B144 /* DNTSettingsService.h */,
+				65646FD71916B6400080B144 /* DNTSettingsService.m */,
+				65646FD91916CAD90080B144 /* DNTFeaturesService.h */,
+				65646FDA1916CAD90080B144 /* DNTFeaturesService.m */,
 				6551F01419111AEC00A37B47 /* Models */,
 				6551EF99190AD1FB00A37B47 /* Debug */,
 				6551EF42190A828F00A37B47 /* YapDatabase+DNTFeatures.h */,
@@ -153,10 +160,6 @@
 				6551EF49190A890600A37B47 /* Controllers */,
 				6551EF4D190A8A1300A37B47 /* DNTFeatures.h */,
 				6551EF4E190A8A1300A37B47 /* DNTFeatures.m */,
-				65646FD61916B6400080B144 /* DNTSettingsService.h */,
-				65646FD71916B6400080B144 /* DNTSettingsService.m */,
-				65646FD91916CAD90080B144 /* DNTFeaturesService.h */,
-				65646FDA1916CAD90080B144 /* DNTFeaturesService.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -164,6 +167,8 @@
 		6551EF49190A890600A37B47 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				651C60ED191A94840010D0A3 /* DNTButtonCell.h */,
+				651C60EE191A94840010D0A3 /* DNTButtonCell.m */,
 				6551EFA7190AE23400A37B47 /* DNTDebugSettingsController.h */,
 				6551EFA8190AE23400A37B47 /* DNTDebugSettingsController.m */,
 				6551F01519111B1A00A37B47 /* DNTDebugSettingsDataProvider.h */,
@@ -451,6 +456,7 @@
 				65646FD51916A8840080B144 /* DNTSetting.m in Sources */,
 				6551EFA9190AE23400A37B47 /* DNTDebugSettingsController.m in Sources */,
 				6551EF48190A88BE00A37B47 /* DNTFeaturesController.m in Sources */,
+				651C60EF191A94840010D0A3 /* DNTButtonCell.m in Sources */,
 				6551EFA2190AD62600A37B47 /* DNTSelectOptionSetting.m in Sources */,
 				6551EF9F190AD4E900A37B47 /* DNTToggleSetting.m in Sources */,
 			);

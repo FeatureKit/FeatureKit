@@ -19,8 +19,10 @@
 
 @property (nonatomic, strong) NSString *group;
 @property (nonatomic, strong) NSNumber *groupOrder;
-
+@property (nonatomic, strong) NSMutableDictionary *userInfo;
 @property (nonatomic, getter = isEditable) BOOL editable;
+
+@property (nonatomic, strong) NSString *notificationName;
 
 - (NSComparisonResult)compareWithOtherSetting:(id <DNTSetting>)setting;
 
@@ -35,13 +37,14 @@
 
 @interface DNTSetting : NSObject <DNTSetting, NSCoding>
 
-// Not persisted
-@property (nonatomic, strong) NSMutableDictionary *userInfo;
-
 - (id)initWithKey:(id)key title:(NSString *)title group:(NSString *)group;
 
 + (NSInteger)version;
 
+@end
+
+@protocol DNTSettingServiceTestSupport <NSObject>
++ (id <DNTSettingsService>)serviceTest;
 @end
 
 #import "DNTSettingsService.h"

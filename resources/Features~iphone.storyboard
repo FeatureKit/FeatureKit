@@ -153,22 +153,31 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Button" rowHeight="48" id="rJQ-cK-5X6">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Button" rowHeight="48" id="rJQ-cK-5X6" customClass="DNTButtonCell">
                                 <rect key="frame" x="0.0" y="199" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rJQ-cK-5X6" id="dZ6-Kj-ZAe">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEx-um-J0k">
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEx-um-J0k">
                                             <rect key="frame" x="20" y="9" width="280" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Button">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="tEx-um-J0k" secondAttribute="trailing" constant="20" symbolic="YES" id="C1L-cp-QQg"/>
+                                        <constraint firstItem="tEx-um-J0k" firstAttribute="top" secondItem="dZ6-Kj-ZAe" secondAttribute="top" constant="9" id="WMb-iv-DB8"/>
+                                        <constraint firstItem="tEx-um-J0k" firstAttribute="leading" secondItem="dZ6-Kj-ZAe" secondAttribute="leading" constant="20" symbolic="YES" id="iNy-Bf-6id"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="tEx-um-J0k" id="G9k-vw-Xtf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

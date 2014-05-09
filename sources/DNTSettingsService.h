@@ -41,5 +41,5 @@ typedef id <DNTSetting>(^DNTSettingArrayUpdateBlock)(id <DNTSetting> existing, i
 /// @name Constants
 extern NSString * const DNTSettingsDidChangeNotification;
 extern NSString * const DNTSettingsNotificationSettingKey;
-
+extern NSString * const DNTSettingDidInvokeNotifcation;
 

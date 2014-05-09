@@ -9,5 +9,4 @@
 #import "DNTToggleCell.h"
 
 @implementation DNTToggleCell
-
 @end

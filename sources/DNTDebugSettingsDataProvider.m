@@ -12,6 +12,7 @@
 #import "DNTSelectOptionSetting.h"
 
 #import "DNTToggleCell.h"
+#import "DNTButtonCell.h"
 
 #define VIEW_NAME @"debug-settings.view"
 
@@ -88,6 +89,9 @@
             else if ( [debug isKindOfClass:[DNTSelectOptionSetting class]] ) {
                 return [weakSelf configuredCellWithSelectSetting:(DNTSelectOptionSetting *)debug inTableView:tableView atIndexPath:indexPath];
             }
+            else {
+                return [weakSelf configuredCellWithSetting:debug inTableView:tableView atIndexPath:indexPath];
+            }
         }
         return nil;
     };
@@ -130,12 +134,18 @@
     return cell;
 }
 
+- (UITableViewCell *)configuredCellWithSetting:(DNTDebugSetting *)setting inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+    DNTButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Button" forIndexPath:indexPath];
+    [cell.button setTitle:setting.title forState:UIControlStateNormal];
+    cell.button.enabled = [self.feature isOn];
+    [cell.button removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+    [cell.button addTarget:setting action:@selector(invoke:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
 - (DNTTableViewHeaderTitleConfiguration)createTableViewHeaderTitleConfigurationBlock {
     return ^ NSString *(UITableView *tableView, NSInteger section, id object) {
-        if ( [object conformsToProtocol:@protocol(DNTSetting)] ) {
-            return [(id <DNTSetting>)object group];
-        }
-        return ((DNTDebugSetting *)object).group ?: NSLocalizedString(@"Debug Settings", nil);
+        return [(id <DNTSetting>)object group] ?: NSLocalizedString(@"Debug Settings", nil);
     };
 }
 

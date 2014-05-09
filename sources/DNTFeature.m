@@ -26,7 +26,7 @@
 }
 
 + (id <DNTFeaturesService>)service {
-    id <DNTSettingsService> service = [DNTFeaturesService service];
+    id <DNTFeaturesService> service = [DNTFeaturesService service];
     service.collection = [self collection];
     return service;
 }

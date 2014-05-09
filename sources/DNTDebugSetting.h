@@ -13,5 +13,8 @@
 
 @interface DNTDebugSetting : DNTSetting
 @property (nonatomic, strong) NSString *featureKey;
+
+- (void)invoke:(id)sender;
+
 @end
 

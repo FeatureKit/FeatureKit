@@ -1,4 +1,4 @@
-//
+    //
 //  DNTSetting.m
 //  DNTFeatures
 //
@@ -17,7 +17,9 @@
 @synthesize parentSettingKey = _parentSettingKey;
 @synthesize group = _group;
 @synthesize groupOrder = _groupOrder;
+@synthesize userInfo = _userInfo;
 @synthesize editable = _editable;
+@synthesize notificationName = _notificationName;
 
 + (NSInteger)version {
     return 1;
@@ -38,6 +40,7 @@
         _groupOrder = @0;
         _userInfo = [NSMutableDictionary dictionary];
         _editable = YES;
+        _notificationName = nil;
     }
     return self;
 }
@@ -56,7 +59,9 @@
     [aCoder encodeObject:_parentSettingKey forKey:DNT_STRING(_parentSettingKey)];
     [aCoder encodeObject:_group forKey:DNT_STRING(_group)];
     [aCoder encodeObject:_groupOrder forKey:DNT_STRING(_groupOrder)];
+    [aCoder encodeObject:_userInfo forKey:DNT_STRING(_userInfo)];
     [aCoder encodeBool:_editable forKey:DNT_STRING(_editable)];
+    [aCoder encodeObject:_notificationName forKey:DNT_STRING(_notificationName)];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -74,6 +79,7 @@
         _groupOrder = [aDecoder decodeObjectForKey:DNT_STRING(_groupOrder)];
         _userInfo = [aDecoder decodeObjectForKey:DNT_STRING(_userInfo)] ?: [NSMutableDictionary dictionary];
         _editable = [aDecoder decodeBoolForKey:DNT_STRING(_editable)];
+        _notificationName = [aDecoder decodeObjectForKey:DNT_STRING(_notificationName)];
     }
     return self;
 }

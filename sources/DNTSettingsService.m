@@ -54,7 +54,13 @@ static YapDatabase *__database;
         [transaction setObject:setting forKey:key inCollection:collection];
     } completionBlock:^{
         if (completion) completion();
-        [[NSNotificationCenter defaultCenter] postNotificationName:DNTSettingsDidChangeNotification object:self userInfo:@{ DNTSettingsNotificationSettingKey : setting }];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        if ( setting.notificationName ) {
+            [nc postNotificationName:setting.notificationName object:self userInfo:@{ DNTSettingsNotificationSettingKey : setting }];
+        }
+        else {
+            [nc postNotificationName:DNTSettingsDidChangeNotification object:self userInfo:@{ DNTSettingsNotificationSettingKey : setting }];
+        }
     }];
 }
 
@@ -75,7 +81,8 @@ static YapDatabase *__database;
         }
     } completionBlock:^{
         if (completion) completion();
-        [[NSNotificationCenter defaultCenter] postNotificationName:DNTSettingsDidChangeNotification object:self];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc postNotificationName:DNTSettingsDidChangeNotification object:self];
     }];
 }
 
@@ -84,4 +91,5 @@ static YapDatabase *__database;
 #pragma mark - Constants
 NSString * const DNTSettingsDidChangeNotification = @"DNTSettingsDidChangeNotificationName";
 NSString * const DNTSettingsNotificationSettingKey = @"DNTSettingsNotificationSettingKey";
+NSString * const DNTSettingDidInvokeNotifcation = @"DNTSettingDidInvokeNotifcation";
 

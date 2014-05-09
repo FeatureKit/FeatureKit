@@ -27,4 +27,9 @@
     return self;
 }
 
+- (void)invoke:(id)sender {
+    NSString *notificationName = self.notificationName ?: DNTSettingDidInvokeNotifcation;
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self userInfo:@{ DNTSettingsNotificationSettingKey : self }];
+}
+
 @end

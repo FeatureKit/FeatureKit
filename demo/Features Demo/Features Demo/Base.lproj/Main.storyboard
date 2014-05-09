@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38o-a1-x6A">
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38o-a1-x6A">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -68,6 +68,12 @@
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="38o-a1-x6A" secondAttribute="trailing" id="EYn-Om-aol"/>
+                            <constraint firstItem="38o-a1-x6A" firstAttribute="leading" secondItem="nQV-pz-Eqp" secondAttribute="leading" id="pAt-aX-BfU"/>
+                            <constraint firstItem="38o-a1-x6A" firstAttribute="top" secondItem="nQV-pz-Eqp" secondAttribute="top" id="pQo-cv-A11"/>
+                            <constraint firstAttribute="bottom" secondItem="38o-a1-x6A" secondAttribute="bottom" id="wtW-Tr-s5o"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Features" id="V8b-Vx-XuM">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="jui-Fg-xkQ">
@@ -93,7 +99,7 @@
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="aun-z3-hln">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.1391278369" blue="0.44172273200000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <userDefinedRuntimeAttributes>

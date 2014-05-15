@@ -14,6 +14,12 @@ Warning
 =======
 DNTFeatures is not 1.0 yet, and it is not save to use in production code yet. However, this is actually the third time I've written this component, and the 2nd version is live in a app which handles 10M launches per day.
 
+Installation
+============
+At the moment, the .podspec for DNTFeatures is not public, so for now, the easiest way to use this in your application is to drag drag the project file into your project. Or if using CocoaPods
+
+    pod 'DNTFeatures', :path => 'where/you/downloaded/it/then/moved/'
+
 
 Requirements
 ============

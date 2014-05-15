@@ -1,7 +1,7 @@
 DNTFeatures
 ===========
 
-DNTFeatures is a small collection of classes which enable you, and iOS app developer, to use feature flags in your code.
+DNTFeatures is a small collection of classes which enable you, an iOS app developer, to use feature flags in your app.
 
 During development using Features flags enable you to protect code which hasn't been completed or tested yet. This code is safe to merge into your main development branch, meaning that large features, or development efforts can be done on branches which don't exist for a long time. This minimises risk, aides collaboration with other developers, help QA perform comparisons manually, and with a little bit of server work can even help you ease release of a new feature once your app goes live.
 

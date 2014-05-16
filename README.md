@@ -12,7 +12,7 @@ Tap twice with two fingers to bring up the Features controller where flags can b
 
 Warning
 =======
-DNTFeatures is not 1.0 yet, and it is not save to use in production code yet. However, this is actually the third time I've written this component, and the 2nd version is live in a app which handles 10M launches per day.
+DNTFeatures is not 1.0 yet, and it is not safe to use in production code yet. However, this is actually the third time I've written this component, and the 2nd version is live in a app which handles 10M launches per day.
 
 Installation
 ============

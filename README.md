@@ -16,7 +16,7 @@ DNTFeatures is not 1.0 yet, and it is not save to use in production code yet. Ho
 
 Installation
 ============
-At the moment, the .podspec for DNTFeatures is not public, so for now, the easiest way to use this in your application is to drag drag the project file into your project. Or if using CocoaPods
+At the moment, the .podspec for DNTFeatures is not public, so for now, the easiest way to use this in your application is to drag the project file into your project. Or if using CocoaPods
 
     pod 'DNTFeatures', :path => 'where/you/downloaded/it/then/moved/'
 

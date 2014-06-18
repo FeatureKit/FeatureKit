@@ -653,6 +653,12 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "DNTFeaturesTests/DNTFeaturesTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -670,6 +676,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
 				INFOPLIST_FILE = "DNTFeaturesTests/DNTFeaturesTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};

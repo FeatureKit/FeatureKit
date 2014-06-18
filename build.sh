@@ -12,4 +12,5 @@ env | grep BUILDBOX
 # Update the submodules
 git submodule update --init --recursive --remote
 
+./buildscripts/pods.sh
 ./buildscripts/test.sh -s DNTFeatures

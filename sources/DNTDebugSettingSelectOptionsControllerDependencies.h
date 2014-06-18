@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BSUIViewControllerDependencyInjection.h"
+#import "DNTDependencyInjection.h"
 
 @class DNTSelectOptionSetting;
 
-@protocol DNTDebugSettingSelectOptionsControllerDependencies <BSUIDependencyContainer>
+@protocol DNTDebugSettingSelectOptionsControllerDependencies <DNTDependencyContainer>
 @property (nonatomic, strong) DNTSelectOptionSetting *select;
 @end
 

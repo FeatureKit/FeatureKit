@@ -1,8 +1,4 @@
 PODS:
-  - BSPlatform/Production/Foundation/Core (0.1.13):
-    - CocoaLumberjack (= 1.6.3)
-  - BSPlatform/Production/UI (0.1.13):
-    - BSPlatform/Production/Foundation/Core
   - CocoaLumberjack (1.6.5.1):
     - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
@@ -18,14 +14,12 @@ PODS:
     - YapDatabase/common
 
 DEPENDENCIES:
-  - BSPlatform/Production/UI
   - OCMock (~> 2.0)
-  - YapDatabase (~> 2.4)
+  - YapDatabase (~> 2)
 
 SPEC CHECKSUMS:
-  BSPlatform: 55dd502584d4fc8b189ed8bda1263d23074b30cc
-  CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
-  OCMock: 5008fae4b4789b8fc3e48cd7660f2eb5ef8ce89e
-  YapDatabase: 051a7930e3b92097470fe7bcf58d4b715d79997e
+  CocoaLumberjack: baf4a09a3bcbdfea3363556a90104e026d3504e2
+  OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
+  YapDatabase: 269e2799fe19c7a517521783b909d11873dcb0c8
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1

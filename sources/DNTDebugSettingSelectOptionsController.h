@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BSUIViewControllerDependencyInjection.h"
+#import "DNTDependencyInjection.h"
 
 @class DNTSelectOptionSetting;
 
-@interface DNTDebugSettingSelectOptionsController : UITableViewController <BSUIDependencyInjectionDestination>
+@interface DNTDebugSettingSelectOptionsController : UITableViewController <DNTDependencyInjectionDestination>
 @property (nonatomic, strong) DNTSelectOptionSetting *select;
 @end

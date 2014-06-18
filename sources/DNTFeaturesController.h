@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BSUIViewControllerDependencyInjection.h"
+#import "DNTDependencyInjection.h"
 
-@interface DNTFeaturesController : UITableViewController <BSUIDependencyInjectionSource>
+@interface DNTFeaturesController : UITableViewController <DNTDependencyInjectionSource>
 
 /// @name Actions
 - (IBAction)resetFeatures:(id)sender;

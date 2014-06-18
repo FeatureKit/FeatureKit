@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BSUIViewControllerDependencyInjection.h"
+#import "DNTDependencyInjection.h"
 
 @class DNTFeature;
 @class DNTDebugSettingsDataProvider;
 
-@interface DNTDebugSettingsController : UITableViewController <BSUIDependencyInjectionDestination, BSUIDependencyInjectionSource>
+@interface DNTDebugSettingsController : UITableViewController <DNTDependencyInjectionDestination, DNTDependencyInjectionSource>
 @property (nonatomic, strong) DNTFeature *feature;
 @property (nonatomic, strong) DNTDebugSettingsDataProvider *dataProvider;
 @end

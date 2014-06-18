@@ -27,10 +27,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.platform     = :ios, "7.0"
 
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-
   s.source       = { :git => "https://github.com:danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
   s.source_files  = "sources/*.{h,m}"
   s.prefix_header_contents = '''
@@ -39,13 +35,11 @@ Pod::Spec.new do |s|
     #define DNT_STRING(value) (@#value)
     #define DNT_YESNO(value) value ? @"YES" : @"NO"
     #define DNT_PRETTY_METHOD NSStringFromSelector(_cmd)
-    #import <BSPlatform/UI.h>
   #endif
   '''    
   s.resources = "sources/*.{storyboard,xib}", "resources/*.{storyboard,xib}"
   s.requires_arc = true
 
   s.xcconfig = { "DNTFEATURES_VERSION" => "#{s.version}" }
-  s.dependency "YapDatabase", "~> 2.4"
-  s.dependency "BSPlatform/Production/UI"
+  s.dependency "YapDatabase", "~> 2"
 end

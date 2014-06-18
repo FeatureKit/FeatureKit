@@ -56,7 +56,13 @@
     }
 }
 
-#pragma mark - BSUIDependencyInjectionDestination
+#pragma mark - Storyboards
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
+
+#pragma mark - DNTDependencyInjectionDestination
 
 + (Protocol *)expectedDependencyContainerInterface {
     return @protocol(DNTDebugSettingsControllerDependencies);
@@ -66,10 +72,10 @@
     self.feature = container.feature;
 }
 
-#pragma mark - BSUIDependencyInjectionSource
+#pragma mark - DNTDependencyInjectionSource
 
-- (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
-    if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingSelectOptionsControllerDependencies)) ) {
+- (id <DNTDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
+    if ( DNTProtocolIsEqual(protocol, @protocol(DNTDebugSettingSelectOptionsControllerDependencies)) ) {
         DNTDebugSettingSelectOptionsControllerDependencies *container = [[DNTDebugSettingSelectOptionsControllerDependencies alloc] init];
         container.select = (DNTSelectOptionSetting *)sender;
         return container;

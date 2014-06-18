@@ -66,11 +66,11 @@
     [[DNTFeature service] resetToDefaults];
 }
 
-#pragma mark - BSUIDependencyInjectionSource
+#pragma mark - DNTDependencyInjectionSource
 
-- (id <BSUIDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
+- (id <DNTDependencyContainer>)dependencyContainerForProtocol:(Protocol *)protocol sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)sender];
-    if ( BSUIProtocolIsEqual(protocol, @protocol(DNTDebugSettingsControllerDependencies)) ) {
+    if ( DNTProtocolIsEqual(protocol, @protocol(DNTDebugSettingsControllerDependencies)) ) {
         DNTDebugSettingsControllerDependencies *container = [[DNTDebugSettingsControllerDependencies alloc] init];
         container.feature = [self.dataProvider objectAtIndexPath:indexPath];
         return container;

@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BSPlatform/BSUIViewControllerDependencyInjection.h>
+#import "DNTDependencyInjection.h"
 
 @class DNTFeature;
 
-@protocol DNTDebugSettingsControllerDependencies <BSUIDependencyContainer>
+@protocol DNTDebugSettingsControllerDependencies <DNTDependencyContainer>
 @property (nonatomic, strong) DNTFeature *feature;
 @end
 

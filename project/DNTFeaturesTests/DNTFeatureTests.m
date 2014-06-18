@@ -1,18 +1,18 @@
 //
-//  Features_DemoTests.m
-//  Features DemoTests
+//  DNTFeatureTests.m
+//  DNTFeatures
 //
-//  Created by Daniel Thorpe on 25/04/2014.
+//  Created by Daniel Thorpe on 18/06/2014.
 //  Copyright (c) 2014 Daniel Thorpe. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface Features_DemoTests : XCTestCase
+@interface DNTFeatureTests : XCTestCase
 
 @end
 
-@implementation Features_DemoTests
+@implementation DNTFeatureTests
 
 - (void)testExample {
     // This is an example of a functional test case.

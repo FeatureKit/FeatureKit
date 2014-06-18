@@ -30,6 +30,7 @@
 		65646FE31916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FDF1916DDE10080B144 /* DNTDebugSettingSelectOptionsControllerDependencies.m */; };
 		65646FE41916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE11916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m */; };
 		65646FE71916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */; };
+		65A1BC79195204450049B92D /* DNTFeatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A1BC78195204450049B92D /* DNTFeatureTests.m */; };
 		65D6D60F1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D60E1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m */; };
 		65D6D6151951D9FE00640EBF /* DNTPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D6141951D9FE00640EBF /* DNTPlaceholderViewController.m */; };
 		65D6D6181951DA3D00640EBF /* UIStoryboardSegue+DNTPlaceholders.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D6171951DA3D00640EBF /* UIStoryboardSegue+DNTPlaceholders.m */; };
@@ -111,6 +112,7 @@
 		65646FE21916DDE10080B144 /* DNTDebugSettingSelectOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DNTDebugSettingSelectOptionsController.h; path = ../../sources/DNTDebugSettingSelectOptionsController.h; sourceTree = "<group>"; };
 		65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DNTSelectOptionSetting+UITableViewDataSource.m"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.m"; sourceTree = "<group>"; };
 		65646FE61916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DNTSelectOptionSetting+UITableViewDataSource.h"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.h"; sourceTree = "<group>"; };
+		65A1BC78195204450049B92D /* DNTFeatureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTFeatureTests.m; sourceTree = "<group>"; };
 		65D6D60D1951D68D00640EBF /* UIViewController+DNTDependencyInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+DNTDependencyInjection.h"; path = "../../sources/UIViewController+DNTDependencyInjection.h"; sourceTree = "<group>"; };
 		65D6D60E1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+DNTDependencyInjection.m"; path = "../../sources/UIViewController+DNTDependencyInjection.m"; sourceTree = "<group>"; };
 		65D6D6111951D76800640EBF /* DNTDependencyInjection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DNTDependencyInjection.h; path = ../../sources/DNTDependencyInjection.h; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				65FC16B8190A69270034CA80 /* Supporting Files */,
+				65A1BC78195204450049B92D /* DNTFeatureTests.m */,
 			);
 			path = DNTFeaturesTests;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A1BC79195204450049B92D /* DNTFeatureTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

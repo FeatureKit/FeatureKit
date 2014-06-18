@@ -31,6 +31,7 @@
 		65646FE41916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE11916DDE10080B144 /* DNTDebugSettingSelectOptionsController.m */; };
 		65646FE71916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */; };
 		65A1BC79195204450049B92D /* DNTFeatureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A1BC78195204450049B92D /* DNTFeatureTests.m */; };
+		65A1BC7B19520B0F0049B92D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A1BC7A19520B0F0049B92D /* libsqlite3.dylib */; };
 		65D6D60F1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D60E1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m */; };
 		65D6D6151951D9FE00640EBF /* DNTPlaceholderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D6141951D9FE00640EBF /* DNTPlaceholderViewController.m */; };
 		65D6D6181951DA3D00640EBF /* UIStoryboardSegue+DNTPlaceholders.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D6D6171951DA3D00640EBF /* UIStoryboardSegue+DNTPlaceholders.m */; };
@@ -113,6 +114,7 @@
 		65646FE51916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DNTSelectOptionSetting+UITableViewDataSource.m"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.m"; sourceTree = "<group>"; };
 		65646FE61916DE780080B144 /* DNTSelectOptionSetting+UITableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DNTSelectOptionSetting+UITableViewDataSource.h"; path = "../../sources/DNTSelectOptionSetting+UITableViewDataSource.h"; sourceTree = "<group>"; };
 		65A1BC78195204450049B92D /* DNTFeatureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTFeatureTests.m; sourceTree = "<group>"; };
+		65A1BC7A19520B0F0049B92D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		65D6D60D1951D68D00640EBF /* UIViewController+DNTDependencyInjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+DNTDependencyInjection.h"; path = "../../sources/UIViewController+DNTDependencyInjection.h"; sourceTree = "<group>"; };
 		65D6D60E1951D68D00640EBF /* UIViewController+DNTDependencyInjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+DNTDependencyInjection.m"; path = "../../sources/UIViewController+DNTDependencyInjection.m"; sourceTree = "<group>"; };
 		65D6D6111951D76800640EBF /* DNTDependencyInjection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DNTDependencyInjection.h; path = ../../sources/DNTDependencyInjection.h; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65A1BC7B19520B0F0049B92D /* libsqlite3.dylib in Frameworks */,
 				65FC16A2190A69270034CA80 /* Foundation.framework in Frameworks */,
 				22967DA68A494BAEB9AD0D85 /* libPods.a in Frameworks */,
 			);
@@ -281,6 +284,7 @@
 		65FC16A0190A69270034CA80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65A1BC7A19520B0F0049B92D /* libsqlite3.dylib */,
 				65FC16A1190A69270034CA80 /* Foundation.framework */,
 				65FC16AF190A69270034CA80 /* XCTest.framework */,
 				65FC16B2190A69270034CA80 /* UIKit.framework */,
@@ -606,7 +610,11 @@
 				DSTROOT = /tmp/DNTFeatures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -619,7 +627,11 @@
 				DSTROOT = /tmp/DNTFeatures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DNTFeatures/DNTFeatures-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

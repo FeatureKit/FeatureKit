@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DNTFeatures"
-  s.version      = "0.4"
+  s.version      = "0.5"
   s.summary      = "An Objective-C library to provide Feature flags and debug options."
   s.description  = <<-DESC
                    Use feature flags to hide code which is still in development.

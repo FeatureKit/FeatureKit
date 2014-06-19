@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com:danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/danthorpe/DNTFeatures.git", :tag => "#{s.version}" }
   s.source_files  = "sources/*.{h,m}"
   s.prefix_header_contents = '''
   #ifdef __OBJC__    

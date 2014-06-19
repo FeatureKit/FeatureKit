@@ -19,6 +19,8 @@
 
 + (id <DNTFeaturesService>)service;
 
+- (NSDictionary *)debugSettings;
+
 - (void)debugSettingWithKey:(id)key update:(DNTSettingUpdateBlock)update transaction:(YapDatabaseReadWriteTransaction *)transaction;
 
 @end

@@ -19,10 +19,6 @@
 
 @interface DNTFeatures : NSObject
 
-//+ (void)loadWithDatabaseNamed:(NSString *)databaseName;
-//
-//+ (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion;
-
 + (NSString *)version;
 
 @end

@@ -10,4 +10,7 @@
 
 @interface DNTRootViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *bonusContent;
+@property (weak, nonatomic) IBOutlet UIButton *syncButton;
+
 @end

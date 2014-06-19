@@ -13,16 +13,37 @@
 
 @implementation DNTFeaturesService
 
+#pragma mark - DNTFeatureService
+
+- (DNTFeature *)featureWithKey:(id)key {
+    return [self featureWithKey:key database:self.database collection:self.collection];
+}
+
 - (void)resetToDefaults {
     [self resetToDefaultsInDatabase:self.database collection:self.collection];
 }
 
+- (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion {
+    [self updateSettings:features update:^id<DNTSetting>(id<DNTSetting> existing, id<DNTSetting> setting, YapDatabaseReadWriteTransaction *transaction) {
+        if (existing) {
+            [existing updateFromSetting:setting];
+            return existing;
+        }
+        return setting;
+    } completion:completion];
+}
+
+#pragma mark - Public API
+
+- (DNTFeature *)featureWithKey:(id)key database:(YapDatabase *)database collection:(NSString *)collection {
+    return (DNTFeature *)[self settingWithKey:key database:database collection:collection];
+}
+
 - (void)resetToDefaultsInDatabase:(YapDatabase *)database collection:(NSString *)collection {
 
-    YapDatabaseConnection *connection = [database newConnection];
     __block NSMutableArray *requireSaving = [NSMutableArray array];
 
-    [connection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
+    [self.readOnlyConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
         [transaction enumerateKeysAndObjectsInCollection:collection usingBlock:^(NSString *key, id object, BOOL *stop) {
             if ( [object isKindOfClass:[DNTFeature class]] ) {
                 DNTFeature *feature = (DNTFeature *)object;
@@ -34,17 +55,7 @@
         }];
     }];
 
-    [self updateSettings:requireSaving update:nil database:database collection:collection completion:nil];
-}
-
-- (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion {
-    [self updateSettings:features update:^id<DNTSetting>(id<DNTSetting> existing, id<DNTSetting> setting, YapDatabaseReadWriteTransaction *transaction) {
-        if (existing) {
-            [existing updateFromSetting:setting];
-            return existing;
-        }
-        return setting;
-    } completion:completion];
+    [self updateSettings:requireSaving asynchronously:YES update:nil database:database collection:collection completion:nil];
 }
 
 @end

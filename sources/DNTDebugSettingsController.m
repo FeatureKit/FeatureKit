@@ -51,7 +51,7 @@
     if ( [self.dataProvider.feature isOn] ) {
         id object = [self.dataProvider objectAtIndexPath:indexPath];
         if ( [object isKindOfClass:[DNTSelectOptionSetting class]] ) {
-            [self performSegueWithIdentifier:@"pushSelectOptions" sender:object];
+            [self performSegueWithIdentifier:@"push.select-options" sender:object];
         }
     }
 }

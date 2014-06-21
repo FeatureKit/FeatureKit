@@ -5,7 +5,7 @@ PODS:
   - CocoaLumberjack/Core (1.6.5.1)
   - CocoaLumberjack/Extensions (1.6.5.1):
     - CocoaLumberjack/Core
-  - DNTFeatures (0.4):
+  - DNTFeatures (0.5):
     - YapDatabase (~> 2)
   - YapDatabase (2.4.2):
     - YapDatabase/standard
@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: baf4a09a3bcbdfea3363556a90104e026d3504e2
-  DNTFeatures: 92cf7a714928bc3151b4b767a29c136f3eecaa6a
+  DNTFeatures: 785f7c71c68296665193d6ddc266d2705187c39a
   YapDatabase: 269e2799fe19c7a517521783b909d11873dcb0c8
 
 COCOAPODS: 0.33.1

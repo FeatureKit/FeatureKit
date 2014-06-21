@@ -26,6 +26,8 @@ typedef id <DNTSetting>(^DNTSettingArrayUpdateBlock)(id <DNTSetting> existing, i
 
 - (id <DNTSetting>)settingWithKey:(id)key;
 
+- (void)loadDefaultSettings:(NSArray *)extras;
+
 - (void)settingWithKey:(id)key load:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion;
 
 - (void)settingWithKey:(id)key update:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion;
@@ -36,18 +38,47 @@ typedef id <DNTSetting>(^DNTSettingArrayUpdateBlock)(id <DNTSetting> existing, i
 
 @end
 
+@protocol DNTSettingSource <NSObject>
+
++ (NSString *)settingKey;
+
++ (id <DNTSetting>)settingWithTransaction:(YapDatabaseReadWriteTransaction *)transaction collection:(NSString *)collection;
+
+@end
+
 @interface DNTSettingsService : NSObject <DNTSettingsService>
 
 @property (nonatomic, strong) YapDatabaseConnection *readOnlyConnection;
 @property (nonatomic, strong) YapDatabaseConnection *readWriteConnection;
 
-- (id <DNTSetting>)settingWithKey:(id)key database:(YapDatabase *)database collection:(NSString *)collection;
+- (id <DNTSetting>)settingWithKey:(id)key
+                         database:(YapDatabase *)database
+                       collection:(NSString *)collection;
 
-- (void)settingWithKey:(id)key asynchronously:(BOOL)asynchronously update:(DNTSettingUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion;
+- (void)loadDefaultSettings:(NSArray *)extras
+                   database:(YapDatabase *)database
+                 collection:(NSString *)collection
+                 completion:(DNTVoidCompletionBlock)completion;
 
-- (void)updateSettings:(NSArray *)settings asynchronously:(BOOL)asynchronously update:(DNTSettingArrayUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion;
+- (void)settingWithKey:(id)key
+        asynchronously:(BOOL)asynchronously
+                update:(DNTSettingUpdateBlock)update
+              database:(YapDatabase *)database
+            collection:(NSString *)collection
+            completion:(DNTVoidCompletionBlock)completion;
 
-- (void)executeReadWriteTransaction:(void(^)(YapDatabaseReadWriteTransaction *transaction))transaction completion:(void(^)(void))completion asynchronously:(BOOL)asynchronously;
+- (void)updateSettings:(NSArray *)settings
+        asynchronously:(BOOL)asynchronously
+                update:(DNTSettingArrayUpdateBlock)update
+              database:(YapDatabase *)database
+            collection:(NSString *)collection
+            completion:(DNTVoidCompletionBlock)completion;
+
+- (void)executeReadWriteTransaction:(void(^)(YapDatabaseReadWriteTransaction *transaction))transaction
+                         completion:(void(^)(void))completion
+                     asynchronously:(BOOL)asynchronously;
+
+- (NSArray *)defaultSettingsFromSources;
 
 @end
 

@@ -56,12 +56,6 @@
     }
 }
 
-#pragma mark - Storyboards
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-}
-
 #pragma mark - DNTDependencyInjectionDestination
 
 + (Protocol *)expectedDependencyContainerInterface {

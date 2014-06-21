@@ -19,6 +19,10 @@
     return [self featureWithKey:key database:self.database collection:self.collection];
 }
 
+- (void)loadDefaultFeatures:(NSArray *)extras {
+    [super loadDefaultSettings:extras];
+}
+
 - (void)resetToDefaults {
     [self resetToDefaultsInDatabase:self.database collection:self.collection];
 }
@@ -37,6 +41,10 @@
 
 - (DNTFeature *)featureWithKey:(id)key database:(YapDatabase *)database collection:(NSString *)collection {
     return (DNTFeature *)[self settingWithKey:key database:database collection:collection];
+}
+
+- (void)loadDefaultSettings:(NSArray *)extras database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion {
+
 }
 
 - (void)resetToDefaultsInDatabase:(YapDatabase *)database collection:(NSString *)collection {

@@ -9,6 +9,8 @@
 #import "DNTSettingsService.h"
 #import "YapDatabase+DNTFeatures.h"
 
+#import <objc/runtime.h>
+
 static YapDatabase *__database;
 
 @implementation DNTSettingsService
@@ -52,6 +54,20 @@ static YapDatabase *__database;
     return [self settingWithKey:key database:self.database collection:self.collection];
 }
 
+- (void)loadDefaultSettings:(NSArray *)extras {
+    NSArray *sources = [self defaultSettingsFromSources];
+    [self.readWriteConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *transaction) {
+        for ( Class class in sources ) {
+            NSString *key = [(id <DNTSettingSource>)class settingKey];
+            id <DNTSetting> setting = [(id <DNTSettingSource>)class settingWithTransaction:transaction collection:self.collection];
+            [transaction setObject:setting forKey:key inCollection:self.collection];
+        }
+        for ( id <DNTSetting> extra in extras ) {
+            [transaction setObject:extra forKey:extra.key inCollection:self.collection];
+        }
+    }];
+}
+
 - (void)settingWithKey:(id)key load:(DNTSettingUpdateBlock)update completion:(DNTVoidCompletionBlock)completion {
     [self settingWithKey:key asynchronously:NO update:update database:self.database collection:self.collection completion:completion];
 }
@@ -77,6 +93,10 @@ static YapDatabase *__database;
         setting = [transaction objectForKey:key inCollection:collection];
     }];
     return setting;
+}
+
+- (void)loadDefaultSettings:(NSArray *)extras database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion {
+
 }
 
 - (void)settingWithKey:(id)key asynchronously:(BOOL)asynchronously update:(DNTSettingUpdateBlock)update database:(YapDatabase *)database collection:(NSString *)collection completion:(DNTVoidCompletionBlock)completion {
@@ -146,6 +166,31 @@ static YapDatabase *__database;
         }
     }
 }
+
+- (NSArray *)defaultSettingsFromSources {
+    return [self classesImplementingProtocol:@protocol(DNTSettingSource)];
+}
+
+#pragma mark - Private API
+
+- (NSArray *)classesImplementingProtocol:(Protocol *)protocol {
+    NSInteger i, numberOfClasses = objc_getClassList(NULL, 0);
+    if ( numberOfClasses > 0 ) {
+        Class * allClasses = (Class *)malloc(sizeof(Class) * numberOfClasses);
+        numberOfClasses = objc_getClassList(allClasses, (int)numberOfClasses);
+        NSMutableArray *classes = [NSMutableArray array];
+        for ( i=0; i<numberOfClasses; i++ ) {
+            Class class = allClasses[i];
+            if ( class_conformsToProtocol(class, protocol) ) {
+                [classes addObject:class];
+            }
+        }
+        free(allClasses);
+        return classes;
+    }
+    return nil;
+}
+
 
 @end
 

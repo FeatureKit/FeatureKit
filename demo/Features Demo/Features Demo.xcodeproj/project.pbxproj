@@ -22,6 +22,7 @@
 		6551EF85190A917100A37B47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6551EF67190A917100A37B47 /* UIKit.framework */; };
 		6551EF8D190A917100A37B47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6551EF8B190A917100A37B47 /* InfoPlist.strings */; };
 		6551EF8F190A917100A37B47 /* Features_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6551EF8E190A917100A37B47 /* Features_DemoTests.m */; };
+		65825AA81956116E0031AFDA /* DNTSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65825AA71956116E0031AFDA /* DNTSyncManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		6551EF8A190A917100A37B47 /* Features DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Features DemoTests-Info.plist"; sourceTree = "<group>"; };
 		6551EF8C190A917100A37B47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6551EF8E190A917100A37B47 /* Features_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Features_DemoTests.m; sourceTree = "<group>"; };
+		65825AA61956116E0031AFDA /* DNTSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNTSyncManager.h; sourceTree = "<group>"; };
+		65825AA71956116E0031AFDA /* DNTSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNTSyncManager.m; sourceTree = "<group>"; };
 		9F5DE063E3B5476089976D39 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8699D700B74A0E86C95930 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,10 +123,12 @@
 			children = (
 				6551EF72190A917100A37B47 /* DNTAppDelegate.h */,
 				6551EF73190A917100A37B47 /* DNTAppDelegate.m */,
-				6551EF75190A917100A37B47 /* Main.storyboard */,
 				6551EF78190A917100A37B47 /* DNTRootViewController.h */,
 				6551EF79190A917100A37B47 /* DNTRootViewController.m */,
+				65825AA61956116E0031AFDA /* DNTSyncManager.h */,
+				65825AA71956116E0031AFDA /* DNTSyncManager.m */,
 				6551EF7B190A917100A37B47 /* Images.xcassets */,
+				6551EF75190A917100A37B47 /* Main.storyboard */,
 				6551EF6A190A917100A37B47 /* Supporting Files */,
 			);
 			path = "Features Demo";
@@ -292,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6551EF70190A917100A37B47 /* main.m in Sources */,
+				65825AA81956116E0031AFDA /* DNTSyncManager.m in Sources */,
 				6551EF7A190A917100A37B47 /* DNTRootViewController.m in Sources */,
 				6551EF74190A917100A37B47 /* DNTAppDelegate.m in Sources */,
 			);

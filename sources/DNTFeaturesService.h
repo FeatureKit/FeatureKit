@@ -14,11 +14,17 @@
 
 - (DNTFeature *)featureWithKey:(id)key;
 
+- (void)loadDefaultFeatures:(NSArray *)extras;
+
 - (void)resetToDefaults;
 
 - (void)updateFeatures:(NSArray *)features completion:(void(^)(void))completion;
 
 @end
+
+@protocol DNTFeatureSource <DNTSettingSource>
+@end
+
 
 @interface DNTFeaturesService : DNTSettingsService <DNTFeaturesService>
 

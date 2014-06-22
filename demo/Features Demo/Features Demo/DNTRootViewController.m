@@ -15,67 +15,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Add some features
-    [[DNTFeature service] settingWithKey:@"feature.bonus" load:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
+    DNTFeature *bonus = [[DNTFeature alloc] initWithKey:@"feature.bonus" title:@"Show bonus content" group:@"Application Features"];
+    bonus.title = @"Show bonus content";
+    bonus.onByDefault = @NO;
 
-        if ( !feature ) {
-            feature = [[DNTFeature alloc] initWithKey:@"feature.bonus" title:@"Show bonus content" group:@"Application Features"];
-        }
-        feature.title = @"Show bonus content";
-        feature.onByDefault = @NO;
-        return feature;
-        
-    } completion:nil];
-
-    [[DNTFeature service] settingWithKey:@"feature.sync" load:^id<DNTSetting>(DNTFeature *feature, YapDatabaseReadWriteTransaction *transaction) {
-
-        if ( !feature ) {
-            feature = [[DNTFeature alloc] initWithKey:@"feature.sync" title:@"New Sync" group:@"In Development"];
-        }
-        feature.title = @"New sync";
-        feature.onByDefault = @NO;
-        feature.debugOptionsAvailable = YES;
-
-        [feature debugSettingWithKey:@"feature.sync.debug.verbose-logging" update:^id<DNTSetting>(DNTToggleSetting *toggle, YapDatabaseReadWriteTransaction *transaction) {
-
-            if ( !toggle ) {
-                toggle = [[DNTToggleSetting alloc] initWithKey:@"feature.sync.debug.verbose-logging" title:@"Verbose Logging" group:nil];
-            }
-            toggle.title = @"Verbose Logging";
-            toggle.onByDefault = @NO;
-            return toggle;
-
-        } transaction:transaction];
-
-        [feature debugSettingWithKey:@"feature.sync.debug.mode" update:^id<DNTSetting>(DNTSelectOptionSetting *select, YapDatabaseReadWriteTransaction *transaction) {
-
-            if ( !select ) {
-                select = [[DNTSelectOptionSetting alloc] initWithKey:@"feature.sync.debug.mode" title:@"Sync Mode" group:nil];
-            }
-            select.title = @"Sync Mode";
-            select.optionKeys = @[ @"standard", @"advanced", @"magic" ];
-            select.optionTitles = @[ @"Standard", @"Advanced", @"Magic" ];
-            select.selectedIndexes = [NSMutableIndexSet indexSetWithIndex:0];
-            select.multipleSelectionAllowed = NO;
-            return select;
-
-        } transaction:transaction];
-
-        [feature debugSettingWithKey:@"feature.sync.debug.clear-cache" update:^id<DNTSetting>(DNTDebugSetting *debug, YapDatabaseReadWriteTransaction *transaction) {
-
-            if ( !debug ) {
-                debug = [[DNTDebugSetting alloc] initWithKey:@"feature.sync.debug.clear-cache" title:@"Clear Cache" group:nil];
-            }
-            debug.title = @"Clear Cache";
-            debug.userInfo[@"special key"] = @"special value";
-            debug.notificationName = @"ClearCacheNotification";
-            return debug;
-
-        } transaction:transaction];
-
-        return feature;
-
-    } completion:nil];
+    [[DNTFeature service] loadDefaultFeatures:@[ bonus ]];
 
     // For demonstration purpose, listen for when settings change.
     [[NSNotificationCenter defaultCenter] addObserverForName:DNTSettingsDidChangeNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification *note) {

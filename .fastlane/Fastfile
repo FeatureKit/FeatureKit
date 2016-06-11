@@ -1,0 +1,46 @@
+lane :lint do
+
+    swiftLint(
+        mode: :lint, 
+        config_file: '.swiftlint.yml'
+    )
+end
+
+platform :ios do
+
+  desc "Runs all the tests"
+  lane :test do
+
+    scan(
+      project: "Features.xcodeproj",
+      scheme: "iOS Features",
+      output_directory: ".ci/xcodebuild-data",
+      xcargs: "-derivedDataPath .ci/xcodebuild-data"
+    )
+    
+#     slather(
+# 	    proj: "Features.xcodeproj",
+#     	scheme: "iOS Features",
+#     	build_directory: ".ci/xcodebuild-data",
+#     	use_bundle_exec: true    	
+#     )
+	
+  end
+
+end
+
+platform :mac do
+
+  desc "Runs all the tests"
+  lane :test do
+
+#     scan(
+#       project: "Features.xcodeproj",
+#       scheme: "macOS Features",
+#       output_directory: ".ci/xcodebuild-data",
+#       xcargs: "-derivedDataPath .ci/xcodebuild-data"
+#     )
+
+  end
+  
+end

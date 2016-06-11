@@ -1,0 +1,11 @@
+//
+//  Tests.xcconfig
+//  Features
+//
+//  Created by Daniel Thorpe on 10/06/2016.
+//
+//
+
+INFOPLIST_FILE = $(SRCROOT)/Tests/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = me.danthorpe.Features.Tests
+PRODUCT_MODULE_NAME = FeaturesTests

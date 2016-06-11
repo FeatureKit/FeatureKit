@@ -45,31 +45,18 @@ enum TestFeaturesError<ID: FeatureIdentifierType>: ErrorType {
     case FeatureNotDefinied(ID)
 }
 
-struct TestFeaturesService: FeatureServiceType {
-
-    func feature(identifier: TestFeatureId) throws -> TestFeature {
-        switch identifier {
-        case .Foo:
-            return TestFeature(identifier: identifier, defaultAvailable: true, currentAvailable: true)
-        case .Bar:
-            return TestFeature(identifier: identifier, defaultAvailable: true, currentAvailable: false)
-        case .Bat:
-            return TestFeature(identifier: identifier, defaultAvailable: false, currentAvailable: true)
-        case .Baz:
-            return TestFeature(identifier: identifier, defaultAvailable: false, currentAvailable: false)
-        default:
-            throw TestFeaturesError.FeatureNotDefinied(identifier)
-        }
-    }
-}
-
 class TestFeatures: XCTestCase {
 
-    var service: TestFeaturesService!
+    var service: FeatureService<TestFeature>!
 
     override func setUp() {
         super.setUp()
-        service = TestFeaturesService()
+        service = FeatureService([
+            TestFeature(identifier: .Foo, defaultAvailable: true, currentAvailable: true),
+            TestFeature(identifier: .Bar, defaultAvailable: true, currentAvailable: false),
+            TestFeature(identifier: .Bat, defaultAvailable: false, currentAvailable: true),
+            TestFeature(identifier: .Baz, defaultAvailable: false, currentAvailable: false)
+        ])
     }
 
     func test__access_feature_available() {

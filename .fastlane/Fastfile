@@ -18,12 +18,12 @@ platform :ios do
       xcargs: "-derivedDataPath .ci/xcodebuild-data"
     )
     
-    slather(
-	    proj: "Features.xcodeproj",
-    	scheme: "iOS Features",
-    	build_directory: ".ci/xcodebuild-data",
-    	use_bundle_exec: true    	
-    )
+#     slather(
+# 	    proj: "Features.xcodeproj",
+#     	scheme: "iOS Features",
+#     	build_directory: ".ci/xcodebuild-data",
+#     	use_bundle_exec: true    	
+#     )
 	
   end
 
@@ -34,12 +34,12 @@ platform :mac do
   desc "Runs all the tests"
   lane :test do
 
-    scan(
-      project: "Features.xcodeproj",
-      scheme: "macOS Features",
-      output_directory: ".ci/xcodebuild-data",
-      xcargs: "-derivedDataPath .ci/xcodebuild-data"
-    )
+#     scan(
+#       project: "Features.xcodeproj",
+#       scheme: "macOS Features",
+#       output_directory: ".ci/xcodebuild-data",
+#       xcargs: "-derivedDataPath .ci/xcodebuild-data"
+#     )
 
   end
   

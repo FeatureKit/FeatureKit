@@ -21,6 +21,9 @@
 		655EEEE61D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
 		655EEEE71D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
 		655EEEE81D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
+		65EA43B51D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
+		65EA43B61D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
+		65EA43B71D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,7 @@
 		655EEEC61D0A8E0D00D5B4B9 /* Features.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Features.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEECF1D0A8E0E00D5B4B9 /* macOS FeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS FeaturesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEEE41D0C14CD00D5B4B9 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
+		65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 			children = (
 				655EEE901D0A8C0800D5B4B9 /* Info.plist */,
 				655EEE911D0A8C0800D5B4B9 /* Tests.swift */,
+				65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EA43B51D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
 				655EEEDD1D0A91C000D5B4B9 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EA43B61D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
 				655EEEDE1D0A91C100D5B4B9 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,6 +503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EA43B71D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
 				655EEEDF1D0A91C200D5B4B9 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

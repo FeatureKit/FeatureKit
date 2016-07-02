@@ -42,7 +42,7 @@ enum TestFeaturesError<ID: FeatureIdentifier>: ErrorType {
     case FeatureNotDefinied(ID)
 }
 
-typealias TestFeatureService = AbstractService<TestFeature>
+typealias TestFeatureService = Service<TestFeature>
 
 class TestFeatures: XCTestCase {
 

@@ -10,12 +10,16 @@ import Foundation
 
 // MARK: - AbstractService
 
-public class AbstractService<Feature: FeatureProtocol> {
+public class Service<Feature: FeatureProtocol> {
 
-    internal var features: [Feature.Identifier: Feature]
+    internal var storage: [Feature.Identifier: Feature]
+
+    public var features: [Feature] {
+        return Array(storage.values)
+    }
 
     public init(features: [Feature.Identifier: Feature]) {
-        self.features = features
+        storage = features
     }
 
     public convenience init(_ features: [Feature]) {
@@ -23,9 +27,9 @@ public class AbstractService<Feature: FeatureProtocol> {
     }
 }
 
-extension AbstractService: FeatureServiceProtocol {
+extension Service: FeatureServiceProtocol {
 
     public func feature(id: Feature.Identifier) -> Feature? {
-        return features[id]
+        return storage[id]
     }
 }

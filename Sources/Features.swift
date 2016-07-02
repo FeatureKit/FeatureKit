@@ -47,7 +47,7 @@ public extension FeatureProtocol {
 // MARK: - Service
 
 /// Protocol which defines the interface for a Feature Service
-public protocol FeatureServiceProtocol {
+public protocol ServiceProtocol {
 
     /// The type of the Feature that the Service provides
     associatedtype Feature: FeatureProtocol
@@ -59,7 +59,7 @@ public protocol FeatureServiceProtocol {
     func feature(id: Feature.Identifier) -> Feature?
 }
 
-public extension FeatureServiceProtocol {
+public extension ServiceProtocol {
 
     /// Returns whether or not a feature is available.
     ///

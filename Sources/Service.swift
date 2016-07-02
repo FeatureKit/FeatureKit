@@ -27,7 +27,7 @@ public class Service<Feature: FeatureProtocol> {
     }
 }
 
-extension Service: FeatureServiceProtocol {
+extension Service: ServiceProtocol {
 
     public func feature(id: Feature.Identifier) -> Feature? {
         return storage[id]

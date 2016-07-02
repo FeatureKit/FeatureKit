@@ -8,48 +8,78 @@
 
 import Foundation
 
-public protocol FeatureIdentifierType: Hashable, CustomStringConvertible { }
+// MARK: - Feature
 
-public protocol FeatureType {
-    associatedtype Identifier: FeatureIdentifierType
+/// Protocol which a Feature Identifier must conform to
+public protocol FeatureIdentifier: Hashable, CustomStringConvertible { }
 
-    var identifier: Identifier { get }
+/// Default implementations of CustomStringConvertible for String based enums
+public extension FeatureIdentifier where Self: RawRepresentable, Self.RawValue == String {
+    
+    var description: String { return rawValue }
+}
 
+/// Protocol which a Feature Identifier must conform to
+public protocol FeatureProtocol {
+
+    associatedtype Identifier: FeatureIdentifier
+
+    /// - returns id: the Identifier of the Feature
+    var id: Identifier { get }
+
+    /// - returns parent: an optional parent identifier of the Feature
     var parent: Identifier? { get }
 
+    /// - returns editable: returns a boolean to indicate whether the Feature could be made not available
     var editable: Bool { get }
 
+    /// - returns available: returns a boolean to indicate whether the Feature is available
     var available: Bool { get }
 }
 
-public extension FeatureType {
+/// Default implementations of FeatureProtocol
+public extension FeatureProtocol {
 
+    /// - returns editable: by default Feature's are not editable
     var editable: Bool { return false }
 }
 
-public protocol FeatureServiceType {
-    associatedtype Feature: FeatureType
+// MARK: - Service
 
-    func feature(identifier: Feature.Identifier) throws -> Feature
+/// Protocol which defines the interface for a Feature Service
+public protocol FeatureServiceProtocol {
 
-    func available(identifier: Feature.Identifier) -> Bool
+    /// The type of the Feature that the Service provides
+    associatedtype Feature: FeatureProtocol
+
+    /// Access a feature by its identifier
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: a Feature if owned by the service, nil if not.
+    func feature(id: Feature.Identifier) -> Feature?
 }
 
-public extension FeatureServiceType {
+public extension FeatureServiceProtocol {
 
-    func parent(identifier: Feature.Identifier) -> Feature? {
-        guard let
-            f: Feature = try? feature(identifier),
-            p = f.parent,
-            feature = try? feature(p) else { return .None }
-        return feature
+    /// Returns whether or not a feature is available.
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: a boolean, the feature's availability or false if there is no feature
+    func available(id: Feature.Identifier) -> Bool {
+        guard let f = feature(id) else { return false }
+        let parentIsAvailable = parent(id)?.available ?? true
+        return parentIsAvailable && f.available
     }
 
-    func available(identifier: Feature.Identifier) -> Bool {
-        guard let feature = try? feature(identifier) else { return false }
-        let p = parent(identifier)?.available ?? true
-        return p && feature.available
+    /// The parent feature of a feature with identifier
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: if the feature exists, and it has a parent, and that parent exists
+    func parent(id: Feature.Identifier) -> Feature? {
+        guard let f = feature(id), parentId = f.parent, parentFeature = feature(parentId) else { return .None }
+        return parentFeature
     }
+
 }
 
 

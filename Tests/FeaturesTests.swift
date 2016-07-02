@@ -9,22 +9,19 @@
 import XCTest
 @testable import Features
 
-enum TestFeatureId: String, FeatureIdentifierType {
+enum TestFeatureId: String, FeatureIdentifier {
     case Foo = "Foo"
     case Bar = "Bar"
     case Bat = "Bat"
     case Baz = "Baz"
     case Fat = "Fat"
     case Hat = "Hat"
-
-    var description: String { return rawValue }
-
 }
 
-struct TestFeature: FeatureType {
-    let identifier: TestFeatureId
+struct TestFeature: FeatureProtocol {
+    let id: TestFeatureId
     var parent: TestFeatureId? {
-        switch identifier {
+        switch id {
         case .Foo, .Fat: return .None
         case .Bar: return .Foo
         case .Bat: return .Hat
@@ -41,22 +38,32 @@ struct TestFeature: FeatureType {
     }
 }
 
-enum TestFeaturesError<ID: FeatureIdentifierType>: ErrorType {
+enum TestFeaturesError<ID: FeatureIdentifier>: ErrorType {
     case FeatureNotDefinied(ID)
 }
 
+typealias TestFeatureService = AbstractService<TestFeature>
+
 class TestFeatures: XCTestCase {
 
-    var service: FeatureService<TestFeature>!
+    var service: TestFeatureService!
 
     override func setUp() {
         super.setUp()
-        service = FeatureService([
-            TestFeature(identifier: .Foo, defaultAvailable: true, currentAvailable: true),
-            TestFeature(identifier: .Bar, defaultAvailable: true, currentAvailable: false),
-            TestFeature(identifier: .Bat, defaultAvailable: false, currentAvailable: true),
-            TestFeature(identifier: .Baz, defaultAvailable: false, currentAvailable: false)
+        service = TestFeatureService([
+            TestFeature(id: .Foo, defaultAvailable: true, currentAvailable: true),
+            TestFeature(id: .Bar, defaultAvailable: true, currentAvailable: false),
+            TestFeature(id: .Bat, defaultAvailable: false, currentAvailable: true),
+            TestFeature(id: .Baz, defaultAvailable: false, currentAvailable: false)
         ])
+    }
+
+    func test__get_feature_with_exits() {
+        XCTAssertEqual(service.feature(.Foo)?.id, TestFeatureId.Foo)
+    }
+
+    func test__default_editable_value_is_false() {
+        XCTAssertFalse(service.feature(.Foo)?.editable ?? true)
     }
 
     func test__access_feature_available() {

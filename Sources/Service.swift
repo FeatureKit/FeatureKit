@@ -8,13 +8,9 @@
 
 import Foundation
 
-// MARK: - Implementation
+// MARK: - AbstractService
 
-public enum FeatureServiceError<Feature: FeatureType>: ErrorType {
-    case FeatureNotDefined(Feature.Identifier)
-}
-
-public class FeatureService<Feature: FeatureType>: FeatureServiceType {
+public class AbstractService<Feature: FeatureProtocol> {
 
     internal var features: [Feature.Identifier: Feature]
 
@@ -23,13 +19,14 @@ public class FeatureService<Feature: FeatureType>: FeatureServiceType {
     }
 
     public convenience init(_ f: [Feature]) {
-        self.init(features: f.reduce([:]) { var acc = $0; acc[$1.identifier] = $1; return acc })
-    }
-
-    public func feature(identifier: Feature.Identifier) throws -> Feature {
-        guard let f = features[identifier] else {
-            throw FeatureServiceError<Feature>.FeatureNotDefined(identifier)
-        }
-        return f
+        self.init(features: f.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc })
     }
 }
+
+extension AbstractService: FeatureServiceProtocol {
+
+    public func feature(id: Feature.Identifier) -> Feature? {
+        return features[id]
+    }
+}
+

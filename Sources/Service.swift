@@ -18,8 +18,8 @@ public class AbstractService<Feature: FeatureProtocol> {
         self.features = features
     }
 
-    public convenience init(_ f: [Feature]) {
-        self.init(features: f.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc })
+    public convenience init(_ features: [Feature]) {
+        self.init(features: features.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc })
     }
 }
 
@@ -29,4 +29,3 @@ extension AbstractService: FeatureServiceProtocol {
         return features[id]
     }
 }
-

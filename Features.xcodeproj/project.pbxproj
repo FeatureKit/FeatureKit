@@ -225,6 +225,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 655EEE871D0A8BA300D5B4B9 /* Build configuration list for PBXNativeTarget "iOS Features" */;
 			buildPhases = (
+				655B540C1D2864D800B26270 /* Swift Lint */,
 				655EEE6C1D0A8BA200D5B4B9 /* Sources */,
 				655EEE6D1D0A8BA200D5B4B9 /* Frameworks */,
 				655EEE6E1D0A8BA200D5B4B9 /* Headers */,
@@ -315,6 +316,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 655EEED71D0A8E0F00D5B4B9 /* Build configuration list for PBXNativeTarget "macOS Features" */;
 			buildPhases = (
+				655B540D1D2864EC00B26270 /* Swift Lint */,
 				655EEEC11D0A8E0D00D5B4B9 /* Sources */,
 				655EEEC21D0A8E0D00D5B4B9 /* Frameworks */,
 				655EEEC31D0A8E0D00D5B4B9 /* Headers */,
@@ -453,6 +455,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		655B540C1D2864D800B26270 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect\n[ -f .swiftlint.yml ] && CONFIG=\".swiftlint.yml\" || CONFIG=\"$HOME/.swiftlint.yml\"\nswiftlint lint --config $CONFIG\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			showEnvVarsInLog = 0;
+		};
+		655B540D1D2864EC00B26270 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect\n[ -f .swiftlint.yml ] && CONFIG=\".swiftlint.yml\" || CONFIG=\"$HOME/.swiftlint.yml\"\nswiftlint lint --config $CONFIG\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		655EEE6C1D0A8BA200D5B4B9 /* Sources */ = {

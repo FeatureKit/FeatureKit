@@ -15,7 +15,7 @@ public protocol FeatureIdentifier: Hashable, CustomStringConvertible { }
 
 /// Default implementations of CustomStringConvertible for String based enums
 public extension FeatureIdentifier where Self: RawRepresentable, Self.RawValue == String {
-    
+
     var description: String { return rawValue }
 }
 
@@ -81,7 +81,3 @@ public extension FeatureServiceProtocol {
     }
 
 }
-
-
-
-

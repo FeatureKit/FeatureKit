@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		655B540F1D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
-		655B54101D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
-		655B54111D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
-		655B54121D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
+		655B540F1D286FB200B26270 /* StorageAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* StorageAdaptor.swift */; };
+		655B54101D286FB200B26270 /* StorageAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* StorageAdaptor.swift */; };
+		655B54111D286FB200B26270 /* StorageAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* StorageAdaptor.swift */; };
+		655B54121D286FB200B26270 /* StorageAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* StorageAdaptor.swift */; };
 		655B54141D28737D00B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54131D28737D00B26270 /* ValueCoding.framework */; };
 		655B54181D2874EC00B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54171D2874EC00B26270 /* ValueCoding.framework */; };
 		655B541B1D28752300B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541A1D28752300B26270 /* ValueCoding.framework */; };
@@ -35,6 +35,25 @@
 		65E6E4561D2964D00046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54131D28737D00B26270 /* ValueCoding.framework */; };
 		65E6E4571D2964E70046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541A1D28752300B26270 /* ValueCoding.framework */; };
 		65E6E4581D2964F20046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541D1D28756D00B26270 /* ValueCoding.framework */; };
+		65E6E45A1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */; };
+		65E6E45B1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */; };
+		65E6E45C1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */; };
+		65E6E45D1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */; };
+		65E6E45F1D297E750046DAAD /* AnyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E45E1D297E750046DAAD /* AnyStorage.swift */; };
+		65E6E4601D297E750046DAAD /* AnyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E45E1D297E750046DAAD /* AnyStorage.swift */; };
+		65E6E4611D297E750046DAAD /* AnyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E45E1D297E750046DAAD /* AnyStorage.swift */; };
+		65E6E4621D297E750046DAAD /* AnyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E45E1D297E750046DAAD /* AnyStorage.swift */; };
+		65E6E4641D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */; };
+		65E6E4651D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */; };
+		65E6E4661D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */; };
+		65E6E4671D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */; };
+		65E6E4691D2984AD0046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E4681D2984AD0046DAAD /* Result.framework */; };
+		65E6E46B1D2984C10046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E46A1D2984C10046DAAD /* Result.framework */; };
+		65E6E46D1D2984CD0046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E46C1D2984CD0046DAAD /* Result.framework */; };
+		65E6E46F1D2984D80046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E46E1D2984D80046DAAD /* Result.framework */; };
+		65E6E4701D2984FB0046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E4681D2984AD0046DAAD /* Result.framework */; };
+		65E6E4711D2985050046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E46C1D2984CD0046DAAD /* Result.framework */; };
+		65E6E4721D29850F0046DAAD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E46E1D2984D80046DAAD /* Result.framework */; };
 		65EA43B51D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
 		65EA43B61D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
 		65EA43B71D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
@@ -69,7 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		655B540E1D286FB200B26270 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		655B540E1D286FB200B26270 /* StorageAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAdaptor.swift; sourceTree = "<group>"; };
 		655B54131D28737D00B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/iOS/ValueCoding.framework; sourceTree = "<group>"; };
 		655B54171D2874EC00B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/watchOS/ValueCoding.framework; sourceTree = "<group>"; };
 		655B541A1D28752300B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/tvOS/ValueCoding.framework; sourceTree = "<group>"; };
@@ -89,6 +108,13 @@
 		655EEEC61D0A8E0D00D5B4B9 /* Features.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Features.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEECF1D0A8E0E00D5B4B9 /* macOS FeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS FeaturesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEEE41D0C14CD00D5B4B9 /* Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Features.swift; sourceTree = "<group>"; };
+		65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConfigurationAdaptor.swift; sourceTree = "<group>"; };
+		65E6E45E1D297E750046DAAD /* AnyStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyStorage.swift; sourceTree = "<group>"; };
+		65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsAdaptor.swift; sourceTree = "<group>"; };
+		65E6E4681D2984AD0046DAAD /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		65E6E46A1D2984C10046DAAD /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/watchOS/Result.framework; sourceTree = "<group>"; };
+		65E6E46C1D2984CD0046DAAD /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/tvOS/Result.framework; sourceTree = "<group>"; };
+		65E6E46E1D2984D80046DAAD /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
 		65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturesTests.swift; sourceTree = "<group>"; };
 		65EA43B81D0C6E21001F2BFF /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				655B54141D28737D00B26270 /* ValueCoding.framework in Frameworks */,
+				65E6E4691D2984AD0046DAAD /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4701D2984FB0046DAAD /* Result.framework in Frameworks */,
 				65E6E4561D2964D00046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEE7C1D0A8BA200D5B4B9 /* Features.framework in Frameworks */,
 			);
@@ -115,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E46B1D2984C10046DAAD /* Result.framework in Frameworks */,
 				655B54181D2874EC00B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E46D1D2984CD0046DAAD /* Result.framework in Frameworks */,
 				655B541B1D28752300B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4711D2985050046DAAD /* Result.framework in Frameworks */,
 				65E6E4571D2964E70046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEEB41D0A8DFC00D5B4B9 /* Features.framework in Frameworks */,
 			);
@@ -140,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E46F1D2984D80046DAAD /* Result.framework in Frameworks */,
 				655B541E1D28756D00B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4721D29850F0046DAAD /* Result.framework in Frameworks */,
 				65E6E4581D2964F20046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEED01D0A8E0E00D5B4B9 /* Features.framework in Frameworks */,
 			);
@@ -159,6 +192,10 @@
 		655B54151D28738500B26270 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				65E6E46E1D2984D80046DAAD /* Result.framework */,
+				65E6E46C1D2984CD0046DAAD /* Result.framework */,
+				65E6E46A1D2984C10046DAAD /* Result.framework */,
+				65E6E4681D2984AD0046DAAD /* Result.framework */,
 				655B54131D28737D00B26270 /* ValueCoding.framework */,
 				655B541D1D28756D00B26270 /* ValueCoding.framework */,
 				655B541A1D28752300B26270 /* ValueCoding.framework */,
@@ -219,7 +256,10 @@
 			children = (
 				655EEEE41D0C14CD00D5B4B9 /* Features.swift */,
 				65EA43B81D0C6E21001F2BFF /* Service.swift */,
-				655B540E1D286FB200B26270 /* Storage.swift */,
+				655B540E1D286FB200B26270 /* StorageAdaptor.swift */,
+				65E6E4591D297D430046DAAD /* RemoteConfigurationAdaptor.swift */,
+				65E6E45E1D297E750046DAAD /* AnyStorage.swift */,
+				65E6E4631D297EA00046DAAD /* UserDefaultsAdaptor.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -555,6 +595,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -570,6 +611,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/tvOS/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -586,6 +628,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -602,9 +645,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E45F1D297E750046DAAD /* AnyStorage.swift in Sources */,
 				655EEEE51D0C14CD00D5B4B9 /* Features.swift in Sources */,
+				65E6E4641D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */,
 				65EA43B91D0C6E21001F2BFF /* Service.swift in Sources */,
-				655B540F1D286FB200B26270 /* Storage.swift in Sources */,
+				655B540F1D286FB200B26270 /* StorageAdaptor.swift in Sources */,
+				65E6E45A1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,9 +668,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4601D297E750046DAAD /* AnyStorage.swift in Sources */,
 				655EEEE61D0C14CD00D5B4B9 /* Features.swift in Sources */,
+				65E6E4651D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */,
 				65EA43BA1D0C6E21001F2BFF /* Service.swift in Sources */,
-				655B54101D286FB200B26270 /* Storage.swift in Sources */,
+				655B54101D286FB200B26270 /* StorageAdaptor.swift in Sources */,
+				65E6E45B1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,9 +681,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4611D297E750046DAAD /* AnyStorage.swift in Sources */,
 				655EEEE71D0C14CD00D5B4B9 /* Features.swift in Sources */,
+				65E6E4661D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */,
 				65EA43BB1D0C6E21001F2BFF /* Service.swift in Sources */,
-				655B54111D286FB200B26270 /* Storage.swift in Sources */,
+				655B54111D286FB200B26270 /* StorageAdaptor.swift in Sources */,
+				65E6E45C1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,9 +704,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4621D297E750046DAAD /* AnyStorage.swift in Sources */,
 				655EEEE81D0C14CD00D5B4B9 /* Features.swift in Sources */,
+				65E6E4671D297EA00046DAAD /* UserDefaultsAdaptor.swift in Sources */,
 				65EA43BC1D0C6E21001F2BFF /* Service.swift in Sources */,
-				655B54121D286FB200B26270 /* Storage.swift in Sources */,
+				655B54121D286FB200B26270 /* StorageAdaptor.swift in Sources */,
+				65E6E45D1D297D430046DAAD /* RemoteConfigurationAdaptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

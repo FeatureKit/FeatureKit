@@ -1,39 +1,13 @@
 //
-//  Storage.swift
+//  AnyStorage.swift
 //  Features
 //
-//  Created by Daniel Thorpe on 02/07/2016.
+//  Created by Daniel Thorpe on 03/07/2016.
 //
 //
 
 import Foundation
 import ValueCoding
-
-public typealias VoidBlock = () -> Void
-
-/// Protocol to support storage
-public protocol StorageAdaptor {
-
-    /// The type of the item that requires storing
-    associatedtype Item
-
-    /// Read the items from Storage
-    ///
-    /// - parameter [unnamed] completion: a completion block
-    /// which receives an array of Item
-    func read(_: [Item] -> Void)
-
-    /// Write the item to Storage
-    ///
-    /// - parameter items: the [Item] to write into storage
-    /// - parameter completion: an optional completion block
-    func write(items: [Item], completion: VoidBlock?)
-
-    /// Remove all the items from Storage
-    ///
-    /// - parameter completion: an optional completion block
-    func removeAll(completion: VoidBlock?)
-}
 
 @noreturn private func _abstractMethod(file: StaticString = #file, line: UInt = #line) {
     fatalError("Method must be overriden", file: file, line: line)
@@ -124,39 +98,5 @@ public class AnyValueStorage<Item: ValueCoding where Item.Coder: NSCoding, Item 
 
     public func removeAll(completion: VoidBlock? = nil) {
         box.removeAll(completion)
-    }
-}
-
-// MARK: - UserDefaultsAdaptor
-
-public protocol UserDefaultsProtocol: class {
-
-    func objectForKey(_: String) -> AnyObject?
-
-    func setObject(_: AnyObject?, forKey: String)
-
-    func removeObjectForKey(_: String)
-}
-
-extension NSUserDefaults: UserDefaultsProtocol { }
-
-public class UserDefaultsAdaptor<Item: NSCoding>: StorageAdaptor {
-
-    let key = "me.danthorpe.Features.UserDefaultsKey"
-    public lazy var userDefaults: UserDefaultsProtocol = NSUserDefaults.standardUserDefaults()
-
-    public func read(completion: [Item] -> Void) {
-        let data = (userDefaults.objectForKey(key) as? NSData)
-        let results = data.flatMap { NSKeyedUnarchiver.unarchiveObjectWithData($0) as? [Item] } ?? []
-        completion(results)
-    }
-
-    public func write(items: [Item], completion: VoidBlock? = nil) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(items)
-        userDefaults.setObject(data, forKey: key)
-    }
-
-    public func removeAll(completion: VoidBlock? = nil) {
-        userDefaults.removeObjectForKey(key)
     }
 }

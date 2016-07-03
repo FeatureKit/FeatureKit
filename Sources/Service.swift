@@ -85,4 +85,10 @@ extension Service where Feature: ValueCoding, Feature.Coder: NSCoding, Feature =
     public func setStorageToUserDefaults(completion: VoidBlock? = nil) -> Self {
         return setStorage(AnyValueStorage(UserDefaultsAdaptor<Feature.Coder>()), completion: completion)
     }
+
+    public func setStorageFromURL<Mapper: RemoteDataMapper where Feature == Mapper.Item>(URL: NSURL, mapper: Mapper, completion: VoidBlock? = nil) -> Self {
+        let storage = AnyValueStorage(UserDefaultsAdaptor<Feature.Coder>())
+        let remote = RemoteConfigurationAdaptor(URL: URL, mapper: mapper, storage: storage)
+        return setStorage(remote, completion: completion)
+    }
 }

@@ -17,3 +17,5 @@ variable_name:
     - URL
     - x
     - y
+
+reporter: "xcode"

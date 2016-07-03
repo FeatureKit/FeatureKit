@@ -7,12 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		655B540F1D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
+		655B54101D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
+		655B54111D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
+		655B54121D286FB200B26270 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B540E1D286FB200B26270 /* Storage.swift */; };
+		655B54141D28737D00B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54131D28737D00B26270 /* ValueCoding.framework */; };
+		655B54181D2874EC00B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54171D2874EC00B26270 /* ValueCoding.framework */; };
+		655B541B1D28752300B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541A1D28752300B26270 /* ValueCoding.framework */; };
+		655B541E1D28756D00B26270 /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541D1D28756D00B26270 /* ValueCoding.framework */; };
+		655B54211D29349D00B26270 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54201D29349D00B26270 /* StorageTests.swift */; };
+		655B54221D29349D00B26270 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54201D29349D00B26270 /* StorageTests.swift */; };
+		655B54231D29349D00B26270 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54201D29349D00B26270 /* StorageTests.swift */; };
+		655B54251D29479500B26270 /* ServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54241D29479500B26270 /* ServiceTests.swift */; };
+		655B54261D29479500B26270 /* ServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54241D29479500B26270 /* ServiceTests.swift */; };
+		655B54271D29479500B26270 /* ServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B54241D29479500B26270 /* ServiceTests.swift */; };
 		655EEE7C1D0A8BA200D5B4B9 /* Features.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655EEE711D0A8BA200D5B4B9 /* Features.framework */; };
 		655EEEB41D0A8DFC00D5B4B9 /* Features.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655EEEAA1D0A8DFC00D5B4B9 /* Features.framework */; };
 		655EEED01D0A8E0E00D5B4B9 /* Features.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655EEEC61D0A8E0D00D5B4B9 /* Features.framework */; };
-		655EEEDD1D0A91C000D5B4B9 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEE911D0A8C0800D5B4B9 /* Tests.swift */; };
-		655EEEDE1D0A91C100D5B4B9 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEE911D0A8C0800D5B4B9 /* Tests.swift */; };
-		655EEEDF1D0A91C200D5B4B9 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEE911D0A8C0800D5B4B9 /* Tests.swift */; };
 		655EEEE01D0A91C700D5B4B9 /* Features.h in Headers */ = {isa = PBXBuildFile; fileRef = 655EEE931D0A8C0800D5B4B9 /* Features.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		655EEEE11D0A91C800D5B4B9 /* Features.h in Headers */ = {isa = PBXBuildFile; fileRef = 655EEE931D0A8C0800D5B4B9 /* Features.h */; };
 		655EEEE21D0A91C900D5B4B9 /* Features.h in Headers */ = {isa = PBXBuildFile; fileRef = 655EEE931D0A8C0800D5B4B9 /* Features.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,6 +32,9 @@
 		655EEEE61D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
 		655EEEE71D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
 		655EEEE81D0C14CD00D5B4B9 /* Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Features.swift */; };
+		65E6E4561D2964D00046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B54131D28737D00B26270 /* ValueCoding.framework */; };
+		65E6E4571D2964E70046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541A1D28752300B26270 /* ValueCoding.framework */; };
+		65E6E4581D2964F20046DAAD /* ValueCoding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655B541D1D28756D00B26270 /* ValueCoding.framework */; };
 		65EA43B51D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
 		65EA43B61D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
 		65EA43B71D0C44F5001F2BFF /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */; };
@@ -55,10 +69,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		655B540E1D286FB200B26270 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		655B54131D28737D00B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/iOS/ValueCoding.framework; sourceTree = "<group>"; };
+		655B54171D2874EC00B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/watchOS/ValueCoding.framework; sourceTree = "<group>"; };
+		655B541A1D28752300B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/tvOS/ValueCoding.framework; sourceTree = "<group>"; };
+		655B541D1D28756D00B26270 /* ValueCoding.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ValueCoding.framework; path = Carthage/Build/Mac/ValueCoding.framework; sourceTree = "<group>"; };
+		655B54201D29349D00B26270 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		655B54241D29479500B26270 /* ServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceTests.swift; sourceTree = "<group>"; };
 		655EEE711D0A8BA200D5B4B9 /* Features.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Features.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEE7B1D0A8BA200D5B4B9 /* iOS FeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS FeaturesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEE901D0A8C0800D5B4B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		655EEE911D0A8C0800D5B4B9 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		655EEE931D0A8C0800D5B4B9 /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
 		655EEE941D0A8C0800D5B4B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		655EEE961D0A8C3300D5B4B9 /* Features.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Features.xcconfig; sourceTree = "<group>"; };
@@ -78,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655B54141D28737D00B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4561D2964D00046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEE7C1D0A8BA200D5B4B9 /* Features.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655B54181D2874EC00B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655B541B1D28752300B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4571D2964E70046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEEB41D0A8DFC00D5B4B9 /* Features.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655B541E1D28756D00B26270 /* ValueCoding.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E6E4581D2964F20046DAAD /* ValueCoding.framework in Frameworks */,
 				655EEED01D0A8E0E00D5B4B9 /* Features.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,12 +156,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		655B54151D28738500B26270 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				655B54131D28737D00B26270 /* ValueCoding.framework */,
+				655B541D1D28756D00B26270 /* ValueCoding.framework */,
+				655B541A1D28752300B26270 /* ValueCoding.framework */,
+				655B54171D2874EC00B26270 /* ValueCoding.framework */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
 		655EEE651D0A8B5600D5B4B9 = {
 			isa = PBXGroup;
 			children = (
 				655EEE951D0A8C0800D5B4B9 /* Sources */,
 				655EEE921D0A8C0800D5B4B9 /* Supporting Files */,
 				655EEE8F1D0A8C0800D5B4B9 /* Tests */,
+				655B54151D28738500B26270 /* Dependencies */,
 				655EEE721D0A8BA200D5B4B9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -157,8 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				655EEE901D0A8C0800D5B4B9 /* Info.plist */,
-				655EEE911D0A8C0800D5B4B9 /* Tests.swift */,
 				65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */,
+				655B54241D29479500B26270 /* ServiceTests.swift */,
+				655B54201D29349D00B26270 /* StorageTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -179,6 +219,7 @@
 			children = (
 				655EEEE41D0C14CD00D5B4B9 /* Features.swift */,
 				65EA43B81D0C6E21001F2BFF /* Service.swift */,
+				655B540E1D286FB200B26270 /* Storage.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -247,6 +288,7 @@
 				655EEE771D0A8BA200D5B4B9 /* Sources */,
 				655EEE781D0A8BA200D5B4B9 /* Frameworks */,
 				655EEE791D0A8BA200D5B4B9 /* Resources */,
+				655B54281D2961D800B26270 /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -266,6 +308,7 @@
 				655EEE991D0A8DD700D5B4B9 /* Frameworks */,
 				655EEE9A1D0A8DD700D5B4B9 /* Headers */,
 				655EEE9B1D0A8DD700D5B4B9 /* Resources */,
+				655B54191D2874FB00B26270 /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -301,6 +344,7 @@
 				655EEEAF1D0A8DFC00D5B4B9 /* Sources */,
 				655EEEB01D0A8DFC00D5B4B9 /* Frameworks */,
 				655EEEB11D0A8DFC00D5B4B9 /* Resources */,
+				655B54291D29621500B26270 /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -338,6 +382,7 @@
 				655EEECB1D0A8E0E00D5B4B9 /* Sources */,
 				655EEECC1D0A8E0E00D5B4B9 /* Frameworks */,
 				655EEECD1D0A8E0E00D5B4B9 /* Resources */,
+				655B542A1D29623B00B26270 /* Copy Carthage frameworks */,
 			);
 			buildRules = (
 			);
@@ -487,6 +532,69 @@
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect\n[ -f .swiftlint.yml ] && CONFIG=\".swiftlint.yml\" || CONFIG=\"$HOME/.swiftlint.yml\"\nswiftlint lint --config $CONFIG\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 			showEnvVarsInLog = 0;
 		};
+		655B54191D2874FB00B26270 /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/watchOS/ValueCoding.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			showEnvVarsInLog = 0;
+		};
+		655B54281D2961D800B26270 /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ValueCoding.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		655B54291D29621500B26270 /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/ValueCoding.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			showEnvVarsInLog = 0;
+		};
+		655B542A1D29623B00B26270 /* Copy Carthage frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/ValueCoding.framework",
+			);
+			name = "Copy Carthage frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -496,6 +604,7 @@
 			files = (
 				655EEEE51D0C14CD00D5B4B9 /* Features.swift in Sources */,
 				65EA43B91D0C6E21001F2BFF /* Service.swift in Sources */,
+				655B540F1D286FB200B26270 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +613,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65EA43B51D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
-				655EEEDD1D0A91C000D5B4B9 /* Tests.swift in Sources */,
+				655B54251D29479500B26270 /* ServiceTests.swift in Sources */,
+				655B54211D29349D00B26270 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +624,7 @@
 			files = (
 				655EEEE61D0C14CD00D5B4B9 /* Features.swift in Sources */,
 				65EA43BA1D0C6E21001F2BFF /* Service.swift in Sources */,
+				655B54101D286FB200B26270 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +634,7 @@
 			files = (
 				655EEEE71D0C14CD00D5B4B9 /* Features.swift in Sources */,
 				65EA43BB1D0C6E21001F2BFF /* Service.swift in Sources */,
+				655B54111D286FB200B26270 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +643,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65EA43B61D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
-				655EEEDE1D0A91C100D5B4B9 /* Tests.swift in Sources */,
+				655B54261D29479500B26270 /* ServiceTests.swift in Sources */,
+				655B54221D29349D00B26270 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +654,7 @@
 			files = (
 				655EEEE81D0C14CD00D5B4B9 /* Features.swift in Sources */,
 				65EA43BC1D0C6E21001F2BFF /* Service.swift in Sources */,
+				655B54121D286FB200B26270 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +663,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65EA43B71D0C44F5001F2BFF /* FeaturesTests.swift in Sources */,
-				655EEEDF1D0A91C200D5B4B9 /* Tests.swift in Sources */,
+				655B54271D29479500B26270 /* ServiceTests.swift in Sources */,
+				655B54231D29349D00B26270 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +732,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -673,6 +792,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -717,6 +840,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -765,6 +892,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -810,6 +941,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -866,6 +1001,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -914,6 +1053,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -969,6 +1112,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1013,6 +1160,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1060,6 +1211,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1106,6 +1261,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1164,6 +1323,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1210,6 +1373,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1259,6 +1426,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

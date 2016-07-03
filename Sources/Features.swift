@@ -13,13 +13,18 @@ import Foundation
 /// Protocol which a Feature Identifier must conform to
 public protocol FeatureIdentifier: Hashable, CustomStringConvertible { }
 
+extension String: FeatureIdentifier {
+
+    public var description: String { return self }
+}
+
 /// Default implementations of CustomStringConvertible for String based enums
 public extension FeatureIdentifier where Self: RawRepresentable, Self.RawValue == String {
 
     var description: String { return rawValue }
 }
 
-/// Protocol which a Feature Identifier must conform to
+/// Protocol which a Feature must conform to
 public protocol FeatureProtocol {
 
     associatedtype Identifier: FeatureIdentifier
@@ -46,7 +51,7 @@ public extension FeatureProtocol {
 
 // MARK: - Service
 
-/// Protocol which defines the interface for a Feature Service
+/// Protocol which defines the interface for a Service
 public protocol ServiceProtocol {
 
     /// The type of the Feature that the Service provides
@@ -79,5 +84,4 @@ public extension ServiceProtocol {
         guard let f = feature(id), parentId = f.parent, parentFeature = feature(parentId) else { return .None }
         return parentFeature
     }
-
 }

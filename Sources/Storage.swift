@@ -8,6 +8,10 @@
 import Foundation
 import ValueCoding
 
+@noreturn internal func _abstractMethod(file: StaticString = #file, line: UInt = #line) {
+    fatalError("Method must be overriden", file: file, line: line)
+}
+
 public typealias VoidBlock = () -> Void
 
 /// Protocol to support storage
@@ -33,10 +37,6 @@ public protocol AsyncStorageProtocol: StorageProtocol {
     func asyncWrite(value value: Value, to: Key, _: (() -> Void)?)
 
     func asyncRemove(key key: Key, _: ((Value?) -> Void)?)
-}
-
-@noreturn private func _abstractMethod(file: StaticString = #file, line: UInt = #line) {
-    fatalError("Method must be overriden", file: file, line: line)
 }
 
 private class AnyStorage_<K: Hashable, V>: SyncStorageProtocol, AsyncStorageProtocol {

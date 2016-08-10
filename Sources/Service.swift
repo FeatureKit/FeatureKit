@@ -50,9 +50,12 @@ public extension FeatureServiceProtocol {
 
 public class FeatureService<Feature: FeatureProtocol> {
     public typealias Storage = AnyStorage<Feature.Identifier, Feature>
+    public typealias Mapper = AnyMapper<RemoteResult, [Feature]>
 
     private var _features: [Feature.Identifier: Feature] // swiftlint:disable:this variable_name
-    private var storage: Storage? = .None
+    private var storage: Storage? = nil
+    private var mapper: Mapper? = nil
+    private var download: Download? = nil
 
     public var features: [Feature] {
         return Array(_features.values)
@@ -111,5 +114,36 @@ extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Fe
 
     public func setStorageToUserDefaults(withApplicationGroupName groupName: String? = nil) -> Self {
         return set(storage: UserDefaultsStorage(group: groupName))
+    }
+}
+
+// MARK: - Remote Configuration
+
+public extension FeatureService {
+
+    public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
+
+    public func set<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(mapper newMapper: Base) -> Self {
+        mapper = AnyMapper(newMapper)
+        return self
+    }
+
+    public func load<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
+        load(request: NSURLRequest(URL: URL), usingSession: session, usingMapper: oneTimeMapper, completion: completion)
+    }
+
+    public func load<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
+        guard let mapper = oneTimeMapper.map({ AnyMapper($0) }) ?? self.mapper else { return }
+        download = Download(session: session)
+        download?.get(request, mapAndSetFeatures(mapper, onCompletion: completion))
+    }
+
+    internal func mapAndSetFeatures(mapper: AnyMapper<RemoteResult, [Feature]>, onCompletion completion: ReceiveFeaturesBlock? = nil) -> (RemoteResult) -> Void {
+        let _setFeatures: ReceiveFeaturesBlock = setFeatures
+        return { result in
+            let features = mapper.map(result)
+            _setFeatures(features)
+            completion?(features)
+        }
     }
 }

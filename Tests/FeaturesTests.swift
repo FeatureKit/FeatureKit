@@ -7,9 +7,12 @@
 //
 
 import XCTest
+import ValueCoding
 @testable import Features
 
-enum FeatureId: String, FeatureIdentifier {
+enum TestFeatureId: String, FeatureIdentifier, ValueCoding {
+    typealias Coder = RawRepresentableStringCoder<TestFeatureId>
+
     case Foo = "Foo"
     case Bar = "Bar"
     case Bat = "Bat"
@@ -17,6 +20,8 @@ enum FeatureId: String, FeatureIdentifier {
     case Fat = "Fat"
     case Hat = "Hat"
 }
+
+/*
 
 struct Feature: FeatureProtocol {
     let id: FeatureId
@@ -37,12 +42,13 @@ struct Feature: FeatureProtocol {
         return currentAvailable
     }
 }
-
+*/
 enum TestFeaturesError<ID: FeatureIdentifier>: ErrorType {
     case FeatureNotDefinied(ID)
 }
 
-typealias TestFeatureService = Service<Feature>
+typealias TestFeature = Feature<TestFeatureId>
+typealias TestFeatureService = FeatureService<TestFeature>
 
 class TestFeatures: XCTestCase {
 
@@ -51,15 +57,15 @@ class TestFeatures: XCTestCase {
     override func setUp() {
         super.setUp()
         service = TestFeatureService([
-            Feature(id: .Foo, defaultAvailable: true, currentAvailable: true),
-            Feature(id: .Bar, defaultAvailable: true, currentAvailable: false),
-            Feature(id: .Bat, defaultAvailable: false, currentAvailable: true),
-            Feature(id: .Baz, defaultAvailable: false, currentAvailable: false)
+            TestFeature(id: .Foo, defaultAvailability: true, currentAvailability: true),
+            TestFeature(id: .Bar, defaultAvailability: true, currentAvailability: false),
+            TestFeature(id: .Bat, defaultAvailability: false, currentAvailability: true),
+            TestFeature(id: .Baz, defaultAvailability: false, currentAvailability: false)
         ])
     }
 
     func test__get_feature_with_exits() {
-        XCTAssertEqual(service.feature(.Foo)?.id, FeatureId.Foo)
+        XCTAssertEqual(service.feature(.Foo)?.id, TestFeatureId.Foo)
     }
 
     func test__default_editable_value_is_false() {

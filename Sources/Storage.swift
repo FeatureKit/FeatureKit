@@ -1,6 +1,5 @@
 //
-//  Storage.swift
-//  Features
+//  FeatureKit
 //
 //  Created by Daniel Thorpe on 02/07/2016.
 //
@@ -21,8 +20,11 @@ public protocol StorageProtocol {
 public protocol SyncStorageProtocol: StorageProtocol {
 
     subscript(key: Key) -> Value? { get set }
-}
 
+    var values: AnyRandomAccessCollection<Value> { get }
+
+    func removeAll()
+}
 
 public protocol AsyncStorageProtocol: StorageProtocol {
 
@@ -50,15 +52,23 @@ private class AnyStorage_<K: Hashable, V>: SyncStorageProtocol, AsyncStorageProt
         }
     }
 
-    func asyncRead(key key: Key, _: (Value?) -> Void) {
+    private var values: AnyRandomAccessCollection<Value> {
         _abstractMethod()
     }
 
-    func asyncWrite(value value: Value, to: Key, _: (() -> Void)?) {
+    private func removeAll() {
         _abstractMethod()
     }
 
-    func asyncRemove(key key: Key, _: ((Value?) -> Void)?) {
+    private func asyncRead(key key: Key, _: (Value?) -> Void) {
+        _abstractMethod()
+    }
+
+    private func asyncWrite(value value: Value, to: Key, _: (() -> Void)?) {
+        _abstractMethod()
+    }
+
+    private func asyncRemove(key key: Key, _: ((Value?) -> Void)?) {
         _abstractMethod()
     }
 }
@@ -78,6 +88,14 @@ private final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Ba
         set {
             base[key] = newValue
         }
+    }
+
+    private override var values: AnyRandomAccessCollection<Value> {
+        return base.values
+    }
+
+    private override func removeAll() {
+        return base.removeAll()
     }
 }
 
@@ -142,6 +160,16 @@ public struct AnyStorage<K: Hashable, V>: AnyStorageProtocol {
         }
     }
 
+    public var values: AnyRandomAccessCollection<Value> {
+        guard let sync = sync else { notSyncStorage() }
+        return sync.values
+    }
+
+    public func removeAll() {
+        guard let sync = sync else { notSyncStorage() }
+        sync.removeAll()
+    }
+
     public func asyncRead(key key: Key, _ completion: (Value?) -> Void) {
         guard let async = async else { notAsyncStorage() }
         async.asyncRead(key: key, completion)
@@ -183,6 +211,14 @@ public struct AnyValueStorage<K, V where K: Hashable, V: ValueCoding, V.Coder: N
         }
     }
 
+    public var values: AnyRandomAccessCollection<Value> {
+        return AnyRandomAccessCollection(box.values.lazy.map { $0.value })
+    }
+
+    public func removeAll() {
+        box.removeAll()
+    }
+
     public func asyncRead(key key: Key, _ completion: (Value?) -> Void) {
         box.asyncRead(key: key) { completion($0?.value) }
     }
@@ -199,42 +235,3 @@ public struct AnyValueStorage<K, V where K: Hashable, V: ValueCoding, V.Coder: N
         box.asyncRemove(key: key, c)
     }
 }
-
-/*
-
-// MARK: - UserDefaultsAdaptor
-
-public protocol UserDefaultsProtocol: class {
-
-    func objectForKey(_: String) -> AnyObject?
-
-    func setObject(_: AnyObject?, forKey: String)
-
-    func removeObjectForKey(_: String)
-}
-
-extension NSUserDefaults: UserDefaultsProtocol { }
-
-public class UserDefaultsAdaptor<Item: NSCoding>: StorageProtocol {
-
-    let key = "me.danthorpe.Features.UserDefaultsKey"
-    public lazy var userDefaults: UserDefaultsProtocol = NSUserDefaults.standardUserDefaults()
-
-    public func read(completion: [Item] -> Void) {
-        let data = (userDefaults.objectForKey(key) as? NSData)
-        let results = data.flatMap { NSKeyedUnarchiver.unarchiveObjectWithData($0) as? [Item] } ?? []
-        completion(results)
-    }
-
-    public func write(items: [Item], completion: VoidBlock? = nil) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(items)
-        userDefaults.setObject(data, forKey: key)
-    }
-
-    public func removeAll(completion: VoidBlock? = nil) {
-        userDefaults.removeObjectForKey(key)
-    }
-}
-
-
- */

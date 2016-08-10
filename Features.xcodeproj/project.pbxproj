@@ -32,6 +32,10 @@
 		655EEEE61D0C14CD00D5B4B9 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Feature.swift */; };
 		655EEEE71D0C14CD00D5B4B9 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Feature.swift */; };
 		655EEEE81D0C14CD00D5B4B9 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655EEEE41D0C14CD00D5B4B9 /* Feature.swift */; };
+		65B767601D5B8E3800B807EA /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B7675F1D5B8E3800B807EA /* Result.framework */; };
+		65B767621D5B8E7400B807EA /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B767611D5B8E7400B807EA /* Result.framework */; };
+		65B767641D5B8E9A00B807EA /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B767631D5B8E9A00B807EA /* Result.framework */; };
+		65B767661D5B8EBB00B807EA /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B767651D5B8EBB00B807EA /* Result.framework */; };
 		65CE6FEB1D5B5EDA00D0A9AC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE6FEA1D5B5EDA00D0A9AC /* UserDefaults.swift */; };
 		65CE6FEC1D5B5EDA00D0A9AC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE6FEA1D5B5EDA00D0A9AC /* UserDefaults.swift */; };
 		65CE6FED1D5B5EDA00D0A9AC /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CE6FEA1D5B5EDA00D0A9AC /* UserDefaults.swift */; };
@@ -93,6 +97,10 @@
 		655EEEC61D0A8E0D00D5B4B9 /* Features.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Features.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEECF1D0A8E0E00D5B4B9 /* macOS FeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS FeaturesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		655EEEE41D0C14CD00D5B4B9 /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
+		65B7675F1D5B8E3800B807EA /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		65B767611D5B8E7400B807EA /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/watchOS/Result.framework; sourceTree = "<group>"; };
+		65B767631D5B8E9A00B807EA /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/tvOS/Result.framework; sourceTree = "<group>"; };
+		65B767651D5B8EBB00B807EA /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
 		65CE6FEA1D5B5EDA00D0A9AC /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		65EA43B41D0C44F5001F2BFF /* FeaturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturesTests.swift; sourceTree = "<group>"; };
 		65EA43B81D0C6E21001F2BFF /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -104,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				655B54141D28737D00B26270 /* ValueCoding.framework in Frameworks */,
+				65B767601D5B8E3800B807EA /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				655B54181D2874EC00B26270 /* ValueCoding.framework in Frameworks */,
+				65B767621D5B8E7400B807EA /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				655B541B1D28752300B26270 /* ValueCoding.framework in Frameworks */,
+				65B767641D5B8E9A00B807EA /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				655B541E1D28756D00B26270 /* ValueCoding.framework in Frameworks */,
+				65B767661D5B8EBB00B807EA /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +176,10 @@
 		655B54151D28738500B26270 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				65B767651D5B8EBB00B807EA /* Result.framework */,
+				65B767631D5B8E9A00B807EA /* Result.framework */,
+				65B767611D5B8E7400B807EA /* Result.framework */,
+				65B7675F1D5B8E3800B807EA /* Result.framework */,
 				655B54131D28737D00B26270 /* ValueCoding.framework */,
 				655B541D1D28756D00B26270 /* ValueCoding.framework */,
 				655B541A1D28752300B26270 /* ValueCoding.framework */,
@@ -545,6 +561,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/watchOS/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/watchOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -561,6 +578,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -576,6 +594,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/tvOS/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -592,6 +611,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/ValueCoding.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

@@ -1,6 +1,5 @@
 //
-//  Storage.swift
-//  Features
+//  FeatureKit
 //
 //  Created by Daniel Thorpe on 02/07/2016.
 //
@@ -12,151 +11,227 @@ import ValueCoding
 public typealias VoidBlock = () -> Void
 
 /// Protocol to support storage
-public protocol StorageAdaptor {
 
-    /// The type of the item that requires storing
-    associatedtype Item
+public protocol StorageProtocol {
+    associatedtype Key: Hashable
+    associatedtype Value
+}
 
-    /// Read the items from Storage
-    ///
-    /// - parameter [unnamed] completion: a completion block
-    /// which receives an array of Item
-    func read(_: [Item] -> Void)
+public protocol SyncStorageProtocol: StorageProtocol {
 
-    /// Write the item to Storage
-    ///
-    /// - parameter items: the [Item] to write into storage
-    /// - parameter completion: an optional completion block
-    func write(items: [Item], completion: VoidBlock?)
+    subscript(key: Key) -> Value? { get set }
 
-    /// Remove all the items from Storage
-    ///
-    /// - parameter completion: an optional completion block
-    func removeAll(completion: VoidBlock?)
+    var values: AnyRandomAccessCollection<Value> { get }
+
+    func removeAll()
+}
+
+public protocol AsyncStorageProtocol: StorageProtocol {
+
+    func asyncRead(key key: Key, _: (Value?) -> Void)
+
+    func asyncWrite(value value: Value, to: Key, _: (() -> Void)?)
+
+    func asyncRemove(key key: Key, _: ((Value?) -> Void)?)
 }
 
 @noreturn private func _abstractMethod(file: StaticString = #file, line: UInt = #line) {
     fatalError("Method must be overriden", file: file, line: line)
 }
 
-// MARK: - Base class for AnyStorage
+private class AnyStorage_<K: Hashable, V>: SyncStorageProtocol, AsyncStorageProtocol {
+    typealias Key = K
+    typealias Value = V
 
-public class AnyStorageBase { }
-
-internal class AnyStorage_<Item>: AnyStorageBase, StorageAdaptor {
-    override init() {
-        guard self.dynamicType != AnyStorage_.self else {
-            fatalError("AnyStorage_<Item> instances cannot be created. Create a subclass instead.")
+    private subscript(key: Key) -> Value? {
+        get {
+            _abstractMethod()
+        }
+        set {
+            _abstractMethod()
         }
     }
 
-    func read(_: [Item] -> Void) {
+    private var values: AnyRandomAccessCollection<Value> {
         _abstractMethod()
     }
 
-    func write(items: [Item], completion: VoidBlock?) {
+    private func removeAll() {
         _abstractMethod()
     }
 
-    func removeAll(completion: VoidBlock?) {
+    private func asyncRead(key key: Key, _: (Value?) -> Void) {
+        _abstractMethod()
+    }
+
+    private func asyncWrite(value value: Value, to: Key, _: (() -> Void)?) {
+        _abstractMethod()
+    }
+
+    private func asyncRemove(key key: Key, _: ((Value?) -> Void)?) {
         _abstractMethod()
     }
 }
 
-internal final class _StorageBox<Base: StorageAdaptor>: AnyStorage_<Base.Item> {
-    var base: Base
+private final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Base.Key, Base.Value> {
+
+    private var base: Base
 
     init(_ base: Base) {
         self.base = base
     }
 
-    override func read(completion: [Base.Item] -> Void) {
-        base.read(completion)
+    private override subscript(key: Base.Key) -> Base.Value? {
+        get {
+            return base[key]
+        }
+        set {
+            base[key] = newValue
+        }
     }
 
-    override func write(items: [Base.Item], completion: VoidBlock?) {
-        base.write(items, completion: completion)
+    private override var values: AnyRandomAccessCollection<Value> {
+        return base.values
     }
 
-    override func removeAll(completion: VoidBlock?) {
-        base.removeAll(completion)
+    private override func removeAll() {
+        return base.removeAll()
     }
 }
 
-public class AnyStorage<Item>: AnyStorageBase, StorageAdaptor {
+private final class AnyStorageAsyncBox<Base: AsyncStorageProtocol>: AnyStorage_<Base.Key, Base.Value> {
 
-    private var box: AnyStorage_<Item>
+    private var base: Base
 
-    public init<Base: StorageAdaptor where Base.Item == Item>(_ base: Base) {
-        box = _StorageBox(base)
+    init(_ base: Base) {
+        self.base = base
     }
 
-    public func read(completion: [Item] -> Void) {
-        box.read(completion)
+    private override func asyncRead(key key: Key, _ completion: (Value?) -> Void) {
+        base.asyncRead(key: key, completion)
     }
 
-    public func write(items: [Item], completion: VoidBlock? = nil) {
-        box.write(items, completion: completion)
+    private override func asyncWrite(value value: Value, to key: Key, _ completion: (() -> Void)?) {
+        base.asyncWrite(value: value, to: key, completion)
     }
 
-    public func removeAll(completion: VoidBlock? = nil) {
-        box.removeAll(completion)
+    private override func asyncRemove(key key: Key, _ completion: ((Value?) -> Void)?) {
+        base.asyncRemove(key: key, completion)
+    }
+}
+
+@noreturn private func notSyncStorage(file: StaticString = #file, line: UInt = #line) {
+    fatalError("Attempting to use synchronous API on asynchronous storage", file: file, line: line)
+}
+
+@noreturn private func notAsyncStorage(file: StaticString = #file, line: UInt = #line) {
+    fatalError("Attempting to use asynchronous API on synchronous storage", file: file, line: line)
+}
+
+
+public protocol AnyStorageProtocol: SyncStorageProtocol, AsyncStorageProtocol { }
+
+
+public struct AnyStorage<K: Hashable, V>: AnyStorageProtocol {
+
+    public typealias Key = K
+    public typealias Value = V
+
+    private typealias ErasedStorage = AnyStorage_<K, V>
+    private var sync: ErasedStorage? = nil
+    private var async: ErasedStorage? = nil
+
+    public init<Base: SyncStorageProtocol where K == Base.Key, V == Base.Value>(_ base: Base) {
+        sync = AnyStorageSyncBox(base)
+    }
+
+    public init<Base: AsyncStorageProtocol where K == Base.Key, V == Base.Value>(_ base: Base) {
+        async = AnyStorageAsyncBox(base)
+    }
+
+    public subscript(key: Key) -> Value? {
+        get {
+            guard let sync = sync else { notSyncStorage() }
+            return sync[key]
+        }
+        set {
+            guard let sync = sync else { notSyncStorage() }
+            sync[key] = newValue
+        }
+    }
+
+    public var values: AnyRandomAccessCollection<Value> {
+        guard let sync = sync else { notSyncStorage() }
+        return sync.values
+    }
+
+    public func removeAll() {
+        guard let sync = sync else { notSyncStorage() }
+        sync.removeAll()
+    }
+
+    public func asyncRead(key key: Key, _ completion: (Value?) -> Void) {
+        guard let async = async else { notAsyncStorage() }
+        async.asyncRead(key: key, completion)
+    }
+
+    public func asyncWrite(value value: Value, to key: Key, _ completion: (() -> Void)?) {
+        guard let async = async else { notAsyncStorage() }
+        async.asyncWrite(value: value, to: key, completion)
+    }
+
+    public func asyncRemove(key key: Key, _ completion: ((Value?) -> Void)?) {
+        guard let async = async else { notAsyncStorage() }
+        async.asyncRemove(key: key, completion)
     }
 }
 
 // MARK: - Value Storage
 
-public class AnyValueStorage<Item: ValueCoding where Item.Coder: NSCoding, Item == Item.Coder.ValueType>: AnyStorageBase, StorageAdaptor {
+public struct AnyValueStorage<K, V where K: Hashable, V: ValueCoding, V.Coder: NSCoding, V == V.Coder.ValueType>: AnyStorageProtocol {
+    public typealias Key = K
+    public typealias Value = V
 
-    private var box: AnyStorage<Item.Coder>
+    private var box: AnyStorage<K, V.Coder>
 
-    public init<Base: StorageAdaptor where Base.Item == Item.Coder>(_ base: Base) {
+    public init<Base: SyncStorageProtocol where K == Base.Key, V.Coder == Base.Value>(_ base: Base) {
         box = AnyStorage(base)
     }
 
-    public func read(completion: [Item] -> Void) {
-        box.read { completion($0.values) }
+    public init<Base: AsyncStorageProtocol where K == Base.Key, V.Coder == Base.Value>(_ base: Base) {
+        box = AnyStorage(base)
     }
 
-    public func write(items: [Item], completion: VoidBlock? = nil) {
-        box.write(items.encoded, completion: completion)
+    public subscript(key: K) -> V? {
+        get {
+            return box[key]?.value
+        }
+        set {
+            box[key] = newValue?.encoded
+        }
     }
 
-    public func removeAll(completion: VoidBlock? = nil) {
-        box.removeAll(completion)
-    }
-}
-
-// MARK: - UserDefaultsAdaptor
-
-public protocol UserDefaultsProtocol: class {
-
-    func objectForKey(_: String) -> AnyObject?
-
-    func setObject(_: AnyObject?, forKey: String)
-
-    func removeObjectForKey(_: String)
-}
-
-extension NSUserDefaults: UserDefaultsProtocol { }
-
-public class UserDefaultsAdaptor<Item: NSCoding>: StorageAdaptor {
-
-    let key = "me.danthorpe.Features.UserDefaultsKey"
-    public lazy var userDefaults: UserDefaultsProtocol = NSUserDefaults.standardUserDefaults()
-
-    public func read(completion: [Item] -> Void) {
-        let data = (userDefaults.objectForKey(key) as? NSData)
-        let results = data.flatMap { NSKeyedUnarchiver.unarchiveObjectWithData($0) as? [Item] } ?? []
-        completion(results)
+    public var values: AnyRandomAccessCollection<Value> {
+        return AnyRandomAccessCollection(box.values.lazy.map { $0.value })
     }
 
-    public func write(items: [Item], completion: VoidBlock? = nil) {
-        let data = NSKeyedArchiver.archivedDataWithRootObject(items)
-        userDefaults.setObject(data, forKey: key)
+    public func removeAll() {
+        box.removeAll()
     }
 
-    public func removeAll(completion: VoidBlock? = nil) {
-        userDefaults.removeObjectForKey(key)
+    public func asyncRead(key key: Key, _ completion: (Value?) -> Void) {
+        box.asyncRead(key: key) { completion($0?.value) }
+    }
+
+    public func asyncWrite(value value: Value, to key: Key, _ completion: (() -> Void)?) {
+        box.asyncWrite(value: value.encoded, to: key, completion)
+    }
+
+    public func asyncRemove(key key: Key, _ completion: ((Value?) -> Void)?) {
+        typealias CompletionBlock = (V.Coder?) -> Void
+        let c = completion.map { (completion) -> CompletionBlock in
+            return { completion( $0?.value) }
+        }
+        box.asyncRemove(key: key, c)
     }
 }

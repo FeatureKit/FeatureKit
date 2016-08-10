@@ -16,6 +16,7 @@ class TestableUserDefaults: UserDefaultsProtocol {
     var didReadObjectForKey: String? = .None
     var didSetObjectForKey: String? = .None
     var didRemoveObjectForKey: String? = .None
+    var didGetDictionaryRepresentation = false
 
     func objectForKey(key: String) -> AnyObject? {
         didReadObjectForKey = key
@@ -30,6 +31,11 @@ class TestableUserDefaults: UserDefaultsProtocol {
     func removeObjectForKey(key: String) {
         didRemoveObjectForKey = key
         objects.removeValueForKey(key)
+    }
+
+    func dictionaryRepresentation() -> [String: AnyObject] {
+        didGetDictionaryRepresentation = true
+        return objects
     }
 }
 
@@ -68,48 +74,67 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
     }
 }
 
-class UserDefaultsAdaptorTests: XCTestCase {
+class UserDefaultsStorageTests: XCTestCase {
+
+    typealias UserDefaultsAdaptor = UserDefaultsStorage<String, ArchivableTestFeature>
+    typealias Storage = AnyStorage<String, ArchivableTestFeature>
 
     var testableUserDefaults: TestableUserDefaults!
-    var adaptor: UserDefaultsAdaptor<ArchivableTestFeature>!
+    var adaptor: UserDefaultsAdaptor!
+    var storage: Storage!
 
     override func setUp() {
         super.setUp()
         testableUserDefaults = TestableUserDefaults()
-        adaptor = UserDefaultsAdaptor()
+        adaptor = UserDefaultsStorage()
         adaptor.userDefaults = testableUserDefaults as UserDefaultsProtocol
+        storage = AnyStorage(adaptor)
     }
 
     override func tearDown() {
-        testableUserDefaults = nil
+        storage = nil
         adaptor = nil
+        testableUserDefaults = nil
         super.tearDown()
     }
 
+    func test__empty_prefix() {
+        adaptor = UserDefaultsStorage(prefix: "")
+        adaptor.userDefaults = testableUserDefaults as UserDefaultsProtocol
+        storage = AnyStorage(adaptor)
+        let _ = storage["hello"]
+        XCTAssertEqual(testableUserDefaults.didReadObjectForKey, "\(adaptor.prefix).hello")
+    }
+
     func test__read_when_no_items_exit() {
-        let storage = AnyStorage(adaptor)
-        var result: [ArchivableTestFeature]? = .None
-        storage.read { result = $0 }
-        XCTAssertEqual(testableUserDefaults.didReadObjectForKey, adaptor.key)
-        XCTAssertNotNil(result)
-        XCTAssertEqual(result?.count ?? 100, 0)
+        let result = storage["hello"]
+        XCTAssertEqual(testableUserDefaults.didReadObjectForKey, "\(adaptor.prefix).hello")
+        XCTAssertNil(result)
+        XCTAssertEqual(storage.values.count, 0)
     }
 
     func test__write_then_read() {
-        let storage = AnyStorage(adaptor)
-        var result: [ArchivableTestFeature]? = .None
-        storage.write([ArchivableTestFeature(id: "Foo")])
-        storage.read { result = $0 }
+        storage["Foo"] = ArchivableTestFeature(id: "Foo")
+        XCTAssertEqual(storage.values.count, 1)
+        let result = storage["Foo"]
         XCTAssertNotNil(result)
-        XCTAssertEqual(result?.count ?? 0, 1)
+        XCTAssertEqual(result?.id ?? "Wrong", "Foo")
+    }
+
+    func test__write_then_remove() {
+        storage["Foo"] = ArchivableTestFeature(id: "Foo")
+        XCTAssertEqual(storage.values.count, 1)
+        storage["Foo"] = nil
+        let result = storage["Foo"]
+        XCTAssertNil(result)
+        XCTAssertEqual(storage.values.count, 0)
     }
 
     func test__remove_all_items() {
-        let storage = AnyStorage(adaptor)
-        storage.write([ArchivableTestFeature(id: "Foo"), ArchivableTestFeature(id: "Bar")])
-        storage.read { XCTAssertEqual($0.count, 2) }
+        storage["Foo"] = ArchivableTestFeature(id: "Foo")
+        storage["Bar"] = ArchivableTestFeature(id: "Bar")
         storage.removeAll()
-        storage.read { XCTAssertEqual($0.count, 0) }
+        XCTAssertEqual(storage.values.count, 0)
     }
 }
 

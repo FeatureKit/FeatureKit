@@ -1,8 +1,7 @@
 //
-//  Service.swift
-//  Features
+//  FeatureKit
 //
-//  Created by Daniel Thorpe on 11/06/2016.
+//  Created by Daniel Thorpe on 02/07/2016.
 //
 //
 
@@ -11,12 +10,49 @@ import ValueCoding
 
 // MARK: - Service
 
-public class Service<Feature: FeatureProtocol> {
+/// Protocol which defines the interface for a Service
+public protocol FeatureServiceProtocol {
 
-    // swiftlint:disable variable_name
-    private var _features: [Feature.Identifier: Feature]
-    private var _storage: AnyStorage<Feature>? = .None
-    // swiftlint:enable variable_name
+    /// The type of the Feature that the Service provides
+    associatedtype Feature: FeatureProtocol
+
+    /// Access a feature by its identifier
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: a Feature if owned by the service, nil if not.
+    func feature(id: Feature.Identifier) -> Feature?
+}
+
+public extension FeatureServiceProtocol {
+
+    /// Returns whether or not a feature is available.
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: a boolean, the feature's availability or false if there is no feature
+    func available(id: Feature.Identifier) -> Bool {
+        guard let f = feature(id) else { return false }
+        let parentIsAvailable = parent(id)?.available ?? true
+        return parentIsAvailable && f.available
+    }
+
+    /// The parent feature of a feature with identifier
+    ///
+    /// - parameter id: a Feature.Identifier
+    /// - returns: if the feature exists, and it has a parent, and that parent exists
+    func parent(id: Feature.Identifier) -> Feature? {
+        guard let f = feature(id), parentId = f.parent, parentFeature = feature(parentId) else { return nil }
+        return parentFeature
+    }
+}
+
+
+// MARK: - Concrete type
+
+public class FeatureService<Feature: FeatureProtocol> {
+    public typealias Storage = AnyStorage<Feature.Identifier, Feature>
+
+    private var _features: [Feature.Identifier: Feature] // swiftlint:disable:this variable_name
+    private var storage: Storage? = .None
 
     public var features: [Feature] {
         return Array(_features.values)
@@ -31,12 +67,12 @@ public class Service<Feature: FeatureProtocol> {
         setFeatures(features)
     }
 
-    internal func setFeatures(features: [Feature]) {
+    internal func setFeatures<C: CollectionType where C.Generator.Element == Feature>(features: C) {
         _features = features.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
     }
 }
 
-extension Service: ServiceProtocol {
+extension FeatureService: FeatureServiceProtocol {
 
     public func feature(id: Feature.Identifier) -> Feature? {
         return _features[id]
@@ -45,44 +81,35 @@ extension Service: ServiceProtocol {
 
 // MARK: - Storage
 
-public extension Service {
+public extension FeatureService {
 
-    convenience init<Storage where Storage: StorageAdaptor, Feature == Storage.Item>(storage: Storage, completion: VoidBlock? = nil) {
+    convenience init<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature>(storage base: Base) {
         self.init()
-        let _ = setStorage(storage)
+        let _ = set(storage: base)
     }
 
-    func removeStorage(completion: VoidBlock? = nil) {
-        if let storage = _storage {
-            storage.removeAll(completion)
-        }
-        else {
-            completion?()
-        }
-    }
-
-    func setStorage<Storage where Storage: StorageAdaptor, Feature == Storage.Item>(storage: Storage, completion: VoidBlock? = nil) -> Self {
-        removeStorage { [unowned self] in
-            self._storage = AnyStorage(storage)
-            self._storage?.read { items in
-                self.setFeatures(items)
-                completion?()
-            }
-        }
+    public func set<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature>(storage newStorage: Base) -> Self {
+        setFeatures(newStorage.values)
+        storage?.removeAll()
+        storage = AnyStorage(newStorage)
         return self
     }
 }
 
-extension Service where Feature: NSCoding {
+public extension FeatureService where Feature: NSCoding {
 
-    public func setStorageToUserDefaults(completion: VoidBlock? = nil) -> Self {
-        return setStorage(UserDefaultsAdaptor<Feature>(), completion: completion)
+    func setStorageToUserDefaults(withApplicationGroupName groupName: String? = nil) -> Self {
+        return set(storage: UserDefaultsStorage(group: groupName))
     }
 }
 
-extension Service where Feature: ValueCoding, Feature.Coder: NSCoding, Feature == Feature.Coder.ValueType {
+extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Feature == Feature.Coder.ValueType {
 
-    public func setStorageToUserDefaults(completion: VoidBlock? = nil) -> Self {
-        return setStorage(AnyValueStorage(UserDefaultsAdaptor<Feature.Coder>()), completion: completion)
+    public func set<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature.Coder>(storage newStorage: Base) -> Self {
+        return set(storage: AnyValueStorage(newStorage))
+    }
+
+    public func setStorageToUserDefaults(withApplicationGroupName groupName: String? = nil) -> Self {
+        return set(storage: UserDefaultsStorage(group: groupName))
     }
 }

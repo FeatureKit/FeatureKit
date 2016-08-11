@@ -141,7 +141,7 @@ public extension FeatureService {
     internal func mapAndSetFeatures(mapper: AnyMapper<RemoteResult, [Feature]>, onCompletion completion: ReceiveFeaturesBlock? = nil) -> (RemoteResult) -> Void {
         let _setFeatures: ReceiveFeaturesBlock = setFeatures
         return { result in
-            let features = mapper.map(result)
+            guard let features = try? mapper.map(result) else { return }
             _setFeatures(features)
             completion?(features)
         }

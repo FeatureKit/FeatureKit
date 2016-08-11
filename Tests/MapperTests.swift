@@ -35,10 +35,10 @@ class MapperTests: XCTestCase {
         XCTAssertEqual(mapper.map("Hello"), "Hello!")
     }
 
-    func test__add_mapper() {
+    func test__append_mappers() {
         let mapper = AnyMapper(AppendExclamation())
-            .add(AppendQuestionMark())
-            .add(CharacterCount())
+            .append(AppendQuestionMark())
+            .append(CharacterCount())
         XCTAssertEqual(mapper.map("Hello"), 7)
     }
 }

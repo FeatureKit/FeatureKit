@@ -16,7 +16,10 @@ public protocol Mappable {
 
 public enum MappingError: ErrorType {
     case unableToPerformMapping
+    case requiredOptionalIsNil
 }
+
+// MARK: - Type Erasure
 
 private class AnyMapper_<Input, Output>: Mappable {
 
@@ -50,9 +53,81 @@ public struct AnyMapper<Input, Output>: Mappable {
     public func map(input: Input) throws -> Output {
         return try box.map(input)
     }
+}
 
-    public func append<Base: Mappable where Base.Input == Output>(base: Base) -> AnyMapper<Input, Base.Output> {
+// MARK: - Composing Mappers
+
+public struct AnyObjectCoercion<Output>: Mappable {
+
+    public func map(input: AnyObject) throws -> Output {
+        guard let output = input as? Output else { throw MappingError.unableToPerformMapping }
+        return output
+    }
+}
+
+public struct BlockMapper<Input, Output>: Mappable {
+
+    let transform: (Input) throws -> Output
+
+    public init(transform: (Input) throws -> Output) {
+        self.transform = transform
+    }
+
+    public func map(input: Input) throws -> Output {
+        return try transform(input)
+    }
+}
+
+public struct FlatMap<Input, Output>: Mappable {
+    let mapper: AnyMapper<Input, Output>
+
+    public init<Base: Mappable where Input == Base.Input, Base.Output == Output>(_ base: Base) {
+        mapper = AnyMapper(base)
+    }
+
+    public func map(input: Input?) throws -> Output? {
+        guard let input = input else { return nil }
+        return try mapper.map(input)
+    }
+}
+
+public struct CatchAsOptional<Input, Output>: Mappable {
+    let mapper: AnyMapper<Input, Output>
+
+    public init<Base: Mappable where Input == Base.Input, Base.Output == Output>(_ base: Base) {
+        mapper = AnyMapper(base)
+    }
+
+    public func map(input: Input) throws -> Output? {
+        guard let result = try? mapper.map(input) else { return nil }
+        return result
+    }
+}
+
+
+public struct NotOptional<Input, Output>: Mappable {
+    let mapper: AnyMapper<Input, Optional<Output>>
+
+    public init<Base: Mappable where Input == Base.Input, Base.Output == Optional<Output>>(_ base: Base) {
+        mapper = AnyMapper(base)
+    }
+
+    public func map(input: Input) throws -> Output {
+        guard let result = try mapper.map(input) else { throw MappingError.requiredOptionalIsNil }
+        return result
+    }
+}
+
+// MARK: - Appending Mappers
+
+public extension Mappable {
+
+    func append<Base: Mappable where Base.Input == Output>(base: Base) -> AnyMapper<Input, Base.Output> {
         return AnyMapper<Input, Base.Output>(IntermediateMapper(previous: self, mapper: base))
+    }
+
+    func append<NewOutput>(transform: (Output) throws -> NewOutput) -> AnyMapper<Input, NewOutput> {
+        return append(BlockMapper<Output, NewOutput>(transform: transform))
     }
 }
 
@@ -63,13 +138,5 @@ internal struct IntermediateMapper<Previous, Next where Previous: Mappable, Next
 
     internal func map(input: Previous.Input) throws -> Next.Output {
         return try mapper.map(previous.map(input))
-    }
-}
-
-public struct AnyObjectCoercion<Output>: Mappable {
-
-    public func map(input: AnyObject) throws -> Output {
-        guard let output = input as? Output else { throw MappingError.unableToPerformMapping }
-        return output
     }
 }

@@ -34,10 +34,10 @@ class ServiceTests: XCTestCase {
 
     func createFeatures() -> [TestFeature] {
         return [
-            TestFeature(id: .Foo, defaultAvailability: true, currentAvailability: true),
-            TestFeature(id: .Bar, defaultAvailability: true, currentAvailability: false),
-            TestFeature(id: .Bat, defaultAvailability: false, currentAvailability: true),
-            TestFeature(id: .Baz, defaultAvailability: false, currentAvailability: false)
+            TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
+            TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
+            TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
+            TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
         ]
     }
 

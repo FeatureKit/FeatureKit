@@ -112,7 +112,7 @@ class JSONFeatureMapperTests: XCTestCase {
             let features = try mapper.map(data)
 
             // Assert correctness
-            XCTAssertEqual(features.count, 6)
+            verify(features: features)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
@@ -132,10 +132,13 @@ class JSONFeatureMapperTests: XCTestCase {
             // Map the data to a Features
             let features = try mapper.map(data)
 
-            // Assert correctness
-            XCTAssertEqual(features.count, 6)
+            verify(features: features)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
 
+    func verify(features features: [TestFeature]) {
+        XCTAssertEqual(features.count, 6)
+        XCTAssertEqual(features.map { $0.id }, [.Foo, .Fat, .Bar, .Bat, .Baz, .Hat])
+    }
 }

@@ -75,28 +75,67 @@ class JSONFeatureMapperTests: XCTestCase {
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
 
-    func test__data_mapper() {
-        let json = [ "features": ["id": "Foo", "title": "This is a title", "defaultAvailability": true] ]
-
-        let toJSON = AnyObjectCoercion<JSON.Fragment>()
+    func test__data_mapper_with_single_feature() {
+        let json = [ "features": [["id": "Foo", "title": "This is a title", "defaultAvailability": true]] ]
 
         // This is the mapper for NSData -> JSON -> JSON extrator -> Feature
-        let mapper = JSON.DataMapper()
-            .append(toJSON)
-            .append(JSON.Search(forKey: "features"))
-            .append(toJSON)
-            .append(TestFeature.mapper())
+        let mapper = TestFeature.mapper(searchForKey: "features")
 
         do {
             // Create thes NSData from the input JSON
             let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])
 
-            // Map the data to a single Feature
-            let feature = try mapper.map(data)
+            // Map the data to a Features
+            let features = try mapper.map(data)
 
             // Assert correctness
-            XCTAssertEqual(feature.id, TestFeatureId.Foo)
+            XCTAssertEqual(features.count, 1)
+            XCTAssertEqual(features.first?.id ?? TestFeatureId.Bar, TestFeatureId.Foo)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
+
+
+    func test__data_mapper_with_many_features() {
+
+        // This is the mapper for NSData -> JSON -> JSON extrator -> Feature
+        let mapper = TestFeature.mapper(searchForKey: "features")
+
+        do {
+            guard let path = NSBundle(forClass: self.dynamicType).pathForResource("Features", ofType: "json") else {
+                XCTFail("Missing JSON file"); return
+            }
+
+            let data = try NSData(contentsOfFile: path, options: [])
+
+            // Map the data to a Features
+            let features = try mapper.map(data)
+
+            // Assert correctness
+            XCTAssertEqual(features.count, 6)
+        }
+        catch { XCTFail("Caught unexpected error: \(error)") }
+    }
+
+    func test__data_mapper_with_many_features_in_array() {
+
+        // This is the mapper for NSData -> JSON -> JSON extrator -> Feature
+        let mapper = TestFeature.mapper()
+
+        do {
+            guard let path = NSBundle(forClass: self.dynamicType).pathForResource("FeaturesList", ofType: "json") else {
+                XCTFail("Missing JSON file"); return
+            }
+
+            let data = try NSData(contentsOfFile: path, options: [])
+
+            // Map the data to a Features
+            let features = try mapper.map(data)
+
+            // Assert correctness
+            XCTAssertEqual(features.count, 6)
+        }
+        catch { XCTFail("Caught unexpected error: \(error)") }
+    }
+
 }

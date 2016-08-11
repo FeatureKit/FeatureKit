@@ -9,11 +9,13 @@ import Foundation
 
 public struct JSON {
 
-    public typealias Fragment = Dictionary<String, AnyObject>
+    public typealias Hash = Dictionary<String, AnyObject>
+    public typealias List = Array<Hash>
 
     public enum Error: ErrorType {
-        case unableToCreateFromJSON(Fragment)
+        case unableToCreateFromJSON(Hash)
         case keyNotFound(String)
+        case unableToSearchArrays
     }
 
     enum SearchTerm {
@@ -39,24 +41,41 @@ public struct JSON {
             search = .key(key.rawValue)
         }
 
-        public func map(input: Fragment) throws -> AnyObject {
+        public func map(input: Hash) throws -> AnyObject {
             switch search {
-            case .key(let key):
+            case let .key(key):
                 guard let result = input[key] else { throw Error.keyNotFound(key) }
                 return result
             }
         }
     }
-}
 
+    public struct Coercion {
+        // object coercions
+        static let string = AnyObjectCoercion<String>()
+        static let data = AnyObjectCoercion<NSData>()
+        static let number = AnyObjectCoercion<NSNumber>()
+
+        // primitives coercions
+        static let bool = AnyMapper(number).append { $0.boolValue }
+        static let int = AnyMapper(number).append { $0.intValue }
+
+        // flat mapped
+        static let flatMapString = FlatMap(JSON.Coercion.string)
+        static let flatMapBool = FlatMap(JSON.Coercion.bool)
+
+        static let toHash = AnyObjectCoercion<JSON.Hash>()
+        static let toList = AnyObjectCoercion<JSON.List>()
+    }
+}
 
 // MARK: - JSON Creation
 
 public protocol CreateFromJSONProtocol {
 
-    static func mapper() -> AnyMapper<JSON.Fragment, Self>
+    static func mapper(searchForKey key: String?) -> AnyMapper<NSData, [Self]>
 
-    static func create(from json: JSON.Fragment) throws -> Self
+    static func create(from json: JSON.Hash) throws -> Self
 }
 
 internal struct JSONFeature {
@@ -70,45 +89,47 @@ internal struct JSONFeature {
         case currentAvailability = "currentAvailability"
     }
 
-    struct Coercion {
-        // object coercions
-        static let string = AnyObjectCoercion<String>()
-        static let data = AnyObjectCoercion<NSData>()
-        static let number = AnyObjectCoercion<NSNumber>()
-
-        // primitives coercions
-        static let bool = AnyMapper(number).append { $0.boolValue }
-        static let int = AnyMapper(number).append { $0.intValue }
-    }
-
     struct Find {
 
         // Note that these are lazily created function, which receive a JSON.Fragment, which they search
         // for the correct key, and return the appropriate type or nil, or throw an error.
 
-        static let identifier = JSON.Search(forKey: Key.id).append(Coercion.string).map
-        static let title = JSON.Search(forKey: Key.title).append(Coercion.string).map
-        static let parent = CatchAsOptional(JSON.Search(forKey: Key.parent)).append(FlatMap(Coercion.string)).map
-        static let editable = CatchAsOptional(JSON.Search(forKey: Key.editable)).append(FlatMap(Coercion.bool)).map
-        static let defaultAvailability = JSON.Search(forKey: Key.defaultAvailability).append(Coercion.bool).map
-        static let currentAvailability = CatchAsOptional(JSON.Search(forKey: Key.currentAvailability)).append(FlatMap(Coercion.bool)).map
+        static let identifier = JSON.Search(forKey: Key.id).append(JSON.Coercion.string).map
+        static let title = JSON.Search(forKey: Key.title).append(JSON.Coercion.string).map
+        static let parent = CatchAsOptional(JSON.Search(forKey: Key.parent)).append(JSON.Coercion.flatMapString).map
+        static let editable = CatchAsOptional(JSON.Search(forKey: Key.editable)).append(JSON.Coercion.flatMapBool).map
+        static let defaultAvailability = JSON.Search(forKey: Key.defaultAvailability).append(JSON.Coercion.bool).map
+        static let currentAvailability = CatchAsOptional(JSON.Search(forKey: Key.currentAvailability)).append(JSON.Coercion.flatMapBool).map
     }
 }
 
 internal struct JSONFeatureMapper<F: CreateFromJSONProtocol>: Mappable {
 
-    internal func map(input: JSON.Fragment) throws -> F {
+    internal func map(input: JSON.Hash) throws -> F {
         return try F.create(from: input)
     }
 }
 
 extension Feature: CreateFromJSONProtocol {
 
-    public static func mapper() -> AnyMapper<JSON.Fragment, Feature> {
-        return AnyMapper(JSONFeatureMapper<Feature>())
+    public static func mapper(searchForKey key: String? = nil) -> AnyMapper<NSData, [Feature]> {
+        let data = JSON.DataMapper()
+        let features = Many(JSONFeatureMapper<Feature>())
+        if let key = key {
+            return data
+                .append(JSON.Coercion.toHash)
+                .append(JSON.Search(forKey: key))
+                .append(JSON.Coercion.toList)
+                .append(features)
+        }
+        else {
+            return data
+                .append(JSON.Coercion.toList)
+                .append(features)
+        }
     }
 
-    public static func create(from json: JSON.Fragment) throws -> Feature {
+    public static func create(from json: JSON.Hash) throws -> Feature {
         do {
             let idString = try JSONFeature.Find.identifier(json)
             let parentString = try JSONFeature.Find.parent(json)

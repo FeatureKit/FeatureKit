@@ -15,7 +15,7 @@ public protocol Mappable {
 }
 
 public enum MappingError: ErrorType {
-    case unableToPerformMapping
+    case unableToPerformMapping(String)
     case requiredOptionalIsNil
 }
 
@@ -60,7 +60,7 @@ public struct AnyMapper<Input, Output>: Mappable {
 public struct AnyObjectCoercion<Output>: Mappable {
 
     public func map(input: AnyObject) throws -> Output {
-        guard let output = input as? Output else { throw MappingError.unableToPerformMapping }
+        guard let output = input as? Output else { throw MappingError.unableToPerformMapping("Cannot perform coercion from: \(input.dynamicType): \(input) to: \(Output.self)") }
         return output
     }
 }
@@ -115,6 +115,18 @@ public struct NotOptional<Input, Output>: Mappable {
     public func map(input: Input) throws -> Output {
         guard let result = try mapper.map(input) else { throw MappingError.requiredOptionalIsNil }
         return result
+    }
+}
+
+public struct Many<Mapper: Mappable>: Mappable {
+    let mapper: Mapper
+
+    public init(_ mapper: Mapper) {
+        self.mapper = mapper
+    }
+
+    public func map(input: [Mapper.Input]) throws -> [Mapper.Output] {
+        return try input.map(mapper.map)
     }
 }
 

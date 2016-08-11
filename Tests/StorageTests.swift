@@ -1,8 +1,7 @@
 //
-//  StorageTests.swift
-//  Features
+//  FeatureKit
 //
-//  Created by Daniel Thorpe on 03/07/2016.
+//  Created by Daniel Thorpe on 02/07/2016.
 //
 //
 

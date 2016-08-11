@@ -47,4 +47,18 @@ public struct AnyMapper<Input, Output>: MapperProtocol {
     public func map(input: Input) -> Output {
         return box.map(input)
     }
+
+    public func add<Base: MapperProtocol where Base.Input == Output>(base: Base) -> AnyMapper<Input, Base.Output> {
+        return AnyMapper<Input, Base.Output>(IntermediateMapper(previous: self, mapper: base))
+    }
+}
+
+internal struct IntermediateMapper<Previous, Next where Previous: MapperProtocol, Next: MapperProtocol, Previous.Output == Next.Input>: MapperProtocol {
+
+    let previous: Previous
+    let mapper: Next
+
+    internal func map(input: Previous.Input) -> Next.Output {
+        return mapper.map(previous.map(input))
+    }
 }

@@ -1,8 +1,7 @@
 //
-//  FeaturesTests.swift
-//  Features
+//  FeatureKit
 //
-//  Created by Daniel Thorpe on 11/06/2016.
+//  Created by Daniel Thorpe on 02/07/2016.
 //
 //
 

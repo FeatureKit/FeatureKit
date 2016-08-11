@@ -21,6 +21,13 @@ struct AppendQuestionMark: MapperProtocol {
     }
 }
 
+struct CharacterCount: MapperProtocol {
+    func map(input: String) -> Int {
+        return input.characters.count
+    }
+}
+
+
 class MapperTests: XCTestCase {
 
     func test__any_mapper() {
@@ -28,9 +35,11 @@ class MapperTests: XCTestCase {
         XCTAssertEqual(mapper.map("Hello"), "Hello!")
     }
 
-    func test__staged_mapper() {
-        let mapper = AnyMapper(AppendExclamation()).add(AppendQuestionMark())
-        XCTAssertEqual(mapper.map("Hello"), "Hello!?")
+    func test__add_mapper() {
+        let mapper = AnyMapper(AppendExclamation())
+            .add(AppendQuestionMark())
+            .add(CharacterCount())
+        XCTAssertEqual(mapper.map("Hello"), 7)
     }
 }
 

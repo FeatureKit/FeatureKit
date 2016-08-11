@@ -1,0 +1,41 @@
+[{
+ "id": "Foo",
+ "title": "Foo Feature",
+ "editable": true,
+ "defaultAvailability": true,
+ "currentAvailability": true
+}, {
+ "id": "Fat",
+ "title": "Fat Feature",
+ "editable": true,
+ "defaultAvailability": true,
+ "currentAvailability": false
+}, {
+ "id": "Bar",
+ "parent": "Foo",
+ "title": "Bar Feature",
+ "editable": true,
+ "defaultAvailability": true,
+ "currentAvailability": false
+}, {
+ "id": "Bat",
+ "parent": "Hat",
+ "title": "Bat Feature",
+ "editable": true,
+ "defaultAvailability": false,
+ "currentAvailability": true
+}, {
+ "id": "Baz",
+ "parent": "Bar",
+ "title": "Baz Feature",
+ "editable": false,
+ "defaultAvailability": true,
+ "currentAvailability": true
+}, {
+ "id": "Hat",
+ "parent": "Fat",
+ "title": "Hat Feature",
+ "editable": false,
+ "defaultAvailability": true,
+ "currentAvailability": true
+}]

@@ -1,8 +1,7 @@
 //
-//  FeaturesTests.swift
-//  Features
+//  FeatureKit
 //
-//  Created by Daniel Thorpe on 11/06/2016.
+//  Created by Daniel Thorpe on 02/07/2016.
 //
 //
 
@@ -57,10 +56,10 @@ class TestFeatures: XCTestCase {
     override func setUp() {
         super.setUp()
         service = TestFeatureService([
-            TestFeature(id: .Foo, defaultAvailability: true, currentAvailability: true),
-            TestFeature(id: .Bar, defaultAvailability: true, currentAvailability: false),
-            TestFeature(id: .Bat, defaultAvailability: false, currentAvailability: true),
-            TestFeature(id: .Baz, defaultAvailability: false, currentAvailability: false)
+            TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
+            TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
+            TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
+            TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
         ])
     }
 

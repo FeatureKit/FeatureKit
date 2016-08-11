@@ -1,8 +1,7 @@
 //
-//  StorageTests.swift
-//  Features
+//  FeatureKit
 //
-//  Created by Daniel Thorpe on 03/07/2016.
+//  Created by Daniel Thorpe on 02/07/2016.
 //
 //
 
@@ -45,12 +44,14 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
 
     let id: String
     var parent: String? = .None
+    var title: String
     var editable: Bool = false
     var available: Bool = false
 
-    init(id: String, parent: String? = .None, available: Bool = false) {
+    init(id: String, parent: String? = .None, title: String, available: Bool = false) {
         self.id = id
         self.parent = parent
+        self.title = title
         self.available = available
         super.init()
     }
@@ -62,6 +63,7 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
 
         id = identifier
         parent = aDecoder.decodeObjectForKey("parent") as? String
+        title = aDecoder.decodeObjectForKey("title") as! String
         editable = aDecoder.decodeBoolForKey("editable")
         available = aDecoder.decodeBoolForKey("available")
     }
@@ -69,6 +71,7 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeBool(available, forKey: "available")
         aCoder.encodeBool(editable, forKey: "editable")
+        aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(parent, forKey: "parent")
         aCoder.encodeObject(id, forKey: "id")
     }
@@ -114,7 +117,7 @@ class UserDefaultsStorageTests: XCTestCase {
     }
 
     func test__write_then_read() {
-        storage["Foo"] = ArchivableTestFeature(id: "Foo")
+        storage["Foo"] = ArchivableTestFeature(id: "Foo", title: "foo")
         XCTAssertEqual(storage.values.count, 1)
         let result = storage["Foo"]
         XCTAssertNotNil(result)
@@ -122,7 +125,7 @@ class UserDefaultsStorageTests: XCTestCase {
     }
 
     func test__write_then_remove() {
-        storage["Foo"] = ArchivableTestFeature(id: "Foo")
+        storage["Foo"] = ArchivableTestFeature(id: "Foo", title: "foo")
         XCTAssertEqual(storage.values.count, 1)
         storage["Foo"] = nil
         let result = storage["Foo"]
@@ -131,8 +134,8 @@ class UserDefaultsStorageTests: XCTestCase {
     }
 
     func test__remove_all_items() {
-        storage["Foo"] = ArchivableTestFeature(id: "Foo")
-        storage["Bar"] = ArchivableTestFeature(id: "Bar")
+        storage["Foo"] = ArchivableTestFeature(id: "Foo", title: "foo")
+        storage["Bar"] = ArchivableTestFeature(id: "Bar", title: "bar")
         storage.removeAll()
         XCTAssertEqual(storage.values.count, 0)
     }

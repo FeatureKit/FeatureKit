@@ -123,16 +123,16 @@ public extension FeatureService {
 
     public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
 
-    public func set<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(mapper newMapper: Base) -> Self {
+    public func set<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(mapper newMapper: Base) -> Self {
         mapper = AnyMapper(newMapper)
         return self
     }
 
-    public func load<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
+    public func load<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
         load(request: NSURLRequest(URL: URL), usingSession: session, usingMapper: oneTimeMapper, completion: completion)
     }
 
-    public func load<Base where Base: MapperProtocol, Base.Input == RemoteResult, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
+    public func load<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
         guard let mapper = oneTimeMapper.map({ AnyMapper($0) }) ?? self.mapper else { return }
         download = Download(session: session)
         download?.get(request, mapAndSetFeatures(mapper, onCompletion: completion))
@@ -141,7 +141,7 @@ public extension FeatureService {
     internal func mapAndSetFeatures(mapper: AnyMapper<RemoteResult, [Feature]>, onCompletion completion: ReceiveFeaturesBlock? = nil) -> (RemoteResult) -> Void {
         let _setFeatures: ReceiveFeaturesBlock = setFeatures
         return { result in
-            let features = mapper.map(result)
+            guard let features = try? mapper.map(result) else { return }
             _setFeatures(features)
             completion?(features)
         }

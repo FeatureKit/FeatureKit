@@ -54,14 +54,9 @@ public struct JSON {
 
 public protocol CreateFromJSONProtocol {
 
-    static func create(fromJSON JSON: JSON.Fragment) throws -> Self
-}
+    static func mapper() -> AnyMapper<JSON.Fragment, Self>
 
-public struct JSONFeatureMapper<F: CreateFromJSONProtocol>: Mappable {
-
-    public func map(input: JSON.Fragment) throws -> F {
-        return try F.create(fromJSON: input)
-    }
+    static func create(from json: JSON.Fragment) throws -> Self
 }
 
 internal struct JSONFeature {
@@ -100,10 +95,20 @@ internal struct JSONFeature {
     }
 }
 
+internal struct JSONFeatureMapper<F: CreateFromJSONProtocol>: Mappable {
+
+    internal func map(input: JSON.Fragment) throws -> F {
+        return try F.create(from: input)
+    }
+}
 
 extension Feature: CreateFromJSONProtocol {
 
-    public static func create(fromJSON json: JSON.Fragment) throws -> Feature {
+    public static func mapper() -> AnyMapper<JSON.Fragment, Feature> {
+        return AnyMapper(JSONFeatureMapper<Feature>())
+    }
+
+    public static func create(from json: JSON.Fragment) throws -> Feature {
         do {
             let idString = try JSONFeature.Find.identifier(json)
             let parentString = try JSONFeature.Find.parent(json)

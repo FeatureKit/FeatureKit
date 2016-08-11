@@ -45,40 +45,58 @@ public extension FeatureServiceProtocol {
     }
 }
 
+public protocol MutableFeatureServiceProtocol: FeatureServiceProtocol {
+
+    init(_ features: [Feature.Identifier: Feature])
+
+    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C)
+
+    mutating func set(features features: [Feature.Identifier: Feature])
+
+    mutating func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession, usingMapper mapper: Base, completion: (([Feature]) -> Void)?)
+
+}
+
+public extension MutableFeatureServiceProtocol {
+
+    public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
+}
+
+
+
+
+
 
 // MARK: - Concrete type
 
-public class FeatureService<Feature: FeatureProtocol> {
+public final class FeatureService<Feature: FeatureProtocol> {
     public typealias Storage = AnyStorage<Feature.Identifier, Feature>
-    public typealias Mapper = AnyMapper<RemoteResult, [Feature]>
 
     private var _features: [Feature.Identifier: Feature] // swiftlint:disable:this variable_name
     private var storage: Storage? = nil
-    private var mapper: Mapper? = nil
-    private var download: Download? = nil
+    private var download: Download<[Feature]>? = nil
 
     public var features: [Feature] {
         return Array(_features.values)
     }
 
-    public init(_ features: [Feature.Identifier: Feature] = [:]) {
+    public required init(_ features: [Feature.Identifier: Feature] = [:]) {
         _features = features
-    }
-
-    public convenience init(_ features: [Feature]) {
-        self.init()
-        setFeatures(features)
-    }
-
-    internal func setFeatures<C: CollectionType where C.Generator.Element == Feature>(features: C) {
-        _features = features.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
     }
 }
 
-extension FeatureService: FeatureServiceProtocol {
+extension FeatureService: MutableFeatureServiceProtocol {
 
     public func feature(id: Feature.Identifier) -> Feature? {
         return _features[id]
+    }
+
+    public func set(features features: [Feature.Identifier: Feature]) {
+        _features = features
+    }
+
+    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) {
+        _features = features.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
     }
 }
 
@@ -92,7 +110,7 @@ public extension FeatureService {
     }
 
     public func set<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature>(storage newStorage: Base) -> Self {
-        setFeatures(newStorage.values)
+        set(features: newStorage.values)
         storage?.removeAll()
         storage = AnyStorage(newStorage)
         return self
@@ -123,27 +141,20 @@ public extension FeatureService {
 
     public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
 
-    public func set<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(mapper newMapper: Base) -> Self {
-        mapper = AnyMapper(newMapper)
-        return self
-    }
-
-    public func load<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
-        load(request: NSURLRequest(URL: URL), usingSession: session, usingMapper: oneTimeMapper, completion: completion)
-    }
-
-    public func load<Base where Base: Mappable, Base.Input == RemoteResult, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper oneTimeMapper: Base? = nil, completion: ReceiveFeaturesBlock? = nil) {
-        guard let mapper = oneTimeMapper.map({ AnyMapper($0) }) ?? self.mapper else { return }
-        download = Download(session: session)
-        download?.get(request, mapAndSetFeatures(mapper, onCompletion: completion))
-    }
-
-    internal func mapAndSetFeatures(mapper: AnyMapper<RemoteResult, [Feature]>, onCompletion completion: ReceiveFeaturesBlock? = nil) -> (RemoteResult) -> Void {
-        let _setFeatures: ReceiveFeaturesBlock = setFeatures
-        return { result in
-            guard let features = try? mapper.map(result) else { return }
-            _setFeatures(features)
-            completion?(features)
+    public func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) {
+        download = Download(session: session, mapper: mapper)
+        download?.get(request) { [weak self] result in
+            if let strongSelf = self, features = try? result.dematerialize() {
+                strongSelf.set(features: features)
+                completion?(features)
+            }
         }
+    }
+}
+
+public extension MutableFeatureServiceProtocol where Self.Feature == Features.Feature {
+
+    func load(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), completion: ReceiveFeaturesBlock? = nil) {
+
     }
 }

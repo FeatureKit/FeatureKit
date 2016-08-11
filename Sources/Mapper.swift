@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol MapperProtocol {
+public protocol Mappable {
     associatedtype Input
     associatedtype Output
 
@@ -15,14 +15,14 @@ public protocol MapperProtocol {
 }
 
 
-private class AnyMapper_<Input, Output>: MapperProtocol {
+private class AnyMapper_<Input, Output>: Mappable {
 
     private func map(input: Input) -> Output {
         _abstractMethod()
     }
 }
 
-private final class AnyMapperBox<Base: MapperProtocol>: AnyMapper_<Base.Input, Base.Output> {
+private final class AnyMapperBox<Base: Mappable>: AnyMapper_<Base.Input, Base.Output> {
     private let base: Base
 
     private init(_ base: Base) {
@@ -34,13 +34,13 @@ private final class AnyMapperBox<Base: MapperProtocol>: AnyMapper_<Base.Input, B
     }
 }
 
-public struct AnyMapper<Input, Output>: MapperProtocol {
+public struct AnyMapper<Input, Output>: Mappable {
 
     private typealias ErasedMapper = AnyMapper_<Input, Output>
 
     private let box: ErasedMapper!
 
-    public init<Base: MapperProtocol where Input == Base.Input, Output == Base.Output>(_ base: Base) {
+    public init<Base: Mappable where Input == Base.Input, Output == Base.Output>(_ base: Base) {
         box = AnyMapperBox(base)
     }
 
@@ -48,12 +48,12 @@ public struct AnyMapper<Input, Output>: MapperProtocol {
         return box.map(input)
     }
 
-    public func append<Base: MapperProtocol where Base.Input == Output>(base: Base) -> AnyMapper<Input, Base.Output> {
+    public func append<Base: Mappable where Base.Input == Output>(base: Base) -> AnyMapper<Input, Base.Output> {
         return AnyMapper<Input, Base.Output>(IntermediateMapper(previous: self, mapper: base))
     }
 }
 
-internal struct IntermediateMapper<Previous, Next where Previous: MapperProtocol, Next: MapperProtocol, Previous.Output == Next.Input>: MapperProtocol {
+internal struct IntermediateMapper<Previous, Next where Previous: Mappable, Next: Mappable, Previous.Output == Next.Input>: Mappable {
 
     let previous: Previous
     let mapper: Next

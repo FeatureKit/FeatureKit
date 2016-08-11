@@ -9,19 +9,19 @@ import Foundation
 import XCTest
 @testable import Features
 
-struct AppendExclamation: MapperProtocol {
+struct AppendExclamation: Mappable {
     func map(input: String) -> String {
         return "\(input)!"
     }
 }
 
-struct AppendQuestionMark: MapperProtocol {
+struct AppendQuestionMark: Mappable {
     func map(input: String) -> String {
         return "\(input)?"
     }
 }
 
-struct CharacterCount: MapperProtocol {
+struct CharacterCount: Mappable {
     func map(input: String) -> Int {
         return input.characters.count
     }

@@ -45,7 +45,14 @@ class MapperTests: XCTestCase {
     func test__any_object_coercion() {
         let mapper = AnyObjectCoercion<NSData>()
         let input: AnyObject = "Hello world!".dataUsingEncoding(NSUTF8StringEncoding)!
-        XCTAssertEqual(String(data: try! mapper.map(input), encoding: NSUTF8StringEncoding), "Hello world!")
+        do {
+            let data = try mapper.map(input)
+            XCTAssertTrue(data.isKindOfClass(NSData))
+            XCTAssertEqual(String(data: data, encoding: NSUTF8StringEncoding), "Hello world!")
+        }
+        catch {
+            XCTFail("Unexpected error thrown: \(error)")
+        }
     }
 
     func test__any_object_coercion_which_fails() {

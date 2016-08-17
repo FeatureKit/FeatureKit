@@ -1,13 +1,12 @@
 //
 //  FeatureKit
 //
-//  Created by Daniel Thorpe on 11/08/2016.
-//
+//  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
 import Foundation
 import XCTest
-@testable import Features
+@testable import FeatureKit
 
 struct AppendExclamation: Mappable {
     func map(input: String) -> String {

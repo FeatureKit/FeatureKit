@@ -17,10 +17,9 @@ platform :ios do
   lane :test do
 
     scan(
-      project: "Features.xcodeproj",
-      scheme: "iOS Features",
-      output_directory: ".ci/xcodebuild-data",
-      xcargs: "-derivedDataPath .ci/xcodebuild-data"
+      project: "FeatureKit.xcodeproj",
+      scheme: "FeatureKit",
+      destination: "platform=iOS Simulator,name=iPhone 5s"
     )
 
   end
@@ -37,10 +36,9 @@ platform :mac do
   lane :test do
 
     scan(
-      project: "Features.xcodeproj",
-      scheme: "macOS Features",
-      output_directory: ".ci/xcodebuild-data",
-      xcargs: "-derivedDataPath .ci/xcodebuild-data"
+      project: "FeatureKit.xcodeproj",
+      scheme: "FeatureKit",
+      destination: "platform=OS X"
     )
 
   end

@@ -1,12 +1,11 @@
 //
 //  FeatureKit
 //
-//  Created by Daniel Thorpe on 02/07/2016.
-//
+//  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
 import XCTest
-@testable import Features
+@testable import FeatureKit
 
 class TestableUserDefaults: UserDefaultsProtocol {
 

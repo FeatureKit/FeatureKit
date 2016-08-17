@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "655EEEA91D0A8DFC00D5B4B9"
-               BuildableName = "Features.framework"
-               BlueprintName = "tvOS Features"
-               ReferencedContainer = "container:Features.xcodeproj">
+               BlueprintIdentifier = "65D182FC1D65094300DB4BF1"
+               BuildableName = "FeatureKit.framework"
+               BlueprintName = "FeatureKit"
+               ReferencedContainer = "container:FeatureKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,20 +33,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "655EEEB21D0A8DFC00D5B4B9"
-               BuildableName = "watchOS FeaturesTests.xctest"
-               BlueprintName = "tvOS FeaturesTests"
-               ReferencedContainer = "container:Features.xcodeproj">
+               BlueprintIdentifier = "65D183051D65094400DB4BF1"
+               BuildableName = "FeatureKitTests.xctest"
+               BlueprintName = "FeatureKitTests"
+               ReferencedContainer = "container:FeatureKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "655EEEA91D0A8DFC00D5B4B9"
-            BuildableName = "Features.framework"
-            BlueprintName = "tvOS Features"
-            ReferencedContainer = "container:Features.xcodeproj">
+            BlueprintIdentifier = "65D182FC1D65094300DB4BF1"
+            BuildableName = "FeatureKit.framework"
+            BlueprintName = "FeatureKit"
+            ReferencedContainer = "container:FeatureKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +65,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "655EEEA91D0A8DFC00D5B4B9"
-            BuildableName = "Features.framework"
-            BlueprintName = "tvOS Features"
-            ReferencedContainer = "container:Features.xcodeproj">
+            BlueprintIdentifier = "65D182FC1D65094300DB4BF1"
+            BuildableName = "FeatureKit.framework"
+            BlueprintName = "FeatureKit"
+            ReferencedContainer = "container:FeatureKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,10 +83,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "655EEEA91D0A8DFC00D5B4B9"
-            BuildableName = "Features.framework"
-            BlueprintName = "tvOS Features"
-            ReferencedContainer = "container:Features.xcodeproj">
+            BlueprintIdentifier = "65D182FC1D65094300DB4BF1"
+            BuildableName = "FeatureKit.framework"
+            BlueprintName = "FeatureKit"
+            ReferencedContainer = "container:FeatureKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

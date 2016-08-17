@@ -52,9 +52,6 @@ public protocol MutableFeatureServiceProtocol: FeatureServiceProtocol {
     mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C)
 
     mutating func set(features features: [Feature.Identifier: Feature])
-
-    mutating func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession, usingMapper mapper: Base, completion: (([Feature]) -> Void)?)
-
 }
 
 public extension MutableFeatureServiceProtocol {
@@ -137,11 +134,11 @@ extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Fe
 
 // MARK: - Remote Configuration
 
-public extension FeatureService {
+public extension FeatureService where Feature: CreateFromJSONProtocol {
 
     public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
 
-    public func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) {
+    internal func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) {
         download = Download(session: session, mapper: mapper)
         download?.get(request) { [weak self] result in
             if let strongSelf = self, features = try? result.dematerialize() {
@@ -150,11 +147,13 @@ public extension FeatureService {
             }
         }
     }
-}
 
-public extension MutableFeatureServiceProtocol where Self.Feature == Features.Feature {
+    func load(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), searchForKey: String = "features", completion: VoidBlock? = nil) {
+        let mapper = NotOptional(BlockMapper<RemoteData, NSData?> { $0.0 }).append(Feature.mapper(searchForKey: searchForKey))
+        return load(request: request, usingSession: session, usingMapper: mapper) { _ in completion?() }
+    }
 
-    func load(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), completion: ReceiveFeaturesBlock? = nil) {
-
+    func load(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), searchForKey: String = "features", completion: VoidBlock? = nil) {
+        load(request: NSURLRequest(URL: URL), usingSession: session, searchForKey: searchForKey, completion: completion)
     }
 }

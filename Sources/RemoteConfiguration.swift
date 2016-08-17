@@ -15,33 +15,44 @@ public protocol DownloadProtocol {
 }
 
 public typealias RemoteData = (NSData?, NSURLResponse?)
-public typealias RemoteResult = Result<RemoteData, NSError>
 
-internal class Download: DownloadProtocol {
+public enum DownloadError: ErrorType {
+    case network(NSError)
+    case mapping(ErrorType)
+    case unknown
+}
+
+internal class Download<Output>: DownloadProtocol {
 
     var session: NSURLSession
+    let mapper: AnyMapper<RemoteData, Output>
 
-    init(session: NSURLSession = NSURLSession.sharedSession()) {
+    init<Base: Mappable where RemoteData == Base.Input, Output == Base.Output>(session: NSURLSession = NSURLSession.sharedSession(), mapper base: Base) {
         self.session = session
+        self.mapper = AnyMapper(base)
     }
 
-    func get(request: NSURLRequest, _ completion: RemoteResult -> Void) -> NSURLSessionTask {
+    func get(request: NSURLRequest, _ completion: Result<Output, DownloadError> -> Void) -> NSURLSessionTask {
+        let map = mapper.map
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            let result = error.map { Result(error: $0) } ?? Result(value: (data, response))
-            completion(result)
+            switch (data, response, error) {
+            case (_, _, nil):
+                do {
+                    let result = try map((data, response))
+                    completion(Result(value: result))
+                }
+                catch {
+                    completion(Result(error: DownloadError.mapping(error)))
+                }
+
+            case let (nil, nil, .Some(error)):
+                completion(Result(error: DownloadError.network(error)))
+
+            default:
+                completion(Result(error: DownloadError.unknown))
+            }
         }
         task.resume()
         return task
-    }
-}
-
-public class RemoteConfiguration {
-
-    public internal(set) var session: NSURLSession
-    public let URL: NSURL
-
-    public init(session: NSURLSession = NSURLSession.sharedSession(), URL: NSURL) {
-        self.session = session
-        self.URL = URL
     }
 }

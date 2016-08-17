@@ -99,8 +99,7 @@ public struct CatchAsOptional<Input, Output>: Mappable {
     }
 
     public func map(input: Input) throws -> Output? {
-        guard let result = try? mapper.map(input) else { return nil }
-        return result
+        return try? mapper.map(input)
     }
 }
 

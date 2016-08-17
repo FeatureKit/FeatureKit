@@ -56,10 +56,10 @@ class TestFeatures: XCTestCase {
     override func setUp() {
         super.setUp()
         service = TestFeatureService([
-            TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
-            TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
-            TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
-            TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
+            .Foo: TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
+            .Bar: TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
+            .Bat: TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
+            .Baz: TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
         ])
     }
 

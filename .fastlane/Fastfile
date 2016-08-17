@@ -19,7 +19,7 @@ platform :ios do
     scan(
       project: "FeatureKit.xcodeproj",
       scheme: "FeatureKit",
-      destination: "platform=iOS Simulator"
+      destination: "platform=iOS Simulator,name=iPhone 5s"
     )
 
   end

@@ -54,4 +54,21 @@ class ServiceTests: XCTestCase {
         service = TestFeatureService(storage: storage)
         XCTAssertEqual(service.features.count, 4)
     }
+
+    func test__load_from_url() {
+        guard let path = NSBundle(forClass: self.dynamicType).pathForResource("Features", ofType: "json") else {
+            XCTFail("Missing or invalid JSON file"); return
+        }
+        let url = NSURL(fileURLWithPath: path)
+
+        let expectation = expectationWithDescription("Test: \(#file) \(#line)")
+        service = TestFeatureService()
+        XCTAssertEqual(service.features.count, 0)
+        service.load(url) {
+            expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(3, handler: nil)
+
+        XCTAssertEqual(service.features.count, 6)
+    }
 }

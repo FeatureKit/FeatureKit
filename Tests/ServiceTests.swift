@@ -61,12 +61,11 @@ class ServiceTests: XCTestCase {
         }
         let url = NSURL(fileURLWithPath: path)
 
-        let expectation = expectationWithDescription("Test: \(#file) \(#line)")
         service = TestFeatureService()
         XCTAssertEqual(service.features.count, 0)
-        service.load(url) {
-            expectation.fulfill()
-        }
+
+        let expectation = expectationWithDescription("Test: \(#file) \(#line)")
+        service.load(url, completion: expectation.fulfill)
         waitForExpectationsWithTimeout(3, handler: nil)
 
         XCTAssertEqual(service.features.count, 6)

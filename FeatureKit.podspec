@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "FeatureKit"
-  s.version      = "0.9"
+  s.version      = "0.6"
   s.summary      = "A Swift framework to provide Feature flags."
   s.description  = <<-DESC
 

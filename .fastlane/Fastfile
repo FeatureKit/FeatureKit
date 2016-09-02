@@ -1,0 +1,46 @@
+
+lane :lint do
+
+    swiftLint(
+        mode: :lint, 
+        config_file: '.swiftlint.yml'
+    )
+end
+
+platform :ios do
+
+  before_all do
+	carthage(platform: "iOS")
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+
+    scan(
+      project: "FeatureKit.xcodeproj",
+      scheme: "FeatureKit",
+      destination: "platform=iOS Simulator,name=iPhone 5s"
+    )
+
+  end
+
+end
+
+platform :mac do
+
+  before_all do
+	carthage(platform: 'Mac')
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+
+    scan(
+      project: "FeatureKit.xcodeproj",
+      scheme: "FeatureKit",
+      destination: "platform=OS X"
+    )
+
+  end
+  
+end

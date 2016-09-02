@@ -1,0 +1,2 @@
+github "danthorpe/ValueCoding" ~> 1.4
+github "antitypical/Result"

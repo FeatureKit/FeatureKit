@@ -1,3 +1,0 @@
-[submodule "buildscripts"]
-	path = buildscripts
-	url = git@github.com:blindingskies/buildscripts.git

@@ -1,0 +1,22 @@
+included:
+  - Sources
+  
+disabled_rules:
+  - valid_docs
+  - statement_position
+  - line_length
+  - type_name
+  
+file_length:
+  warning: 500
+  error: 1200
+  
+variable_name:
+  excluded:
+    - id
+    - to    
+    - URL
+    - x
+    - y
+
+reporter: "xcode"

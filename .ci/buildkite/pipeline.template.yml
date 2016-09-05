@@ -1,0 +1,17 @@
+steps:
+  -
+    name: "Lint"
+    command: .ci/scripts/lint
+    agents:
+      xcode: "$XCODE"
+  -
+    name: "FeatureKit"
+    command: .ci/scripts/test_featurekit
+    agents:
+      xcode: "$XCODE"
+  -
+    name: "FeatureKitUI"
+    command: .ci/scripts/test_featurekitui
+    agents:
+      xcode: "$XCODE" 
+      iOS-Simulator: true

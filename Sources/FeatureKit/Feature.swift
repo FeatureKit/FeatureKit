@@ -4,7 +4,6 @@
 //  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
-import Foundation
 import ValueCoding
 
 // MARK: - Support Interfaces
@@ -96,6 +95,12 @@ public extension MutableFeatureProtocol {
     }
 }
 
+extension CollectionType where Generator.Element: FeatureProtocol {
+
+    public var asFeaturesByIdentifier: [Generator.Element.Identifier: Generator.Element] {
+        return reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
+    }
+}
 
 // MARK: - Feature<Identifier>
 

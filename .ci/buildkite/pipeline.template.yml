@@ -14,3 +14,4 @@ steps:
     command: .ci/scripts/test_featurekitui
     agents:
       xcode: "$XCODE" 
+      iOS-Simulator: true

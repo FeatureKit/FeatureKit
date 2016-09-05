@@ -8,9 +8,7 @@ end
 desc "Runs the feature kit tests"
 lane :test_featurekit do
 
-	before_all do
-		carthage(platform: "Mac")
-	end
+	carthage(platform: "Mac")
 
 	scan(
 		project: "FeatureKit.xcodeproj",
@@ -23,9 +21,7 @@ end
 desc "Runs the feature kit tests"
 lane :test_featurekitui do
 
-	before_all do
-		carthage(platform: "iOS")
-	end
+	carthage(platform: "iOS")
 
 	scan(
 		project: "FeatureKit.xcodeproj",

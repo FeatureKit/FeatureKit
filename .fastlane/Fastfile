@@ -1,46 +1,36 @@
-
 lane :lint do
-
-    swiftLint(
-        mode: :lint, 
-        config_file: '.swiftlint.yml'
-    )
+	swiftLint(
+		mode: :lint, 
+		config_file: '.swiftlint.yml'
+	)
 end
 
-platform :ios do
+desc "Runs the feature kit tests"
+lane :test_featurekit do
 
-  before_all do
-	carthage(platform: "iOS")
-  end
+	before_all do
+		carthage(platform: "Mac")
+	end
 
-  desc "Runs all the tests"
-  lane :test do
-
-    scan(
-      project: "FeatureKit.xcodeproj",
-      scheme: "FeatureKit",
-      destination: "platform=iOS Simulator,name=iPhone 5s"
-    )
-
-  end
+	scan(
+		project: "FeatureKit.xcodeproj",
+		scheme: "FeatureKit",
+		destination: "platform=OS X"
+	)
 
 end
 
-platform :mac do
+desc "Runs the feature kit tests"
+lane :test_featurekitui do
 
-  before_all do
-	carthage(platform: 'Mac')
-  end
+	before_all do
+		carthage(platform: "iOS")
+	end
 
-  desc "Runs all the tests"
-  lane :test do
+	scan(
+		project: "FeatureKit.xcodeproj",
+		scheme: "FeatureKitUI",
+		destination: "platform=iOS Simulator,name=iPhone 6s"
+	)
 
-    scan(
-      project: "FeatureKit.xcodeproj",
-      scheme: "FeatureKit",
-      destination: "platform=OS X"
-    )
-
-  end
-  
 end

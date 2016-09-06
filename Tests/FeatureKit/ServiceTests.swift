@@ -8,12 +8,11 @@ import XCTest
 import ValueCoding
 @testable import FeatureKit
 
-class ServiceTests: XCTestCase {
+class ServiceTests: FeatureKitTestCase {
 
     var testableUserDefaults: TestableUserDefaults!
     var adaptor: UserDefaultsStorage<TestFeature.Identifier, TestFeature.Coder>!
     var storage: AnyValueStorage<TestFeature.Identifier, TestFeature>!
-    var service: TestFeatureService!
 
     override func setUp() {
         super.setUp()
@@ -27,17 +26,7 @@ class ServiceTests: XCTestCase {
     override func tearDown() {
         testableUserDefaults = nil
         adaptor = nil
-        service = nil
         super.tearDown()
-    }
-
-    func createFeatures() -> [TestFeature] {
-        return [
-            TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
-            TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
-            TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
-            TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
-        ]
     }
 
     func test__initialize_with_storage() {

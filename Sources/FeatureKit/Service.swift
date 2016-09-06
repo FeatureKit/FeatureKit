@@ -53,9 +53,9 @@ public protocol MutableFeatureServiceProtocol: FeatureServiceProtocol {
 
     init(_ features: [Feature.Identifier: Feature])
 
-    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C)
+    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> Self
 
-    mutating func set(features features: [Feature.Identifier: Feature])
+    mutating func set(features features: [Feature.Identifier: Feature]) -> Self
 }
 
 public extension MutableFeatureServiceProtocol {
@@ -88,12 +88,13 @@ extension FeatureService: MutableFeatureServiceProtocol {
         return features[id]
     }
 
-    public func set(features features: [Feature.Identifier: Feature]) {
+    public func set(features features: [Feature.Identifier: Feature]) -> FeatureService {
         self.features = features
+        return self
     }
 
-    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) {
-        self.features = features.asFeaturesByIdentifier
+    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> FeatureService {
+        return set(features: features.asFeaturesByIdentifier)
     }
 }
 

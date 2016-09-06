@@ -4,7 +4,7 @@
 //  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
-public protocol FeaturesDataSourceProtocol {
+public protocol DataSourceProtocol {
 
     associatedtype Feature: FeatureProtocol
 
@@ -15,7 +15,7 @@ public protocol FeaturesDataSourceProtocol {
     func featureAtIndex(_: Int, inGroup: Int) -> Feature
 }
 
-public class FeaturesDataSource<Service: FeatureServiceProtocol> {
+public class DataSource<Service: FeatureServiceProtocol where Service.Feature.Identifier: Comparable> {
     public typealias Feature = Service.Feature
 
     private var service: Service
@@ -26,28 +26,26 @@ public class FeaturesDataSource<Service: FeatureServiceProtocol> {
 
 }
 
-
-internal extension FeatureServiceProtocol {
+internal extension FeatureServiceProtocol where Feature.Identifier: Comparable {
 
     var groups: Dictionary<Feature.Identifier,Feature> {
         return features.values.filter({ $0.parent == nil }).asFeaturesByIdentifier
     }
 
-    func group(atIndex index: Int) -> [Feature] {
-        let _groups = groups
-        let parent = (Array<Feature.Identifier>)(_groups.keys)[index]
-        guard let feature = _groups[parent] else { return [] }
-        var result = [feature]
-        result.appendContentsOf(features(withParentIdentifier: parent))
-        return result
+    var groupIdentifiers: [Feature.Identifier] {
+        return groups.keys.sort()
     }
 
-    func features(withParentIdentifier parent: Feature.Identifier) -> [Feature] {
-        return features.values.filter { $0.parent == parent }
+    func group(atIndex index: Int) -> [Feature] {
+        return features(associatedWithIdentifier: groupIdentifiers[index])
+    }
+
+    func features(associatedWithIdentifier searchId: Feature.Identifier) -> [Feature] {
+        return features.values.filter({ $0.parent == searchId || $0.id == searchId }).sort(<)
     }
 }
 
-extension FeaturesDataSource: FeaturesDataSourceProtocol {
+extension DataSource: DataSourceProtocol {
 
     public var numberOfGroups: Int {
         return service.groups.count
@@ -61,3 +59,4 @@ extension FeaturesDataSource: FeaturesDataSourceProtocol {
         return service.group(atIndex: groupIndex)[index]
     }
 }
+

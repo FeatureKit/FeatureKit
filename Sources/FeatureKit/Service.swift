@@ -33,10 +33,10 @@ public extension FeatureServiceProtocol {
     ///
     /// - parameter id: a Feature.Identifier
     /// - returns: a boolean, the feature's availability or false if there is no feature
-    func available(id: Feature.Identifier) -> Bool {
+    func isAvailable(id: Feature.Identifier) -> Bool {
         guard let f = feature(id) else { return false }
-        let parentIsAvailable = parent(id)?.available ?? true
-        return parentIsAvailable && f.available
+        let parentIsAvailable = parent(id)?.isAvailable ?? true
+        return parentIsAvailable && f.isAvailable
     }
 
     /// The parent feature of a feature with identifier

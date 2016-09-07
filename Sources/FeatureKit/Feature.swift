@@ -66,7 +66,7 @@ public protocol FeatureProtocol {
     var title: String { get }
 
     /// - returns available: returns a boolean to indicate whether the Feature is available
-    var available: Bool { get }
+    var isAvailable: Bool { get }
 }
 
 // MARK: - MutableFeatureProtocol
@@ -74,7 +74,7 @@ public protocol FeatureProtocol {
 public protocol MutableFeatureProtocol: FeatureProtocol {
 
     /// - returns editable: returns a boolean to indicate whether the Feature could be made not available
-    var editable: Bool { get }
+    var isEditable: Bool { get }
 
     /// - returns defaultAvailability: The default availability of the feature
     var defaultAvailability: Bool { get }
@@ -92,10 +92,10 @@ public protocol MutableFeatureProtocol: FeatureProtocol {
 public extension MutableFeatureProtocol {
 
     /// - returns editable: by default Feature's are not editable
-    var editable: Bool { return false }
+    var isEditable: Bool { return false }
 
-    public var toggled: Bool {
-        return defaultAvailability != available
+    public var isToggled: Bool {
+        return defaultAvailability != isAvailable
     }
 }
 
@@ -123,11 +123,11 @@ public struct Feature<ID: FeatureIdentifier where ID: ValueCoding, ID.Coder: NSC
     public let id: ID
     public let parent: ID?
     public let title: String
-    public var editable: Bool
+    public var isEditable: Bool
     public let defaultAvailability: Bool
     public var currentAvailability: Bool
 
-    public var available: Bool {
+    public var isAvailable: Bool {
         return currentAvailability
     }
 
@@ -135,13 +135,13 @@ public struct Feature<ID: FeatureIdentifier where ID: ValueCoding, ID.Coder: NSC
         self.id = id
         self.parent = parent
         self.title = title
-        self.editable = editable
+        self.isEditable = editable
         self.defaultAvailability = defaultAvailability
         self.currentAvailability = currentAvailability
     }
 
     public mutating func set(editable newEditable: Bool) {
-        editable = newEditable
+        isEditable = newEditable
     }
 
     public mutating func set(available newAvailable: Bool) {
@@ -183,7 +183,7 @@ public class FeatureCoder<Identifier: FeatureIdentifier where Identifier: ValueC
         aCoder.encodeObject(value.id.encoded, forKey: "id")
         aCoder.encodeObject(value.parent?.encoded, forKey: "parent")
         aCoder.encodeObject(value.title, forKey: "title")
-        aCoder.encodeBool(value.editable, forKey: "editable")
+        aCoder.encodeBool(value.isEditable, forKey: "editable")
         aCoder.encodeBool(value.defaultAvailability, forKey: "defaultAvailability")
         aCoder.encodeBool(value.currentAvailability, forKey: "currentAvailability")
     }

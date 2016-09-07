@@ -44,14 +44,14 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
     let id: String
     var parent: String? = .None
     var title: String
-    var editable: Bool = false
-    var available: Bool = false
+    var isEditable: Bool = false
+    var isAvailable: Bool = false
 
     init(id: String, parent: String? = .None, title: String, available: Bool = false) {
         self.id = id
         self.parent = parent
         self.title = title
-        self.available = available
+        self.isAvailable = available
         super.init()
     }
 
@@ -63,13 +63,13 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
         id = identifier
         parent = aDecoder.decodeObjectForKey("parent") as? String
         title = aDecoder.decodeObjectForKey("title") as! String
-        editable = aDecoder.decodeBoolForKey("editable")
-        available = aDecoder.decodeBoolForKey("available")
+        isEditable = aDecoder.decodeBoolForKey("editable")
+        isAvailable = aDecoder.decodeBoolForKey("available")
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeBool(available, forKey: "available")
-        aCoder.encodeBool(editable, forKey: "editable")
+        aCoder.encodeBool(isAvailable, forKey: "available")
+        aCoder.encodeBool(isEditable, forKey: "editable")
         aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(parent, forKey: "parent")
         aCoder.encodeObject(id, forKey: "id")

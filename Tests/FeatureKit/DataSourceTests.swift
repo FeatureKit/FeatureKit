@@ -17,17 +17,17 @@ class DataSourceTests: FeatureKitTestCase {
         dataSource = DataSource(service: service)
     }
 
-    func test__number_of_groups() {
+    func test__number_of_sections() {
         XCTAssertEqual(dataSource.numberOfSections, 3)
     }
 
-    func test__number_of_features_in_groups() {
+    func test__number_of_features_in_section() {
         XCTAssertEqual(dataSource.numberOfFeatures(inSection: 0), 1) // Bar
         XCTAssertEqual(dataSource.numberOfFeatures(inSection: 1), 2) // Bat, Baz
         XCTAssertEqual(dataSource.numberOfFeatures(inSection: 2), 1) // Foo
     }
 
-    func test__features_in_group() {
+    func test__features_in_section() {
         XCTAssertEqual(dataSource.feature(atIndex: 0, inSection: 0).id, TestFeatureId.Bar)
         XCTAssertEqual(dataSource.feature(atIndex: 0, inSection: 1).id, TestFeatureId.Bat)
         XCTAssertEqual(dataSource.feature(atIndex: 1, inSection: 1).id, TestFeatureId.Baz)

@@ -6,7 +6,7 @@
 
 public protocol DataSourceProtocol {
 
-    associatedtype Feature: FeatureProtocol
+    associatedtype Feature: MutableFeatureProtocol
 
     var numberOfSections: Int { get }
 
@@ -19,10 +19,10 @@ internal enum DataSourceStyle {
     case basic, grouped
 }
 
-public class DataSource<Service: FeatureServiceProtocol where Service.Feature.Identifier: Comparable> {
+public class DataSource<Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable> {
     public typealias Feature = Service.Feature
 
-    private var service: Service
+    public private(set) var service: Service
     private var style: DataSourceStyle
 
     public init(service: Service) {

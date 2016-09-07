@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		653D25611D8016E500DAE0E4 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D25601D8016E500DAE0E4 /* TableViewDataSource.swift */; };
-		653D25631D801DC100DAE0E4 /* FeatureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D25621D801DC100DAE0E4 /* FeatureViewModel.swift */; };
 		653D25651D80303B00DAE0E4 /* TableViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D25641D80303B00DAE0E4 /* TableViewDataSourceTests.swift */; };
 		653D25661D80307000DAE0E4 /* FeatureKitTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658566D21D7E922C00399154 /* FeatureKitTestCase.swift */; };
 		653D25671D80307500DAE0E4 /* FeaturesList.json in Resources */ = {isa = PBXBuildFile; fileRef = 654FB00F1D7E119F002FA74D /* FeaturesList.json */; };
 		653D25681D80307A00DAE0E4 /* Features.json in Resources */ = {isa = PBXBuildFile; fileRef = 654FB00E1D7E119F002FA74D /* Features.json */; };
 		653D256A1D8030AE00DAE0E4 /* FeatureViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D25691D8030AE00DAE0E4 /* FeatureViewModelTests.swift */; };
+		653D256C1D80488800DAE0E4 /* FeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D256B1D80488800DAE0E4 /* FeaturesViewController.swift */; };
 		654FB0061D7E1170002FA74D /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FAFFF1D7E1170002FA74D /* Feature.swift */; };
 		654FB0071D7E1170002FA74D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0001D7E1170002FA74D /* JSON.swift */; };
 		654FB0081D7E1170002FA74D /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0011D7E1170002FA74D /* Mapper.swift */; };
@@ -58,9 +57,9 @@
 
 /* Begin PBXFileReference section */
 		653D25601D8016E500DAE0E4 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = Sources/FeatureKitUI/TableViewDataSource.swift; sourceTree = SOURCE_ROOT; };
-		653D25621D801DC100DAE0E4 /* FeatureViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeatureViewModel.swift; path = Sources/FeatureKitUI/FeatureViewModel.swift; sourceTree = SOURCE_ROOT; };
 		653D25641D80303B00DAE0E4 /* TableViewDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSourceTests.swift; path = Tests/FeatureKitUITests/TableViewDataSourceTests.swift; sourceTree = SOURCE_ROOT; };
 		653D25691D8030AE00DAE0E4 /* FeatureViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeatureViewModelTests.swift; path = Tests/FeatureKitUITests/FeatureViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		653D256B1D80488800DAE0E4 /* FeaturesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeaturesViewController.swift; path = Sources/FeatureKitUI/FeaturesViewController.swift; sourceTree = SOURCE_ROOT; };
 		654FAFFF1D7E1170002FA74D /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		654FB0001D7E1170002FA74D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		654FB0011D7E1170002FA74D /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
@@ -164,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				653D25601D8016E500DAE0E4 /* TableViewDataSource.swift */,
-				653D25621D801DC100DAE0E4 /* FeatureViewModel.swift */,
+				653D256B1D80488800DAE0E4 /* FeaturesViewController.swift */,
 			);
 			path = FeatureKitUI;
 			sourceTree = "<group>";
@@ -439,8 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				653D25611D8016E500DAE0E4 /* TableViewDataSource.swift in Sources */,
-				653D25631D801DC100DAE0E4 /* FeatureViewModel.swift in Sources */,
+				653D256C1D80488800DAE0E4 /* FeaturesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +544,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -599,6 +598,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SKIP_INSTALL = YES;

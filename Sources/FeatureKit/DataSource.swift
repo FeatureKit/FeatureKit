@@ -4,9 +4,15 @@
 //  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
+public enum DataSourceStyle {
+    case basic, grouped
+}
+
 public protocol DataSourceProtocol {
 
     associatedtype Feature: MutableFeatureProtocol
+
+    var style: DataSourceStyle { get }
 
     var numberOfSections: Int { get }
 
@@ -15,15 +21,11 @@ public protocol DataSourceProtocol {
     func feature(atIndex index: Int, inSection: Int) -> Feature
 }
 
-internal enum DataSourceStyle {
-    case basic, grouped
-}
-
 public class DataSource<Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable> {
     public typealias Feature = Service.Feature
 
     public private(set) var service: Service
-    private var style: DataSourceStyle
+    public private(set) var style: DataSourceStyle
 
     public init(service: Service) {
         self.service = service

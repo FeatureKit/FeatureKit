@@ -45,26 +45,20 @@ class TestableTable: UITableView {
     }
 }
 
-class CustomTableViewDataSourceTests: FeatureKitTestCase {
+class TableViewDataSourceTests: FeatureKitTestCase {
+    typealias TypeUnderTest = TableViewDataSource<TestFeatureService>
 
-    typealias TypeUnderTest = CustomTableViewDataSource<UITableViewCell, TestFeatureService>
     var tableView: TestableTable!
     var didConfigureCell: (UITableViewCell, FeatureViewModel)?
+    var dataSource: DataSource<TestFeatureService>!
     var tableViewDataSource: TypeUnderTest!
 
     override func setUp() {
         super.setUp()
         setupServiceManually()
         tableView = TestableTable()
-        didConfigureCell = nil
-        tableViewDataSource = TypeUnderTest(service: service, forTableView: tableView) { self.didConfigureCell = ($0, $1) }
-    }
-
-    func test__register_class_actually_registers_class_on_table_view() {
-        guard let (_, registeredId) = tableView.didRegisterClassWithIdentifier else {
-            XCTFail("Did not register cell on table view"); return
-        }
-        XCTAssertEqual(registeredId, "feature-cell-identifier")
+        dataSource = DataSource(service: service)
+        tableViewDataSource = TypeUnderTest(dataSource: dataSource)
     }
 
     func test__number_of_sections() {
@@ -75,34 +69,6 @@ class CustomTableViewDataSourceTests: FeatureKitTestCase {
         XCTAssertEqual(tableViewDataSource.tableView(tableView, numberOfRowsInSection: 0), 1)
         XCTAssertEqual(tableViewDataSource.tableView(tableView, numberOfRowsInSection: 1), 2)
         XCTAssertEqual(tableViewDataSource.tableView(tableView, numberOfRowsInSection: 2), 1)
-    }
-
-
-    func test__cell_for_row_at_indexpath() {
-        let cell = tableViewDataSource.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        guard let (configuredCell, viewModel) = didConfigureCell else {
-            XCTFail("Did not configure cell"); return
-        }
-        XCTAssertEqual(cell, configuredCell)
-        XCTAssertEqual(viewModel.title, "bar")
-        XCTAssertEqual(viewModel.isEditable, false)
-        XCTAssertEqual(viewModel.isOn, false)
-        XCTAssertEqual(viewModel.isToggled, true)
-    }
-}
-
-class TableViewDataSourceTests: FeatureKitTestCase {
-
-    typealias TypeUnderTest = TableViewDataSource<TestFeatureService>
-    var tableView: TestableTable!
-    var didConfigureCell: (UITableViewCell, FeatureViewModel)?
-    var tableViewDataSource: TypeUnderTest!
-
-    override func setUp() {
-        super.setUp()
-        setupServiceManually()
-        tableView = TestableTable()
-        tableViewDataSource = TypeUnderTest(service: service, forTableView: tableView)
     }
 
     func test__cell_is_configured_feature_cell() {

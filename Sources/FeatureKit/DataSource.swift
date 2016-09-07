@@ -8,36 +8,66 @@ public protocol DataSourceProtocol {
 
     associatedtype Feature: FeatureProtocol
 
-    var numberOfGroups: Int { get }
+    var numberOfSections: Int { get }
 
-    func numberOfFeaturesInGroupAtIndex(index: Int) -> Int
+    func numberOfFeatures(inSection sectionIndex: Int) -> Int
 
-    func featureAtIndex(_: Int, inGroup: Int) -> Feature
+    func feature(atIndex index: Int, inSection: Int) -> Feature
+}
+
+internal enum DataSourceStyle {
+    case basic, grouped
 }
 
 public class DataSource<Service: FeatureServiceProtocol where Service.Feature.Identifier: Comparable> {
     public typealias Feature = Service.Feature
 
     private var service: Service
+    private var style: DataSourceStyle
 
     public init(service: Service) {
         self.service = service
+        self.style = service.style
     }
-
 }
 
 internal extension FeatureServiceProtocol where Feature.Identifier: Comparable {
 
-    var groups: Dictionary<Feature.Identifier,Feature> {
+    var count: Int {
+        return features.count
+    }
+
+    var topLevelFeatures: Dictionary<Feature.Identifier,Feature> {
         return features.values.filter({ $0.parent == nil }).asFeaturesByIdentifier
     }
 
-    var groupIdentifiers: [Feature.Identifier] {
-        return groups.keys.sort()
+    var topLevelFeatureIdentifiers: [Feature.Identifier] {
+        return topLevelFeatures.keys.sort()
     }
 
-    func group(atIndex index: Int) -> [Feature] {
-        return features(associatedWithIdentifier: groupIdentifiers[index])
+    var style: DataSourceStyle {
+        return topLevelFeatures.count == count ? .basic : .grouped
+    }
+
+    func numberOfSections(withStyle style: DataSourceStyle) -> Int {
+        switch style {
+        case .basic: return 1
+        case .grouped: return topLevelFeatures.count
+        }
+    }
+
+    func numberOfFeatures(inSection sectionIndex: Int, withStyle style: DataSourceStyle) -> Int {
+        switch style {
+        case .basic: return features.count
+        case .grouped: return features(inSection: sectionIndex, withStyle: .grouped).count
+        }
+    }
+
+    func features(inSection index: Int, withStyle style: DataSourceStyle) -> [Feature] {
+        switch style {
+        case .basic: return features.values.sort(<)
+        case .grouped: return features(associatedWithIdentifier: topLevelFeatureIdentifiers[index])
+        }
     }
 
     func features(associatedWithIdentifier searchId: Feature.Identifier) -> [Feature] {
@@ -47,16 +77,16 @@ internal extension FeatureServiceProtocol where Feature.Identifier: Comparable {
 
 extension DataSource: DataSourceProtocol {
 
-    public var numberOfGroups: Int {
-        return service.groups.count
+    public var numberOfSections: Int {
+        return service.numberOfSections(withStyle: style)
     }
 
-    public func numberOfFeaturesInGroupAtIndex(index: Int) -> Int {
-        return service.group(atIndex: index).count
+    public func numberOfFeatures(inSection sectionIndex: Int) -> Int {
+        return service.numberOfFeatures(inSection: sectionIndex, withStyle: style)
     }
 
-    public func featureAtIndex(index: Int, inGroup groupIndex: Int) -> Feature {
-        return service.group(atIndex: groupIndex)[index]
+    public func feature(atIndex index: Int, inSection sectionIndex: Int) -> Feature {
+        return service.features(inSection: sectionIndex, withStyle: style)[index]
     }
 }
 

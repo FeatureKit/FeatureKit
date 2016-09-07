@@ -4,7 +4,6 @@
 //  Copyright © 2016 FeatureKit. All rights reserved.
 //
 
-import Foundation
 import ValueCoding
 
 // MARK: - Support Interfaces
@@ -30,6 +29,15 @@ extension RawRepresentable where RawValue == String {
     }
 }
 
+// MARK: - FeatureIdentifier
+
+/// Protocol which a Feature Identifier must conform to
+public protocol FeatureIdentifier: Hashable, StringRepresentable { }
+
+public func < <ID: FeatureIdentifier where ID: RawRepresentable, ID.RawValue == String> (lhs: ID, rhs: ID) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+}
+
 extension String: FeatureIdentifier {
 
     /// - returns: a string representation of self
@@ -40,11 +48,6 @@ extension String: FeatureIdentifier {
         self = string
     }
 }
-
-// MARK: - FeatureIdentifier
-
-/// Protocol which a Feature Identifier must conform to
-public protocol FeatureIdentifier: Hashable, StringRepresentable { }
 
 // MARK: - FeatureProtocol
 
@@ -96,6 +99,20 @@ public extension MutableFeatureProtocol {
     }
 }
 
+public func < <Feature: FeatureProtocol where Feature.Identifier: Comparable>(lhs: Feature, rhs: Feature) -> Bool {
+    switch (lhs.parent, rhs.parent) {
+    case (.None, .Some(_)): return true
+    case (.Some(_), .None): return false
+    default: return lhs.id < rhs.id
+    }
+}
+
+extension CollectionType where Generator.Element: FeatureProtocol {
+
+    public var asFeaturesByIdentifier: [Generator.Element.Identifier: Generator.Element] {
+        return reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
+    }
+}
 
 // MARK: - Feature<Identifier>
 

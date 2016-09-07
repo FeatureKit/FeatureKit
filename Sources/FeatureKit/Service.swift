@@ -15,6 +15,11 @@ public protocol FeatureServiceProtocol {
     /// The type of the Feature that the Service provides
     associatedtype Feature: FeatureProtocol
 
+    /// Access all features
+    ///
+    /// - returns: a Dictionary of Features keyed by their id
+    var features: Dictionary<Feature.Identifier, Feature> { get }
+
     /// Access a feature by its identifier
     ///
     /// - parameter id: a Feature.Identifier
@@ -48,9 +53,9 @@ public protocol MutableFeatureServiceProtocol: FeatureServiceProtocol {
 
     init(_ features: [Feature.Identifier: Feature])
 
-    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C)
+    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> Self
 
-    mutating func set(features features: [Feature.Identifier: Feature])
+    mutating func set(features features: [Feature.Identifier: Feature]) -> Self
 }
 
 public extension MutableFeatureServiceProtocol {
@@ -68,31 +73,28 @@ public extension MutableFeatureServiceProtocol {
 public final class FeatureService<Feature: FeatureProtocol> {
     public typealias Storage = AnyStorage<Feature.Identifier, Feature>
 
-    private var _features: [Feature.Identifier: Feature] // swiftlint:disable:this variable_name
     private var storage: Storage? = nil
     private var download: Download<[Feature]>? = nil
-
-    public var features: [Feature] {
-        return Array(_features.values)
-    }
+    public private(set) var features: [Feature.Identifier: Feature]
 
     public required init(_ features: [Feature.Identifier: Feature] = [:]) {
-        _features = features
+        self.features = features
     }
 }
 
 extension FeatureService: MutableFeatureServiceProtocol {
 
     public func feature(id: Feature.Identifier) -> Feature? {
-        return _features[id]
+        return features[id]
     }
 
-    public func set(features features: [Feature.Identifier: Feature]) {
-        _features = features
+    public func set(features features: [Feature.Identifier: Feature]) -> FeatureService {
+        self.features = features
+        return self
     }
 
-    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) {
-        _features = features.reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
+    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> FeatureService {
+        return set(features: features.asFeaturesByIdentifier)
     }
 }
 

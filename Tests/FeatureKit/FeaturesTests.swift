@@ -8,36 +8,11 @@ import XCTest
 import ValueCoding
 @testable import FeatureKit
 
-enum TestFeatureId: String, FeatureIdentifier, ValueCoding {
-    typealias Coder = RawRepresentableStringCoder<TestFeatureId>
-
-    case Foo = "Foo"
-    case Bar = "Bar"
-    case Bat = "Bat"
-    case Baz = "Baz"
-    case Fat = "Fat"
-    case Hat = "Hat"
-}
-
-enum TestFeaturesError<ID: FeatureIdentifier>: ErrorType {
-    case FeatureNotDefinied(ID)
-}
-
-typealias TestFeature = Feature<TestFeatureId>
-typealias TestFeatureService = FeatureService<TestFeature>
-
-class TestFeatures: XCTestCase {
-
-    var service: TestFeatureService!
+class FeaturesTests: FeatureKitTestCase {
 
     override func setUp() {
         super.setUp()
-        service = TestFeatureService([
-            .Foo: TestFeature(id: .Foo, title: "foo", defaultAvailability: true, currentAvailability: true),
-            .Bar: TestFeature(id: .Bar, title: "bar", defaultAvailability: true, currentAvailability: false),
-            .Bat: TestFeature(id: .Bat, title: "bat", defaultAvailability: false, currentAvailability: true),
-            .Baz: TestFeature(id: .Baz, title: "baz", defaultAvailability: false, currentAvailability: false)
-        ])
+        setupServiceManually()
     }
 
     func test__get_feature_with_exits() {

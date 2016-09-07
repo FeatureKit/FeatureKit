@@ -21,11 +21,13 @@
 		654FB01C1D7E119F002FA74D /* ServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0141D7E119F002FA74D /* ServiceTests.swift */; };
 		654FB01D1D7E119F002FA74D /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0151D7E119F002FA74D /* StorageTests.swift */; };
 		654FB02C1D7E1201002FA74D /* FeatureKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654FB0231D7E1201002FA74D /* FeatureKitUI.framework */; };
-		654FB03B1D7E125B002FA74D /* FeatureKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB03A1D7E125B002FA74D /* FeatureKitTests.swift */; };
+		654FB03B1D7E125B002FA74D /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB03A1D7E125B002FA74D /* FeaturesTests.swift */; };
 		654FB03E1D7E13AD002FA74D /* FeatureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D182FD1D65094400DB4BF1 /* FeatureKit.framework */; };
 		654FB0401D7E13D4002FA74D /* FeatureKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB03F1D7E13D4002FA74D /* FeatureKitUITests.swift */; };
 		654FB0411D7E13FA002FA74D /* FeatureKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 654FB03C1D7E128B002FA74D /* FeatureKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		655CD92D1D7E15C9008D2185 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655CD92C1D7E15C9008D2185 /* TableViewDataSource.swift */; };
+		655CD92F1D7E1A29008D2185 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655CD92E1D7E1A29008D2185 /* DataSource.swift */; };
+		658566D11D7E911300399154 /* DataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658566D01D7E911300399154 /* DataSourceTests.swift */; };
+		658566D31D7E922C00399154 /* FeatureKitTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658566D21D7E922C00399154 /* FeatureKitTestCase.swift */; };
 		65D183071D65094400DB4BF1 /* FeatureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D182FD1D65094400DB4BF1 /* FeatureKit.framework */; };
 		65D183181D6509D000DB4BF1 /* FeatureKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D183161D6509D000DB4BF1 /* FeatureKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -63,11 +65,13 @@
 		654FB0151D7E119F002FA74D /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		654FB0231D7E1201002FA74D /* FeatureKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeatureKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		654FB02B1D7E1201002FA74D /* FeatureKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeatureKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		654FB03A1D7E125B002FA74D /* FeatureKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureKitTests.swift; sourceTree = "<group>"; };
+		654FB03A1D7E125B002FA74D /* FeaturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturesTests.swift; sourceTree = "<group>"; };
 		654FB03C1D7E128B002FA74D /* FeatureKitUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeatureKitUI.h; path = "Supporting Files/FeatureKitUI.h"; sourceTree = "<group>"; };
 		654FB03D1D7E12B9002FA74D /* FeatureKitUI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = FeatureKitUI.xcconfig; path = "Supporting Files/FeatureKitUI.xcconfig"; sourceTree = "<group>"; };
 		654FB03F1D7E13D4002FA74D /* FeatureKitUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeatureKitUITests.swift; path = Tests/FeatureKitUITests/FeatureKitUITests.swift; sourceTree = SOURCE_ROOT; };
-		655CD92C1D7E15C9008D2185 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = Sources/FeatureKitUI/TableViewDataSource.swift; sourceTree = SOURCE_ROOT; };
+		655CD92E1D7E1A29008D2185 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		658566D01D7E911300399154 /* DataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceTests.swift; sourceTree = "<group>"; };
+		658566D21D7E922C00399154 /* FeatureKitTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureKitTestCase.swift; sourceTree = "<group>"; };
 		65D182FD1D65094400DB4BF1 /* FeatureKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeatureKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D183061D65094400DB4BF1 /* FeatureKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeatureKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D183161D6509D000DB4BF1 /* FeatureKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeatureKit.h; path = "Supporting Files/FeatureKit.h"; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				654FAFFF1D7E1170002FA74D /* Feature.swift */,
+				655CD92E1D7E1A29008D2185 /* DataSource.swift */,
 				654FB0001D7E1170002FA74D /* JSON.swift */,
 				654FB0011D7E1170002FA74D /* Mapper.swift */,
 				654FB0021D7E1170002FA74D /* RemoteConfiguration.swift */,
@@ -132,7 +137,9 @@
 			children = (
 				654FB00E1D7E119F002FA74D /* Features.json */,
 				654FB00F1D7E119F002FA74D /* FeaturesList.json */,
-				654FB03A1D7E125B002FA74D /* FeatureKitTests.swift */,
+				658566D01D7E911300399154 /* DataSourceTests.swift */,
+				658566D21D7E922C00399154 /* FeatureKitTestCase.swift */,
+				654FB03A1D7E125B002FA74D /* FeaturesTests.swift */,
 				654FB0121D7E119F002FA74D /* JSONTests.swift */,
 				654FB0131D7E119F002FA74D /* MapperTests.swift */,
 				654FB0141D7E119F002FA74D /* ServiceTests.swift */,
@@ -145,7 +152,6 @@
 		654FB0241D7E1201002FA74D /* FeatureKitUI */ = {
 			isa = PBXGroup;
 			children = (
-				655CD92C1D7E15C9008D2185 /* TableViewDataSource.swift */,
 			);
 			path = FeatureKitUI;
 			sourceTree = "<group>";
@@ -416,7 +422,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				655CD92D1D7E15C9008D2185 /* TableViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +442,7 @@
 				654FB00A1D7E1170002FA74D /* Service.swift in Sources */,
 				654FB0081D7E1170002FA74D /* Mapper.swift in Sources */,
 				654FB0071D7E1170002FA74D /* JSON.swift in Sources */,
+				655CD92F1D7E1A29008D2185 /* DataSource.swift in Sources */,
 				654FB00C1D7E1170002FA74D /* UserDefaults.swift in Sources */,
 				654FB00B1D7E1170002FA74D /* Storage.swift in Sources */,
 			);
@@ -446,9 +452,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658566D11D7E911300399154 /* DataSourceTests.swift in Sources */,
 				654FB01C1D7E119F002FA74D /* ServiceTests.swift in Sources */,
 				654FB01A1D7E119F002FA74D /* JSONTests.swift in Sources */,
-				654FB03B1D7E125B002FA74D /* FeatureKitTests.swift in Sources */,
+				658566D31D7E922C00399154 /* FeatureKitTestCase.swift in Sources */,
+				654FB03B1D7E125B002FA74D /* FeaturesTests.swift in Sources */,
 				654FB01B1D7E119F002FA74D /* MapperTests.swift in Sources */,
 				654FB01D1D7E119F002FA74D /* StorageTests.swift in Sources */,
 			);

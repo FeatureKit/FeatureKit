@@ -63,14 +63,9 @@ public class FeaturesViewController<Service: FeatureServiceProtocol where Servic
     }
 
     public override func loadView() {
-        let __view = UIView()
-        let margins = __view.layoutMarginsGuide
+        let __view = UIView(frame: UIScreen.mainScreen().bounds)
         let __tableView = UITableView(frame: __view.bounds, style: tableViewDataSource.tableViewStyle)
         __view.addSubview(__tableView)
-        __tableView.topAnchor.constraintEqualToAnchor(topLayoutGuide.topAnchor).active = true
-        __tableView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.bottomAnchor).active = true
-        __tableView.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
-        __tableView.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
 
         view = __view
         tableView = __tableView
@@ -78,6 +73,12 @@ public class FeaturesViewController<Service: FeatureServiceProtocol where Servic
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.layoutMargins = UIEdgeInsetsZero
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+        tableView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        tableView.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
+        tableView.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active = true
         configure(tableView: tableView)
     }
 

@@ -18,7 +18,7 @@ public protocol StringRepresentable: CustomStringConvertible {
 extension RawRepresentable where RawValue == String {
 
     /// - returns: a string representation of self
-    var description: String { return rawValue }
+    public var description: String { return rawValue }
 
     /// Creates the type uing the input as the raw value
     /// this makes it possible for String backed enums to automatically conform

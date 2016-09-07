@@ -15,11 +15,11 @@ class JSONFeatureMapperTests: XCTestCase {
             XCTAssertEqual(feature.id, TestFeatureId.Foo)
             XCTAssertNil(feature.parent)
             XCTAssertEqual(feature.title, "This is a title")
-            XCTAssertEqual(feature.editable, false)
+            XCTAssertEqual(feature.isEditable, false)
             XCTAssertEqual(feature.defaultAvailability, true)
             XCTAssertEqual(feature.currentAvailability, true)
-            XCTAssertEqual(feature.available, true)
-            XCTAssertEqual(feature.toggled, false)
+            XCTAssertEqual(feature.isAvailable, true)
+            XCTAssertEqual(feature.isToggled, false)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
@@ -30,11 +30,11 @@ class JSONFeatureMapperTests: XCTestCase {
             XCTAssertEqual(feature.id, TestFeatureId.Bar)
             XCTAssertEqual(feature.parent, TestFeatureId.Foo)
             XCTAssertEqual(feature.title, "This is a different title")
-            XCTAssertEqual(feature.editable, false)
+            XCTAssertEqual(feature.isEditable, false)
             XCTAssertEqual(feature.defaultAvailability, true)
             XCTAssertEqual(feature.currentAvailability, true)
-            XCTAssertEqual(feature.available, true)
-            XCTAssertEqual(feature.toggled, false)
+            XCTAssertEqual(feature.isAvailable, true)
+            XCTAssertEqual(feature.isToggled, false)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
@@ -51,11 +51,11 @@ class JSONFeatureMapperTests: XCTestCase {
         XCTAssertEqual(feature.id, TestFeatureId.Hat)
         XCTAssertEqual(feature.parent, TestFeatureId.Fat)
         XCTAssertEqual(feature.title, "This is a another title")
-        XCTAssertEqual(feature.editable, true)
+        XCTAssertEqual(feature.isEditable, true)
         XCTAssertEqual(feature.defaultAvailability, false)
         XCTAssertEqual(feature.currentAvailability, true)
-        XCTAssertEqual(feature.available, true)
-        XCTAssertEqual(feature.toggled, true)
+        XCTAssertEqual(feature.isAvailable, true)
+        XCTAssertEqual(feature.isToggled, true)
     }
 
     func test__throws_error_if_no_id() {

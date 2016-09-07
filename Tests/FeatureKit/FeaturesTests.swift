@@ -20,23 +20,23 @@ class FeaturesTests: FeatureKitTestCase {
     }
 
     func test__default_editable_value_is_false() {
-        XCTAssertFalse(service.feature(.Foo)?.editable ?? true)
+        XCTAssertFalse(service.feature(.Foo)?.isEditable ?? true)
     }
 
     func test__access_feature_available() {
-        XCTAssertTrue(service.available(.Foo))
+        XCTAssertTrue(service.isAvailable(.Foo))
     }
 
     func test__access_feature_not_available() {
-        XCTAssertFalse(service.available(.Bar))
+        XCTAssertFalse(service.isAvailable(.Bar))
     }
 
     func test__access_undefined_feature_not_available() {
-        XCTAssertFalse(service.available(.Fat))
+        XCTAssertFalse(service.isAvailable(.Fat))
     }
 
     func test__access_not_available_if_parent_not_available() {
-        XCTAssertFalse(service.available(.Baz))
+        XCTAssertFalse(service.isAvailable(.Baz))
     }
 
     func test__access_parent_when_defined_but_nil() {

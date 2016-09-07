@@ -9,23 +9,23 @@ import FeatureKit
 
 public class CustomTableViewDataSource<Cell: UITableViewCell, Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable>: NSObject, UITableViewDataSource {
 
-    public typealias ConfigurationBlock = (cell: Cell, feature: FeatureViewModel) -> Void
+    public typealias ConfigurationBlock = (UITableViewCell, FeatureViewModel) -> Void
 
     private typealias GetCellBlock = (fromTableView: UITableView, atIndexPath: NSIndexPath) -> UITableViewCell
 
     private let dataSource: DataSource<Service>
     private let configure: ConfigurationBlock
 
-    private var getCell: GetCellBlock? = nil
+    private var getCell: GetCellBlock
 
-    public init(service: Service, configurationBlock: ConfigurationBlock) {
+    public init(service: Service, forTableView tableView: UITableView, configurationBlock: ConfigurationBlock) {
         dataSource = DataSource(service: service)
         configure = configurationBlock
-    }
-
-    public func registerClass(aClass: AnyClass, inTableView tableView: UITableView, withCellIdentififer identifier: String) {
-        tableView.registerClass(aClass, forCellReuseIdentifier: identifier)
+        let identifier = "feature-cell-identifier"
         getCell = { $0.dequeueReusableCellWithIdentifier(identifier, forIndexPath: $1) }
+        super.init()
+        tableView.registerClass(Cell.self, forCellReuseIdentifier: identifier)
+        tableView.dataSource = self
     }
 
     @objc public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -37,10 +37,44 @@ public class CustomTableViewDataSource<Cell: UITableViewCell, Service: FeatureSe
     }
 
     @objc public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = getCell?(fromTableView: tableView, atIndexPath: indexPath) as? Cell ?? Cell()
+        let cell = getCell(fromTableView: tableView, atIndexPath: indexPath)
         let viewModel = dataSource.featureViewModel(atIndex: indexPath.item, inSection: indexPath.section)
-        configure(cell: cell, feature: viewModel)
+        configure(cell, viewModel)
         return cell
     }
 }
 
+public class FeatureCell: UITableViewCell {
+    var toggle: UISwitch
+
+    static func configure(cell: UITableViewCell, withFeature feature: FeatureViewModel) {
+        cell.textLabel?.text = feature.title
+        if let cell = cell as? FeatureKitUI.FeatureCell {
+            cell.toggle.on = feature.isOn
+            cell.toggle.enabled = feature.isEditable
+            cell.toggle.onTintColor = feature.isToggled ? UIColor.redColor() : nil
+            cell.toggle.tintColor = cell.toggle.onTintColor
+        }
+    }
+
+    public override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        toggle = UISwitch(frame: CGRect.zero)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .None
+        accessoryView = toggle
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        toggle = UISwitch(frame: CGRect.zero)
+        super.init(coder: aDecoder)
+        selectionStyle = .None
+        accessoryView = toggle
+    }
+}
+
+public class TableViewDataSource<Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable>: CustomTableViewDataSource<FeatureCell, Service> {
+
+    public init(service: Service, forTableView tableView: UITableView) {
+        super.init(service: service, forTableView: tableView, configurationBlock: FeatureCell.configure)
+    }
+}

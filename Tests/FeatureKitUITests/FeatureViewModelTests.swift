@@ -21,8 +21,9 @@ class FeatureKitViewModelTests: FeatureKitTestCase {
     func test__access_view_model() {
         let model = dataSource.featureViewModel(atIndex: 0, inSection: 0)
         XCTAssertEqual(model.title, "bar")
+        XCTAssertEqual(model.isEditable, false)
         XCTAssertEqual(model.isOn, false)
-        XCTAssertEqual(model.isOverridden, true)
+        XCTAssertEqual(model.isToggled, true)
     }
 
     func test__view_model_equality() {

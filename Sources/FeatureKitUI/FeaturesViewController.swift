@@ -19,12 +19,14 @@ class FeatureCell: UITableViewCell {
 
     var toggle: UISwitch
 
-    static func configure(cell cell: FeatureCell, withFeature feature: FeatureViewModel) {
+    static func configure(cell cell: UITableViewCell, withFeature feature: FeatureViewModel) {
         cell.textLabel?.text = feature.title
-        cell.toggle.on = feature.isOn
-        cell.toggle.enabled = feature.isEditable
-        cell.toggle.onTintColor = feature.isToggled ? UIColor.redColor() : nil
-        cell.toggle.tintColor = cell.toggle.onTintColor
+        if let cell = cell as? FeatureCell {
+            cell.toggle.on = feature.isOn
+            cell.toggle.enabled = feature.isEditable
+            cell.toggle.onTintColor = feature.isToggled ? UIColor.redColor() : nil
+            cell.toggle.tintColor = cell.toggle.onTintColor
+        }
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -125,7 +127,7 @@ class TableViewDataSource<Service: FeatureServiceProtocol where Service.Feature:
     @objc func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = getCell(fromTableView: tableView, atIndexPath: indexPath)
         let viewModel = dataSource.featureViewModel(atIndex: indexPath.item, inSection: indexPath.section)
-        FeatureCell.configure(cell: cell as! FeatureCell, withFeature: viewModel)
+        FeatureCell.configure(cell: cell, withFeature: viewModel)
         return cell
     }
 }
@@ -143,4 +145,3 @@ extension DataSourceProtocol {
         return FeatureViewModel(title: f.title, isEditable: f.isEditable, isOn: f.isAvailable, isToggled: f.isToggled)
     }
 }
-

@@ -34,7 +34,7 @@ extension RawRepresentable where RawValue == String {
 /// Protocol which a Feature Identifier must conform to
 public protocol FeatureIdentifier: Hashable, StringRepresentable { }
 
-public func < <ID: FeatureIdentifier where ID: RawRepresentable, ID.RawValue == String> (lhs: ID, rhs: ID) -> Bool {
+public func < <ID: FeatureIdentifier> (lhs: ID, rhs: ID) -> Bool where ID: RawRepresentable, ID.RawValue == String {
     return lhs.rawValue < rhs.rawValue
 }
 
@@ -81,11 +81,11 @@ public protocol MutableFeatureProtocol: FeatureProtocol {
 
     /// Sets the editable property
     /// - parameter editable: the new Bool value of editable
-    mutating func set(editable editable: Bool)
+    mutating func set(editable: Bool)
 
     /// Sets the available property
     /// - parameter available: the new Bool value of available
-    mutating func set(available available: Bool)
+    mutating func set(available: Bool)
 }
 
 /// Default implementations of FeatureProtocol
@@ -99,24 +99,24 @@ public extension MutableFeatureProtocol {
     }
 }
 
-public func < <Feature: FeatureProtocol where Feature.Identifier: Comparable>(lhs: Feature, rhs: Feature) -> Bool {
+public func < <Feature: FeatureProtocol>(lhs: Feature, rhs: Feature) -> Bool where Feature.Identifier: Comparable {
     switch (lhs.parent, rhs.parent) {
-    case (.None, .Some(_)): return true
-    case (.Some(_), .None): return false
+    case (.none, .some(_)): return true
+    case (.some(_), .none): return false
     default: return lhs.id < rhs.id
     }
 }
 
-extension CollectionType where Generator.Element: FeatureProtocol {
+extension Collection where Iterator.Element: FeatureProtocol {
 
-    public var asFeaturesByIdentifier: [Generator.Element.Identifier: Generator.Element] {
+    public var asFeaturesByIdentifier: [Iterator.Element.Identifier: Iterator.Element] {
         return reduce([:]) { var acc = $0; acc[$1.id] = $1; return acc }
     }
 }
 
 // MARK: - Feature<Identifier>
 
-public struct Feature<ID: FeatureIdentifier where ID: ValueCoding, ID.Coder: NSCoding, ID == ID.Coder.ValueType>: MutableFeatureProtocol {
+public struct Feature<ID: FeatureIdentifier>: MutableFeatureProtocol where ID: ValueCoding, ID.Coder: NSCoding, ID == ID.Coder.Value {
 
     public typealias Identifier = ID
 
@@ -157,7 +157,7 @@ extension Feature: ValueCoding {
     public typealias Coder = FeatureCoder<Identifier>
 }
 
-public class FeatureCoder<Identifier: FeatureIdentifier where Identifier: ValueCoding, Identifier.Coder: NSCoding, Identifier == Identifier.Coder.ValueType>: NSObject, NSCoding, CodingType {
+public class FeatureCoder<Identifier: FeatureIdentifier>: NSObject, NSCoding, CodingProtocol where Identifier: ValueCoding, Identifier.Coder: NSCoding, Identifier == Identifier.Coder.Value {
     public let value: Feature<Identifier>
 
     public required init(_ v: Feature<Identifier>) { //swiftlint:disable:this variable_name
@@ -165,27 +165,27 @@ public class FeatureCoder<Identifier: FeatureIdentifier where Identifier: ValueC
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        guard let
-            id = Identifier.decode(aDecoder.decodeObjectForKey("id")),
-            title = aDecoder.decodeObjectForKey("title") as? String
+        guard
+            let id = Identifier.decode(aDecoder.decodeObject(forKey: "id") as AnyObject?),
+            let title = aDecoder.decodeObject(forKey: "title") as? String
         else { return nil }
         value = Feature(
             id: id,
-            parent: Identifier.decode(aDecoder.decodeObjectForKey("parent")),
+            parent: Identifier.decode(aDecoder.decodeObject(forKey: "parent") as AnyObject?),
             title: title,
-            editable: aDecoder.decodeBoolForKey("editable"),
-            defaultAvailability: aDecoder.decodeBoolForKey("defaultAvailability"),
-            currentAvailability: aDecoder.decodeBoolForKey("currentAvailability")
+            editable: aDecoder.decodeBool(forKey: "editable"),
+            defaultAvailability: aDecoder.decodeBool(forKey: "defaultAvailability"),
+            currentAvailability: aDecoder.decodeBool(forKey: "currentAvailability")
         )
     }
 
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(value.id.encoded, forKey: "id")
-        aCoder.encodeObject(value.parent?.encoded, forKey: "parent")
-        aCoder.encodeObject(value.title, forKey: "title")
-        aCoder.encodeBool(value.isEditable, forKey: "editable")
-        aCoder.encodeBool(value.defaultAvailability, forKey: "defaultAvailability")
-        aCoder.encodeBool(value.currentAvailability, forKey: "currentAvailability")
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(value.id.encoded, forKey: "id")
+        aCoder.encode(value.parent?.encoded, forKey: "parent")
+        aCoder.encode(value.title, forKey: "title")
+        aCoder.encode(value.isEditable, forKey: "editable")
+        aCoder.encode(value.defaultAvailability, forKey: "defaultAvailability")
+        aCoder.encode(value.currentAvailability, forKey: "currentAvailability")
     }
 }
 
@@ -193,7 +193,7 @@ extension FeatureIdentifier where Self:RawRepresentable, Self.RawValue == String
     public typealias Coder = RawRepresentableStringCoder<Self>
 }
 
-public class RawRepresentableStringCoder<Value where Value: RawRepresentable, Value.RawValue == String>: NSObject, NSCoding, CodingType {
+public class RawRepresentableStringCoder<Value>: NSObject, NSCoding, CodingProtocol where Value: RawRepresentable, Value.RawValue == String {
     public let value: Value
 
     public required init(_ v: Value) { //swiftlint:disable:this variable_name
@@ -201,14 +201,14 @@ public class RawRepresentableStringCoder<Value where Value: RawRepresentable, Va
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        guard let
-            string = aDecoder.decodeObjectForKey("value") as? String,
-            v = Value(rawValue: string)
+        guard
+            let string = aDecoder.decodeObject(forKey: "value") as? String,
+            let v = Value(rawValue: string)
             else { return nil }
         self.value = v
     }
 
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(value.rawValue, forKey: "value")
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(value.rawValue, forKey: "value")
     }
 }

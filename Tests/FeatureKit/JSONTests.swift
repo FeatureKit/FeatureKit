@@ -42,7 +42,7 @@ class JSONFeatureMapperTests: XCTestCase {
 
     func test__feature_with_all_possible_fields() {
         var feature: TestFeature! = nil
-        measureBlock {
+        measure {
             do {
                 feature = try TestFeature.create(from: ["id": "Hat", "parent": "Fat", "title": "This is a another title", "editable": true, "defaultAvailability": false, "currentAvailability": true])
             }
@@ -62,7 +62,7 @@ class JSONFeatureMapperTests: XCTestCase {
         do {
             let _ = try TestFeature.create(from: ["parent": "Foo", "title": "This is a different title", "defaultAvailability": true])
         }
-        catch JSON.Error.keyNotFound("id") { /* passing test */ }
+        catch JSONError.keyNotFound("id") { /* passing test */ }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
 
@@ -70,7 +70,7 @@ class JSONFeatureMapperTests: XCTestCase {
         do {
             let _ = try TestFeature.create(from: ["parent": "Foo", "defaultAvailability": true])
         }
-        catch JSON.Error.keyNotFound("id") { /* passing test */ }
+        catch JSONError.keyNotFound("id") { /* passing test */ }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
 
@@ -82,10 +82,10 @@ class JSONFeatureMapperTests: XCTestCase {
 
         do {
             // Create thes NSData from the input JSON
-            let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+            let data = try JSONSerialization.data(withJSONObject: json, options: [])
 
             // Map the data to a Features
-            let features = try mapper.map(data)
+            let features = try mapper.map(input: data)
 
             // Assert correctness
             XCTAssertEqual(features.count, 1)
@@ -101,14 +101,14 @@ class JSONFeatureMapperTests: XCTestCase {
         let mapper = TestFeature.mapper(searchForKey: "features")
 
         do {
-            guard let path = NSBundle(forClass: self.dynamicType).pathForResource("Features", ofType: "json") else {
+            guard let path = Bundle(for: type(of: self)).url(forResource: "Features", withExtension: "json") else {
                 XCTFail("Missing JSON file"); return
             }
 
-            let data = try NSData(contentsOfFile: path, options: [])
+            let data = try Data(contentsOf: path, options: [])
 
             // Map the data to a Features
-            let features = try mapper.map(data)
+            let features = try mapper.map(input: data)
 
             // Assert correctness
             verify(features: features)
@@ -122,21 +122,21 @@ class JSONFeatureMapperTests: XCTestCase {
         let mapper = TestFeature.mapper()
 
         do {
-            guard let path = NSBundle(forClass: self.dynamicType).pathForResource("FeaturesList", ofType: "json") else {
+            guard let path = Bundle(for: type(of: self)).url(forResource: "FeaturesList", withExtension: "json") else {
                 XCTFail("Missing JSON file"); return
             }
 
-            let data = try NSData(contentsOfFile: path, options: [])
+            let data = try Data(contentsOf: path, options: [])
 
             // Map the data to a Features
-            let features = try mapper.map(data)
+            let features = try mapper.map(input: data)
 
             verify(features: features)
         }
         catch { XCTFail("Caught unexpected error: \(error)") }
     }
 
-    func verify(features features: [TestFeature]) {
+    func verify(features: [TestFeature]) {
         XCTAssertEqual(features.count, 6)
         XCTAssertEqual(features.map { $0.id }, [.Foo, .Fat, .Bar, .Bat, .Baz, .Hat])
     }

@@ -24,7 +24,7 @@ public protocol FeatureServiceProtocol {
     ///
     /// - parameter id: a Feature.Identifier
     /// - returns: a Feature if owned by the service, nil if not.
-    func feature(id: Feature.Identifier) -> Feature?
+    func feature(withIdentifier id: Feature.Identifier) -> Feature?
 }
 
 public extension FeatureServiceProtocol {
@@ -33,9 +33,9 @@ public extension FeatureServiceProtocol {
     ///
     /// - parameter id: a Feature.Identifier
     /// - returns: a boolean, the feature's availability or false if there is no feature
-    func isAvailable(id: Feature.Identifier) -> Bool {
-        guard let f = feature(id) else { return false }
-        let parentIsAvailable = parent(id)?.isAvailable ?? true
+    func isAvailable(withIdentifier id: Feature.Identifier) -> Bool {
+        guard let f = feature(withIdentifier: id) else { return false }
+        let parentIsAvailable = f.parent.flatMap { feature(withIdentifier: $0)?.isAvailable } ?? true
         return parentIsAvailable && f.isAvailable
     }
 
@@ -43,9 +43,8 @@ public extension FeatureServiceProtocol {
     ///
     /// - parameter id: a Feature.Identifier
     /// - returns: if the feature exists, and it has a parent, and that parent exists
-    func parent(id: Feature.Identifier) -> Feature? {
-        guard let f = feature(id), parentId = f.parent, parentFeature = feature(parentId) else { return nil }
-        return parentFeature
+    func parent(ofFeatureWithIdentifier id: Feature.Identifier) -> Feature? {
+        return feature(withIdentifier: id)?.parent.flatMap(feature(withIdentifier:))
     }
 }
 
@@ -53,9 +52,9 @@ public protocol MutableFeatureServiceProtocol: FeatureServiceProtocol {
 
     init(_ features: [Feature.Identifier: Feature])
 
-    mutating func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> Self
+    @discardableResult mutating func set<C: Collection>(features: C) -> Self where C.Iterator.Element == Feature
 
-    mutating func set(features features: [Feature.Identifier: Feature]) -> Self
+    @discardableResult mutating func set(features: [Feature.Identifier: Feature]) -> Self
 }
 
 public extension MutableFeatureServiceProtocol {
@@ -73,9 +72,9 @@ public extension MutableFeatureServiceProtocol {
 public final class FeatureService<Feature: FeatureProtocol> {
     public typealias Storage = AnyStorage<Feature.Identifier, Feature>
 
-    private var storage: Storage? = nil
-    private var download: Download<[Feature]>? = nil
-    public private(set) var features: [Feature.Identifier: Feature]
+    fileprivate var storage: Storage? = nil
+    fileprivate var download: Download<[Feature]>? = nil
+    public fileprivate(set) var features: [Feature.Identifier: Feature]
 
     public required init(_ features: [Feature.Identifier: Feature] = [:]) {
         self.features = features
@@ -84,16 +83,16 @@ public final class FeatureService<Feature: FeatureProtocol> {
 
 extension FeatureService: MutableFeatureServiceProtocol {
 
-    public func feature(id: Feature.Identifier) -> Feature? {
+    public func feature(withIdentifier id: Feature.Identifier) -> Feature? {
         return features[id]
     }
 
-    public func set(features features: [Feature.Identifier: Feature]) -> FeatureService {
+    @discardableResult public func set(features: [Feature.Identifier: Feature]) -> FeatureService {
         self.features = features
         return self
     }
 
-    public func set<C: CollectionType where C.Generator.Element == Feature>(features features: C) -> FeatureService {
+    @discardableResult public func set<C: Collection>(features: C) -> FeatureService where C.Iterator.Element == Feature {
         return set(features: features.asFeaturesByIdentifier)
     }
 }
@@ -102,12 +101,12 @@ extension FeatureService: MutableFeatureServiceProtocol {
 
 public extension FeatureService {
 
-    convenience init<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature>(storage base: Base) {
+    convenience init<Base>(storage base: Base) where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature {
         self.init()
         let _ = set(storage: base)
     }
 
-    public func set<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature>(storage newStorage: Base) -> Self {
+    public func set<Base>(storage newStorage: Base) -> Self where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature {
         set(features: newStorage.values)
         storage?.removeAll()
         storage = AnyStorage(newStorage)
@@ -122,9 +121,9 @@ public extension FeatureService where Feature: NSCoding {
     }
 }
 
-extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Feature == Feature.Coder.ValueType {
+extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Feature == Feature.Coder.Value {
 
-    public func set<Base where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature.Coder>(storage newStorage: Base) -> Self {
+    public func set<Base>(storage newStorage: Base) -> Self where Base: SyncStorageProtocol, Base.Key == Feature.Identifier, Base.Value == Feature.Coder {
         return set(storage: AnyValueStorage(newStorage))
     }
 
@@ -139,22 +138,22 @@ public extension FeatureService where Feature: CreateFromJSONProtocol {
 
     public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
 
-    internal func load<Base where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature]>(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) {
+    internal func load<Base>(request: URLRequest, usingSession session: URLSession = URLSession.shared, usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature] {
         download = Download(session: session, mapper: mapper)
-        download?.get(request) { [weak self] result in
-            if let strongSelf = self, features = try? result.dematerialize() {
+        download?.get(request: request) { [weak self] result in
+            if let strongSelf = self, let features = try? result.dematerialize() {
                 strongSelf.set(features: features)
                 completion?(features)
             }
         }
     }
 
-    func load(request request: NSURLRequest, usingSession session: NSURLSession = NSURLSession.sharedSession(), searchForKey: String = "features", completion: VoidBlock? = nil) {
-        let mapper = NotOptional(BlockMapper<RemoteData, NSData?> { $0.0 }).append(Feature.mapper(searchForKey: searchForKey))
+    func load(request: URLRequest, usingSession session: URLSession = URLSession.shared, searchForKey: String = "features", completion: VoidBlock? = nil) {
+        let mapper = NotOptional(BlockMapper<RemoteData, Data?> { $0.0 }).append(Feature.mapper(searchForKey: searchForKey))
         return load(request: request, usingSession: session, usingMapper: mapper) { _ in completion?() }
     }
 
-    func load(URL: NSURL, usingSession session: NSURLSession = NSURLSession.sharedSession(), searchForKey: String = "features", completion: VoidBlock? = nil) {
-        load(request: NSURLRequest(URL: URL), usingSession: session, searchForKey: searchForKey, completion: completion)
+    func load(url: URL, usingSession session: URLSession = URLSession.shared, searchForKey: String = "features", completion: VoidBlock? = nil) {
+        load(request: URLRequest(url: url), usingSession: session, searchForKey: searchForKey, completion: completion)
     }
 }

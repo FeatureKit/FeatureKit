@@ -21,7 +21,7 @@ public protocol DataSourceProtocol {
     func feature(atIndex index: Int, inSection: Int) -> Feature
 }
 
-public class DataSource<Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable> {
+public class DataSource<Service: FeatureServiceProtocol> where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable {
     public typealias Feature = Service.Feature
 
     public private(set) var service: Service
@@ -44,7 +44,7 @@ internal extension FeatureServiceProtocol where Feature.Identifier: Comparable {
     }
 
     var topLevelFeatureIdentifiers: [Feature.Identifier] {
-        return topLevelFeatures.keys.sort()
+        return topLevelFeatures.keys.sorted()
     }
 
     var style: DataSourceStyle {
@@ -67,13 +67,13 @@ internal extension FeatureServiceProtocol where Feature.Identifier: Comparable {
 
     func features(inSection index: Int, withStyle style: DataSourceStyle) -> [Feature] {
         switch style {
-        case .basic: return features.values.sort(<)
+        case .basic: return features.values.sorted(by: <)
         case .grouped: return features(associatedWithIdentifier: topLevelFeatureIdentifiers[index])
         }
     }
 
     func features(associatedWithIdentifier searchId: Feature.Identifier) -> [Feature] {
-        return features.values.filter({ $0.parent == searchId || $0.id == searchId }).sort(<)
+        return features.values.filter({ $0.parent == searchId || $0.id == searchId }).sorted(by: <)
     }
 }
 

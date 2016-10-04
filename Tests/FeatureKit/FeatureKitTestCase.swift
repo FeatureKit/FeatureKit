@@ -19,7 +19,7 @@ enum TestFeatureId: String, FeatureIdentifier, Comparable, ValueCoding {
     case Hat = "Hat"
 }
 
-enum TestFeaturesError<ID: FeatureIdentifier>: ErrorType {
+enum TestFeaturesError<ID: FeatureIdentifier>: Error {
     case FeatureNotDefinied(ID)
 }
 
@@ -54,11 +54,11 @@ class FeatureKitTestCase: XCTestCase {
         let mapper = TestFeature.mapper(searchForKey: "features")
 
         do {
-            guard let path = NSBundle(forClass: self.dynamicType).pathForResource("Features", ofType: "json") else { return }
+            guard let path = Bundle(for: type(of: self)).url(forResource: "Features", withExtension: "json") else { return }
 
-            let data = try NSData(contentsOfFile: path, options: [])
+            let data = try Data(contentsOf: path, options: [])
 
-            let features = try mapper.map(data)
+            let features = try mapper.map(input: data)
 
             service.set(features: features)
         }

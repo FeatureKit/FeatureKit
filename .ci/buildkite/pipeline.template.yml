@@ -8,6 +8,7 @@ steps:
     name: "FeatureKit"
     command: .ci/scripts/test_featurekit
     agents:
+      iOS-Simulator: false    
       xcode: "$XCODE"
   -
     name: "FeatureKitUI"

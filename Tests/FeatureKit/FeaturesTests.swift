@@ -16,39 +16,39 @@ class FeaturesTests: FeatureKitTestCase {
     }
 
     func test__get_feature_with_exits() {
-        XCTAssertEqual(service.feature(.Foo)?.id, TestFeatureId.Foo)
+        XCTAssertEqual(service.feature(withIdentifier: .Foo)?.id, TestFeatureId.Foo)
     }
 
     func test__default_editable_value_is_false() {
-        XCTAssertFalse(service.feature(.Foo)?.isEditable ?? true)
+        XCTAssertFalse(service.feature(withIdentifier: .Foo)?.isEditable ?? true)
     }
 
     func test__access_feature_available() {
-        XCTAssertTrue(service.isAvailable(.Foo))
+        XCTAssertTrue(service.isAvailable(withIdentifier: .Foo))
     }
 
     func test__access_feature_not_available() {
-        XCTAssertFalse(service.isAvailable(.Bar))
+        XCTAssertFalse(service.isAvailable(withIdentifier: .Bar))
     }
 
     func test__access_undefined_feature_not_available() {
-        XCTAssertFalse(service.isAvailable(.Fat))
+        XCTAssertFalse(service.isAvailable(withIdentifier: .Fat))
     }
 
     func test__access_not_available_if_parent_not_available() {
-        XCTAssertFalse(service.isAvailable(.Baz))
+        XCTAssertFalse(service.isAvailable(withIdentifier: .Baz))
     }
 
     func test__access_parent_when_defined_but_nil() {
-        XCTAssertNil(service.parent(.Foo))
+        XCTAssertNil(service.parent(ofFeatureWithIdentifier: .Foo))
     }
 
     func test__access_parent_when_not_defined_nil() {
-        XCTAssertNil(service.parent(.Fat))
+        XCTAssertNil(service.parent(ofFeatureWithIdentifier: .Fat))
     }
 
     func test__access_parent_when_parent_is_not_defined_nil() {
-        XCTAssertNil(service.parent(.Hat))
+        XCTAssertNil(service.parent(ofFeatureWithIdentifier: .Hat))
     }
 }
 

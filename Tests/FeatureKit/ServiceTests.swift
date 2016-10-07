@@ -45,17 +45,17 @@ class ServiceTests: FeatureKitTestCase {
     }
 
     func test__load_from_url() {
-        guard let path = NSBundle(forClass: self.dynamicType).pathForResource("Features", ofType: "json") else {
+        guard let path = Bundle(for: type(of: self)).path(forResource: "Features", ofType: "json") else {
             XCTFail("Missing or invalid JSON file"); return
         }
-        let url = NSURL(fileURLWithPath: path)
+        let url = URL(fileURLWithPath: path)
 
         service = TestFeatureService()
         XCTAssertEqual(service.features.count, 0)
 
-        let expectation = expectationWithDescription("Test: \(#file) \(#line)")
-        service.load(url, completion: expectation.fulfill)
-        waitForExpectationsWithTimeout(3, handler: nil)
+        let exp = expectation(description: "Test: \(#file) \(#line)")
+        service.load(url: url, completion: exp.fulfill)
+        waitForExpectations(timeout: 3, handler: nil)
 
         XCTAssertEqual(service.features.count, 6)
     }

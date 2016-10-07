@@ -10,37 +10,37 @@ import FeatureKit
 
 class TestableTable: UITableView {
 
-    var didRegisterClassWithIdentifier: (AnyClass?, String)? = .None
-    var didRegisterNibWithIdentifier: (UINib?, String)? = .None
+    var didRegisterClassWithIdentifier: (AnyClass?, String)? = .none
+    var didRegisterNibWithIdentifier: (UINib?, String)? = .none
 
-    var didRegisterSupplementaryClassWithIdentifier: (AnyClass?, String)? = .None
-    var didRegisterSupplementaryNibWithIdentifier: (UINib?, String)? = .None
+    var didRegisterSupplementaryClassWithIdentifier: (AnyClass?, String)? = .none
+    var didRegisterSupplementaryNibWithIdentifier: (UINib?, String)? = .none
 
-    override func registerClass(cellClass: AnyClass?, forCellReuseIdentifier identifier: String) {
+    override func register(_ cellClass: AnyClass?, forCellReuseIdentifier identifier: String) {
         didRegisterClassWithIdentifier = (cellClass, identifier)
-        super.registerClass(cellClass, forCellReuseIdentifier: identifier)
+        super.register(cellClass, forCellReuseIdentifier: identifier)
     }
 
-    override func registerNib(nib: UINib?, forCellReuseIdentifier identifier: String) {
+    override func register(_ nib: UINib?, forCellReuseIdentifier identifier: String) {
         didRegisterNibWithIdentifier = (nib, identifier)
-        super.registerNib(nib, forCellReuseIdentifier: identifier)
+        super.register(nib, forCellReuseIdentifier: identifier)
     }
 
-    override func registerClass(aClass: AnyClass?, forHeaderFooterViewReuseIdentifier identifier: String) {
+    override func register(_ aClass: AnyClass?, forHeaderFooterViewReuseIdentifier identifier: String) {
         didRegisterSupplementaryClassWithIdentifier = (aClass, identifier)
-        super.registerClass(aClass, forHeaderFooterViewReuseIdentifier: identifier)
+        super.register(aClass, forHeaderFooterViewReuseIdentifier: identifier)
     }
 
-    override func registerNib(nib: UINib?, forHeaderFooterViewReuseIdentifier identifier: String) {
+    override func register(_ nib: UINib?, forHeaderFooterViewReuseIdentifier identifier: String) {
         didRegisterSupplementaryNibWithIdentifier = (nib, identifier)
-        super.registerNib(nib, forHeaderFooterViewReuseIdentifier: identifier)
+        super.register(nib, forHeaderFooterViewReuseIdentifier: identifier)
     }
 
-    override func dequeueReusableCellWithIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell(style: .Default, reuseIdentifier: identifier)
+    override func dequeueReusableCell(withIdentifier identifier: String, for indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell(style: .default, reuseIdentifier: identifier)
     }
 
-    override func dequeueReusableHeaderFooterViewWithIdentifier(identifier: String) -> UITableViewHeaderFooterView? {
+    override func dequeueReusableHeaderFooterView(withIdentifier identifier: String) -> UITableViewHeaderFooterView? {
         return UITableViewHeaderFooterView(reuseIdentifier: identifier)
     }
 }
@@ -62,7 +62,7 @@ class TableViewDataSourceTests: FeatureKitTestCase {
     }
 
     func test__number_of_sections() {
-        XCTAssertEqual(tableViewDataSource.numberOfSectionsInTableView(tableView), 3)
+        XCTAssertEqual(tableViewDataSource.numberOfSections(in: tableView), 3)
     }
 
     func test__number_of_rows_in_section() {
@@ -72,7 +72,7 @@ class TableViewDataSourceTests: FeatureKitTestCase {
     }
 
     func test__cell_is_configured_feature_cell() {
-        let cell = tableViewDataSource.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        let cell = tableViewDataSource.tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         XCTAssertEqual(cell.textLabel?.text ?? "this is incorrect", "bar")        
     }
 }

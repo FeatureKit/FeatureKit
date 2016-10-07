@@ -9,29 +9,29 @@ import XCTest
 
 class TestableUserDefaults: UserDefaultsProtocol {
 
-    var objects: [String: AnyObject] = [:]
+    var objects: [String: Any] = [:]
 
-    var didReadObjectForKey: String? = .None
-    var didSetObjectForKey: String? = .None
-    var didRemoveObjectForKey: String? = .None
+    var didReadObjectForKey: String? = .none
+    var didSetObjectForKey: String? = .none
+    var didRemoveObjectForKey: String? = .none
     var didGetDictionaryRepresentation = false
 
-    func objectForKey(key: String) -> AnyObject? {
-        didReadObjectForKey = key
-        return objects[key]
+    func object(forKey defaultName: String) -> Any? {
+        didReadObjectForKey = defaultName
+        return objects[defaultName]
     }
 
-    func setObject(object: AnyObject?, forKey key: String) {
-        didSetObjectForKey = key
-        objects[key] = object
+    func set(_ value: Any?, forKey defaultName: String) {
+        didSetObjectForKey = defaultName
+        objects[defaultName] = value
     }
 
-    func removeObjectForKey(key: String) {
-        didRemoveObjectForKey = key
-        objects.removeValueForKey(key)
+    func removeObject(forKey defaultName: String) {
+        didRemoveObjectForKey = defaultName
+        objects.removeValue(forKey: defaultName)
     }
 
-    func dictionaryRepresentation() -> [String: AnyObject] {
+    func dictionaryRepresentation() -> [String: Any] {
         didGetDictionaryRepresentation = true
         return objects
     }
@@ -42,12 +42,12 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
     typealias FeatureIdentifier = String
 
     let id: String
-    var parent: String? = .None
+    var parent: String? = .none
     var title: String
     var isEditable: Bool = false
     var isAvailable: Bool = false
 
-    init(id: String, parent: String? = .None, title: String, available: Bool = false) {
+    init(id: String, parent: String? = .none, title: String, available: Bool = false) {
         self.id = id
         self.parent = parent
         self.title = title
@@ -57,22 +57,22 @@ class ArchivableTestFeature: NSObject, NSCoding, FeatureProtocol {
 
     required init?(coder aDecoder: NSCoder) {
         guard let
-            identifier = aDecoder.decodeObjectForKey("id") as? String
+            identifier = aDecoder.decodeObject(forKey: "id") as? String
         else { return nil }
 
         id = identifier
-        parent = aDecoder.decodeObjectForKey("parent") as? String
-        title = aDecoder.decodeObjectForKey("title") as! String
-        isEditable = aDecoder.decodeBoolForKey("editable")
-        isAvailable = aDecoder.decodeBoolForKey("available")
+        parent = aDecoder.decodeObject(forKey: "parent") as? String
+        title = aDecoder.decodeObject(forKey: "title") as! String
+        isEditable = aDecoder.decodeBool(forKey: "editable")
+        isAvailable = aDecoder.decodeBool(forKey: "available")
     }
 
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeBool(isAvailable, forKey: "available")
-        aCoder.encodeBool(isEditable, forKey: "editable")
-        aCoder.encodeObject(title, forKey: "title")
-        aCoder.encodeObject(parent, forKey: "parent")
-        aCoder.encodeObject(id, forKey: "id")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(isAvailable, forKey: "available")
+        aCoder.encode(isEditable, forKey: "editable")
+        aCoder.encode(title, forKey: "title")
+        aCoder.encode(parent, forKey: "parent")
+        aCoder.encode(id, forKey: "id")
     }
 }
 

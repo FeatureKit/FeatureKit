@@ -34,6 +34,7 @@
 		655CD92F1D7E1A29008D2185 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655CD92E1D7E1A29008D2185 /* DataSource.swift */; };
 		658566D11D7E911300399154 /* DataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658566D01D7E911300399154 /* DataSourceTests.swift */; };
 		658566D31D7E922C00399154 /* FeatureKitTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658566D21D7E922C00399154 /* FeatureKitTestCase.swift */; };
+		65C84CC31DA78F05000818BB /* FeatureKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65D182FD1D65094400DB4BF1 /* FeatureKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65D183071D65094400DB4BF1 /* FeatureKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D182FD1D65094400DB4BF1 /* FeatureKit.framework */; };
 		65D183181D6509D000DB4BF1 /* FeatureKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D183161D6509D000DB4BF1 /* FeatureKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -54,6 +55,19 @@
 			remoteInfo = FeatureKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		65C84CC21DA78EF2000818BB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				65C84CC31DA78F05000818BB /* FeatureKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		653D25601D8016E500DAE0E4 /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewDataSource.swift; path = Sources/FeatureKitUI/TableViewDataSource.swift; sourceTree = SOURCE_ROOT; };
@@ -262,6 +276,7 @@
 				654FB0271D7E1201002FA74D /* Sources */,
 				654FB0281D7E1201002FA74D /* Frameworks */,
 				654FB0291D7E1201002FA74D /* Resources */,
+				65C84CC21DA78EF2000818BB /* CopyFiles */,
 				655CD9301D7E2541008D2185 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (

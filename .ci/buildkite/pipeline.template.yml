@@ -10,9 +10,9 @@ steps:
     agents:
       iOS-Simulator: false    
       xcode: "$XCODE"
-#  -
-#    name: "FeatureKitUI"
-#    command: .ci/scripts/test_featurekitui
-#    agents:
-#      xcode: "$XCODE" 
-#      iOS-Simulator: true
+  -
+    name: "FeatureKitUI"
+    command: .ci/scripts/test_featurekitui
+    agents:
+      xcode: "$XCODE" 
+      iOS-Simulator: true

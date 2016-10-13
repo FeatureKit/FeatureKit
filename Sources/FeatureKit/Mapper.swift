@@ -54,7 +54,16 @@ public struct AnyMapper<Input, Output>: Mappable {
     }
 }
 
-// MARK: - Composing Mappers
+// MARK: - Functional Mappers
+
+public struct PassThrough<Input>: Mappable {
+
+    public init() { }
+
+    public func map(input: Input) throws -> Input {
+        return input
+    }
+}
 
 public struct AnyObjectCoercion<Output>: Mappable {
 
@@ -78,6 +87,8 @@ public struct BlockMapper<Input, Output>: Mappable {
         return try transform(input)
     }
 }
+
+// MARK: - Composing Mappers
 
 public struct FlatMap<Input, Output>: Mappable {
     let mapper: AnyMapper<Input, Output>

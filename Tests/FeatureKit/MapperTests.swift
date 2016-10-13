@@ -41,6 +41,11 @@ class MapperTests: XCTestCase {
         XCTAssertEqual(try! mapper.map(input: "Hello"), 7)
     }
 
+    func test__pass_through_mapper() {
+        let mapper = AnyMapper(PassThrough<String>())
+        XCTAssertEqual(try! mapper.map(input: "Hello"), "Hello")
+    }
+
     func test__any_object_coercion() {
         let mapper = AnyObjectCoercion<Data>()
         let input: Any = "Hello world!".data(using: String.Encoding.utf8)!

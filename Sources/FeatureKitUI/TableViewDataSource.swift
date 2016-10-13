@@ -7,11 +7,11 @@
 import UIKit
 import FeatureKit
 
-public class CustomTableViewDataSource<Cell: UITableViewCell, Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable>: NSObject, UITableViewDataSource {
+public class CustomTableViewDataSource<Cell: UITableViewCell, Service: FeatureServiceProtocol>: NSObject, UITableViewDataSource where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable {
 
     public typealias ConfigurationBlock = (UITableViewCell, FeatureViewModel) -> Void
 
-    private typealias GetCellBlock = (fromTableView: UITableView, atIndexPath: NSIndexPath) -> UITableViewCell
+    private typealias GetCellBlock = (UITableView, NSIndexPath) -> UITableViewCell
 
     private let dataSource: DataSource<Service>
     private let configure: ConfigurationBlock
@@ -37,7 +37,7 @@ public class CustomTableViewDataSource<Cell: UITableViewCell, Service: FeatureSe
     }
 
     @objc public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = getCell(fromTableView: tableView, atIndexPath: indexPath)
+        let cell = getCell(tableView, indexPath)
         let viewModel = dataSource.featureViewModel(atIndex: indexPath.item, inSection: indexPath.section)
         configure(cell, viewModel)
         return cell
@@ -72,7 +72,7 @@ public class FeatureCell: UITableViewCell {
     }
 }
 
-public class TableViewDataSource<Service: FeatureServiceProtocol where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable>: CustomTableViewDataSource<FeatureCell, Service> {
+public class TableViewDataSource<Service: FeatureServiceProtocol>: CustomTableViewDataSource<FeatureCell, Service> where Service.Feature: MutableFeatureProtocol, Service.Feature.Identifier: Comparable {
 
     public init(service: Service, forTableView tableView: UITableView) {
         super.init(service: service, forTableView: tableView, configurationBlock: FeatureCell.configure)

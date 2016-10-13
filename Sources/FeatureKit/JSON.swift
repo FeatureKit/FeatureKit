@@ -22,6 +22,8 @@ public struct JSON {
     }
 
     public struct DataMapper: Mappable {
+        
+        public init() { }
 
         public func map(input: Data) throws -> Any {
             return try JSONSerialization.jsonObject(with: input, options: [])
@@ -51,21 +53,23 @@ public struct JSON {
 
     public struct Coercion {
         // object coercions
-        static let string = AnyObjectCoercion<String>()
-        static let data = AnyObjectCoercion<Data>()
-        static let number = AnyObjectCoercion<NSNumber>()
+        public static let string = AnyObjectCoercion<String>()
+        public static let data = AnyObjectCoercion<Data>()
+        public static let number = AnyObjectCoercion<NSNumber>()
 
         // primitives coercions
-        static let bool = AnyMapper(number).append { $0.boolValue }
-        static let int = AnyMapper(number).append { $0.intValue }
+        public static let bool = AnyMapper(number).append { $0.boolValue }
+        public static let int = AnyMapper(number).append { $0.intValue }
 
         // flat mapped
-        static let flatMapString = FlatMap(JSON.Coercion.string)
-        static let flatMapBool = FlatMap(JSON.Coercion.bool)
+        public static let flatMapString = FlatMap(JSON.Coercion.string)
+        public static let flatMapBool = FlatMap(JSON.Coercion.bool)
 
-        static let toHash = AnyObjectCoercion<JSON.Hash>()
-        static let toList = AnyObjectCoercion<JSON.List>()
+        public static let toHash = AnyObjectCoercion<JSON.Hash>()
+        public static let toList = AnyObjectCoercion<JSON.List>()
     }
+
+    private init() { }
 }
 
 // MARK: - JSON Creation

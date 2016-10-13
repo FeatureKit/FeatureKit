@@ -6,16 +6,16 @@
 
 import Foundation
 
+public enum JSONError: Error {
+    case unableToCreateFromJSON(JSON.Hash)
+    case keyNotFound(String)
+    case unableToSearchArrays
+}
+
 public struct JSON {
 
-    public typealias Hash = Dictionary<String, AnyObject>
+    public typealias Hash = Dictionary<String, Any>
     public typealias List = Array<Hash>
-
-    public enum Error: ErrorType {
-        case unableToCreateFromJSON(Hash)
-        case keyNotFound(String)
-        case unableToSearchArrays
-    }
 
     enum SearchTerm {
         case key(String)
@@ -23,8 +23,8 @@ public struct JSON {
 
     public struct DataMapper: Mappable {
 
-        public func map(input: NSData) throws -> AnyObject {
-            return try NSJSONSerialization.JSONObjectWithData(input, options: [])
+        public func map(input: Data) throws -> Any {
+            return try JSONSerialization.jsonObject(with: input, options: [])
         }
     }
 
@@ -36,14 +36,14 @@ public struct JSON {
             search = .key(key)
         }
 
-        public init<Key: RawRepresentable where Key.RawValue == String>(forKey key: Key) {
+        public init<Key: RawRepresentable>(forKey key: Key) where Key.RawValue == String {
             search = .key(key.rawValue)
         }
 
-        public func map(input: Hash) throws -> AnyObject {
+        public func map(input: Hash) throws -> Any {
             switch search {
             case let .key(key):
-                guard let result = input[key] else { throw Error.keyNotFound(key) }
+                guard let result = input[key] else { throw JSONError.keyNotFound(key) }
                 return result
             }
         }
@@ -52,7 +52,7 @@ public struct JSON {
     public struct Coercion {
         // object coercions
         static let string = AnyObjectCoercion<String>()
-        static let data = AnyObjectCoercion<NSData>()
+        static let data = AnyObjectCoercion<Data>()
         static let number = AnyObjectCoercion<NSNumber>()
 
         // primitives coercions
@@ -72,7 +72,7 @@ public struct JSON {
 
 public protocol CreateFromJSONProtocol {
 
-    static func mapper(searchForKey key: String?) -> AnyMapper<NSData, [Self]>
+    static func mapper(searchForKey key: String?) -> AnyMapper<Data, [Self]>
 
     static func create(from json: JSON.Hash) throws -> Self
 }
@@ -111,7 +111,7 @@ internal struct JSONFeatureMapper<F: CreateFromJSONProtocol>: Mappable {
 
 extension Feature: CreateFromJSONProtocol {
 
-    public static func mapper(searchForKey key: String? = nil) -> AnyMapper<NSData, [Feature]> {
+    public static func mapper(searchForKey key: String? = nil) -> AnyMapper<Data, [Feature]> {
         let data = JSON.DataMapper()
         let features = Many(JSONFeatureMapper<Feature>())
         if let key = key {
@@ -137,7 +137,7 @@ extension Feature: CreateFromJSONProtocol {
             let defaultAvailable = try JSONFeature.Find.defaultAvailability(json)
             let currentAvailable = try JSONFeature.Find.currentAvailability(json)
 
-            guard let id = Feature.Identifier(string: idString) else { throw JSON.Error.unableToCreateFromJSON(json) }
+            guard let id = Feature.Identifier(string: idString) else { throw JSONError.unableToCreateFromJSON(json) }
 
             return Feature(
                 id: id,

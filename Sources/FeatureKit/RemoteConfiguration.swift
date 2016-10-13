@@ -10,30 +10,30 @@ import Result
 public protocol DownloadProtocol {
     associatedtype Output
 
-    func get(request: NSURLRequest, _: (Output) -> Void) -> NSURLSessionTask
+    @discardableResult func get(request: URLRequest, _: @escaping (Output) -> Void) -> URLSessionTask
 }
 
-public typealias RemoteData = (NSData?, NSURLResponse?)
+public typealias RemoteData = (Data?, URLResponse?)
 
-public enum DownloadError: ErrorType {
-    case network(NSError)
-    case mapping(ErrorType)
+public enum DownloadError: Error {
+    case network(Error)
+    case mapping(Error)
     case unknown
 }
 
 internal class Download<Output>: DownloadProtocol {
 
-    var session: NSURLSession
+    var session: URLSession
     let mapper: AnyMapper<RemoteData, Output>
 
-    init<Base: Mappable where RemoteData == Base.Input, Output == Base.Output>(session: NSURLSession = NSURLSession.sharedSession(), mapper base: Base) {
+    init<Base: Mappable>(session: URLSession = URLSession.shared, mapper base: Base) where RemoteData == Base.Input, Output == Base.Output {
         self.session = session
         self.mapper = AnyMapper(base)
     }
 
-    func get(request: NSURLRequest, _ completion: Result<Output, DownloadError> -> Void) -> NSURLSessionTask {
+    @discardableResult func get(request: URLRequest, _ completion: @escaping (Result<Output, DownloadError>) -> Void) -> URLSessionTask {
         let map = mapper.map
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+        let task = session.dataTask(with: request) { data, response, error in
             switch (data, response, error) {
             case (_, _, nil):
                 do {
@@ -44,7 +44,7 @@ internal class Download<Output>: DownloadProtocol {
                     completion(Result(error: DownloadError.mapping(error)))
                 }
 
-            case let (nil, nil, .Some(error)):
+            case let (nil, nil, .some(error)):
                 completion(Result(error: DownloadError.network(error)))
 
             default:

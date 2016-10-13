@@ -8,18 +8,18 @@ import Foundation
 
 public protocol UserDefaultsProtocol: class {
 
-    func objectForKey(_: String) -> AnyObject?
+    func object(forKey defaultName: String) -> Any?
 
-    func setObject(_: AnyObject?, forKey: String)
+    func set(_ value: Any?, forKey defaultName: String)
 
-    func removeObjectForKey(_: String)
+    func removeObject(forKey defaultName: String)
 
-    func dictionaryRepresentation() -> [String: AnyObject]
+    func dictionaryRepresentation() -> [String : Any]
 }
 
-extension NSUserDefaults: UserDefaultsProtocol { }
+extension UserDefaults: UserDefaultsProtocol { }
 
-public class UserDefaultsStorage<K, V where K: Hashable, K: CustomStringConvertible, V: NSCoding>: SyncStorageProtocol {
+public class UserDefaultsStorage<K, V>: SyncStorageProtocol where K: Hashable, K: CustomStringConvertible, V: NSCoding {
 
     public typealias Key = K
     public typealias Value = V
@@ -28,7 +28,7 @@ public class UserDefaultsStorage<K, V where K: Hashable, K: CustomStringConverti
     public let prefix: String
 
     public lazy var userDefaults: UserDefaultsProtocol = {
-        return NSUserDefaults(suiteName: self.group) ?? NSUserDefaults.standardUserDefaults()
+        return UserDefaults(suiteName: self.group) ?? UserDefaults.standard
     }()
 
     private lazy var prefixed: (Key) -> String = {
@@ -43,28 +43,28 @@ public class UserDefaultsStorage<K, V where K: Hashable, K: CustomStringConverti
 
     public subscript(key: Key) -> V? {
         get {
-            let data = (userDefaults.objectForKey(prefixed(key)) as? NSData)
-            return data.flatMap { NSKeyedUnarchiver.unarchiveObjectWithData($0) as? Value }
+            let data = (userDefaults.object(forKey: prefixed(key)) as? Data)
+            return data.flatMap { NSKeyedUnarchiver.unarchiveObject(with: $0) as? Value }
         }
         set {
             guard let newValue = newValue else {
-                userDefaults.removeObjectForKey(prefixed(key)); return
+                userDefaults.removeObject(forKey: prefixed(key)); return
             }
-            let data = NSKeyedArchiver.archivedDataWithRootObject(newValue)
-            userDefaults.setObject(data, forKey: prefixed(key))
+            let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
+            userDefaults.set(data, forKey: prefixed(key))
         }
     }
 
     public var values: AnyRandomAccessCollection<Value> {
         return AnyRandomAccessCollection(userDefaults.dictionaryRepresentation().values.lazy.flatMap { obj in
-            guard let data = obj as? NSData else { return nil }
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? Value
+            guard let data = obj as? Data else { return nil }
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as? Value
         })
     }
 
     public func removeAll() {
         for key in userDefaults.dictionaryRepresentation().keys.filter({ $0.hasPrefix(self.prefix) }) {
-            userDefaults.removeObjectForKey(key)
+            userDefaults.removeObject(forKey: key)
         }
     }
 }

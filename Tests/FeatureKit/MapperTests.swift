@@ -31,23 +31,22 @@ class MapperTests: XCTestCase {
 
     func test__any_mapper() {
         let mapper = AnyMapper(AppendExclamation())
-        XCTAssertEqual(try! mapper.map("Hello"), "Hello!")
+        XCTAssertEqual(try! mapper.map(input: "Hello"), "Hello!")
     }
 
     func test__append_mappers() {
         let mapper = AnyMapper(AppendExclamation())
             .append(AppendQuestionMark())
             .append(CharacterCount())
-        XCTAssertEqual(try! mapper.map("Hello"), 7)
+        XCTAssertEqual(try! mapper.map(input: "Hello"), 7)
     }
 
     func test__any_object_coercion() {
-        let mapper = AnyObjectCoercion<NSData>()
-        let input: AnyObject = "Hello world!".dataUsingEncoding(NSUTF8StringEncoding)!
+        let mapper = AnyObjectCoercion<Data>()
+        let input: Any = "Hello world!".data(using: String.Encoding.utf8)!
         do {
-            let data = try mapper.map(input)
-            XCTAssertTrue(data.isKindOfClass(NSData))
-            XCTAssertEqual(String(data: data, encoding: NSUTF8StringEncoding), "Hello world!")
+            let data = try mapper.map(input: input)            
+            XCTAssertEqual(String(data: data, encoding: String.Encoding.utf8), "Hello world!")
         }
         catch {
             XCTFail("Unexpected error thrown: \(error)")
@@ -56,9 +55,9 @@ class MapperTests: XCTestCase {
 
     func test__any_object_coercion_which_fails() {
         let mapper = AnyObjectCoercion<NSNumber>()
-        let input: AnyObject = "Hello world!".dataUsingEncoding(NSUTF8StringEncoding)!
+        let input: Any = "Hello world!".data(using: String.Encoding.utf8)!
         do {
-            let _ = try mapper.map(input)
+            let _ = try mapper.map(input: input)
         }
         catch MappingError.unableToPerformMapping { /* test passes */ }
         catch {

@@ -1,0 +1,16 @@
+//
+//  FeatureKit
+//
+//  Copyright © 2016 FeatureKit. All rights reserved.
+//
+
+PRODUCT_BUNDLE_IDENTIFIER_framework = run.kit.feature.FeatureKitUI
+PRODUCT_BUNDLE_IDENTIFIER_xctest = run.kit.feature.FeatureKitUITests
+PRODUCT_BUNDLE_IDENTIFIER = $(PRODUCT_BUNDLE_IDENTIFIER_$(WRAPPER_EXTENSION))
+
+PRODUCT_NAME_framework = FeatureKitUI
+PRODUCT_NAME_xctest = FeatureKitUITests
+PRODUCT_NAME = $(PRODUCT_NAME_$(WRAPPER_EXTENSION))
+
+// Build Settings
+SUPPORTED_PLATFORMS = iphoneos iphonesimulator

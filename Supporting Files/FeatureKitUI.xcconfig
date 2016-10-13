@@ -13,4 +13,4 @@ PRODUCT_NAME_xctest = FeatureKitUITests
 PRODUCT_NAME = $(PRODUCT_NAME_$(WRAPPER_EXTENSION))
 
 // Build Settings
-SUPPORTED_PLATFORMS = iphoneos appletvos watchos appletvsimulator iphonesimulator watchsimulator
+SUPPORTED_PLATFORMS = iphoneos iphonesimulator

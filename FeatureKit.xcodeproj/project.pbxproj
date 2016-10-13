@@ -192,6 +192,15 @@
 			path = FeatureKitUITests;
 			sourceTree = "<group>";
 		};
+		65931A431DAE8DA40067B0A4 /* ... */ = {
+			isa = PBXGroup;
+			children = (
+				65D183151D6509BF00DB4BF1 /* Supporting Files */,
+				65D182FE1D65094400DB4BF1 /* Products */,
+			);
+			name = ...;
+			sourceTree = "<group>";
+		};
 		65D182F11D6508DD00DB4BF1 = {
 			isa = PBXGroup;
 			children = (
@@ -199,8 +208,7 @@
 				654FB00D1D7E119F002FA74D /* FeatureKitTests */,
 				654FB0241D7E1201002FA74D /* FeatureKitUI */,
 				654FB02F1D7E1201002FA74D /* FeatureKitUITests */,
-				65D183151D6509BF00DB4BF1 /* Supporting Files */,
-				65D182FE1D65094400DB4BF1 /* Products */,
+				65931A431DAE8DA40067B0A4 /* ... */,
 			);
 			sourceTree = "<group>";
 		};

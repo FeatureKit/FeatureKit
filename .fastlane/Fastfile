@@ -5,21 +5,23 @@ lane :lint do
 	)
 end
 
-desc "Runs the feature kit tests"
-lane :test_featurekit do
+platform :mac do
 
-	carthage(platform: "Mac")
+  desc "Runs the feature kit tests"
+  lane :test_featurekit do
 
-	scan(
-		project: "FeatureKit.xcodeproj",
-		scheme: "FeatureKit",
-		destination: "platform=OS X"
-	)
+    carthage(platform: "Mac")
+
+	scan(scheme: "FeatureKit")
+
+  end
 
 end
 
-desc "Runs the feature kit tests"
-lane :test_featurekitui do
+platform :ios do
+
+  desc "Runs the feature kit tests"
+  lane :test_featurekitui do
 
 	carthage(platform: "iOS")
 
@@ -29,4 +31,7 @@ lane :test_featurekitui do
 		destination: "platform=iOS Simulator,name=iPhone 6s"
 	)
 
+  end
 end
+
+

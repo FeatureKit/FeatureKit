@@ -16,7 +16,6 @@
 		654FB0061D7E1170002FA74D /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FAFFF1D7E1170002FA74D /* Feature.swift */; };
 		654FB0071D7E1170002FA74D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0001D7E1170002FA74D /* JSON.swift */; };
 		654FB0081D7E1170002FA74D /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0011D7E1170002FA74D /* Mapper.swift */; };
-		654FB0091D7E1170002FA74D /* RemoteConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0021D7E1170002FA74D /* RemoteConfiguration.swift */; };
 		654FB00A1D7E1170002FA74D /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0031D7E1170002FA74D /* Service.swift */; };
 		654FB00B1D7E1170002FA74D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0041D7E1170002FA74D /* Storage.swift */; };
 		654FB00C1D7E1170002FA74D /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FB0051D7E1170002FA74D /* UserDefaults.swift */; };
@@ -77,7 +76,6 @@
 		654FAFFF1D7E1170002FA74D /* Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
 		654FB0001D7E1170002FA74D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		654FB0011D7E1170002FA74D /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
-		654FB0021D7E1170002FA74D /* RemoteConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConfiguration.swift; sourceTree = "<group>"; };
 		654FB0031D7E1170002FA74D /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		654FB0041D7E1170002FA74D /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		654FB0051D7E1170002FA74D /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				655CD92E1D7E1A29008D2185 /* DataSource.swift */,
 				654FB0001D7E1170002FA74D /* JSON.swift */,
 				654FB0011D7E1170002FA74D /* Mapper.swift */,
-				654FB0021D7E1170002FA74D /* RemoteConfiguration.swift */,
 				654FB0031D7E1170002FA74D /* Service.swift */,
 				654FB0041D7E1170002FA74D /* Storage.swift */,
 				654FB0051D7E1170002FA74D /* UserDefaults.swift */,
@@ -426,7 +423,6 @@
 			files = (
 			);
 			inputPaths = (
-				Result,
 				ValueCoding,
 			);
 			name = "Copy Carthage Frameworks";
@@ -443,7 +439,6 @@
 			files = (
 			);
 			inputPaths = (
-				Result,
 				ValueCoding,
 			);
 			name = "Copy Carthage Frameworks";
@@ -480,7 +475,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				654FB0091D7E1170002FA74D /* RemoteConfiguration.swift in Sources */,
 				654FB0061D7E1170002FA74D /* Feature.swift in Sources */,
 				654FB00A1D7E1170002FA74D /* Service.swift in Sources */,
 				654FB0081D7E1170002FA74D /* Mapper.swift in Sources */,

@@ -43,20 +43,4 @@ class ServiceTests: FeatureKitTestCase {
         service = TestFeatureService(storage: storage)
         XCTAssertEqual(service.features.count, 4)
     }
-
-    func test__load_from_url() {
-        guard let path = Bundle(for: type(of: self)).path(forResource: "Features", ofType: "json") else {
-            XCTFail("Missing or invalid JSON file"); return
-        }
-        let url = URL(fileURLWithPath: path)
-
-        service = TestFeatureService()
-        XCTAssertEqual(service.features.count, 0)
-
-        let exp = expectation(description: "Test: \(#file) \(#line)")
-        service.load(url: url, completion: exp.fulfill)
-        waitForExpectations(timeout: 3, handler: nil)
-
-        XCTAssertEqual(service.features.count, 6)
-    }
 }

@@ -72,7 +72,7 @@ fileprivate class AnyStorage_<K: Hashable, V>: SyncStorageProtocol, AsyncStorage
     }
 }
 
-private final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Base.Key, Base.Value> {
+fileprivate final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Base.Key, Base.Value> {
 
     private var base: Base
 
@@ -80,7 +80,7 @@ private final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Ba
         self.base = base
     }
 
-    private override subscript(key: Base.Key) -> Base.Value? {
+    fileprivate override subscript(key: Base.Key) -> Base.Value? {
         get {
             return base[key]
         }
@@ -89,11 +89,11 @@ private final class AnyStorageSyncBox<Base: SyncStorageProtocol>: AnyStorage_<Ba
         }
     }
 
-    private override var values: AnyRandomAccessCollection<Value> {
+    fileprivate override var values: AnyRandomAccessCollection<Value> {
         return base.values
     }
 
-    private override func removeAll() {
+    fileprivate override func removeAll() {
         return base.removeAll()
     }
 }

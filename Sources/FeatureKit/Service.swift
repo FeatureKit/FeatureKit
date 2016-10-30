@@ -73,7 +73,6 @@ public final class FeatureService<Feature: FeatureProtocol> {
     public typealias Storage = AnyStorage<Feature.Identifier, Feature>
 
     fileprivate var storage: Storage? = nil
-    fileprivate var download: Download<[Feature]>? = nil
     public fileprivate(set) var features: [Feature.Identifier: Feature]
 
     public required init(_ features: [Feature.Identifier: Feature] = [:]) {
@@ -132,28 +131,3 @@ extension FeatureService where Feature: ValueCoding, Feature.Coder: NSCoding, Fe
     }
 }
 
-// MARK: - Remote Configuration
-
-public extension FeatureService where Feature: CreateFromJSONProtocol {
-
-    public typealias ReceiveFeaturesBlock = ([Feature]) -> Void
-
-    internal func load<Base>(request: URLRequest, usingSession session: URLSession = URLSession.shared, usingMapper mapper: Base, completion: ReceiveFeaturesBlock? = nil) where Base: Mappable, Base.Input == RemoteData, Base.Output == [Feature] {
-        download = Download(session: session, mapper: mapper)
-        download?.get(request: request) { [weak self] result in
-            if let strongSelf = self, let features = try? result.dematerialize() {
-                strongSelf.set(features: features)
-                completion?(features)
-            }
-        }
-    }
-
-    func load(request: URLRequest, usingSession session: URLSession = URLSession.shared, searchForKey: String = "features", completion: VoidBlock? = nil) {
-        let mapper = NotOptional(BlockMapper<RemoteData, Data?> { $0.0 }).append(Feature.mapper(searchForKey: searchForKey))
-        return load(request: request, usingSession: session, usingMapper: mapper) { _ in completion?() }
-    }
-
-    func load(url: URL, usingSession session: URLSession = URLSession.shared, searchForKey: String = "features", completion: VoidBlock? = nil) {
-        load(request: URLRequest(url: url), usingSession: session, searchForKey: searchForKey, completion: completion)
-    }
-}

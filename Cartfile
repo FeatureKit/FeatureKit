@@ -1,1 +1,2 @@
 github "danthorpe/ValueCoding" ~> 2.1
+github "utahiosmac/Marshal" ~> 1.0

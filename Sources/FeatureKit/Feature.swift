@@ -5,6 +5,7 @@
 //
 
 import ValueCoding
+import Marshal
 
 // MARK: - Support Interfaces
 

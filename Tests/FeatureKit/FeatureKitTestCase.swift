@@ -6,6 +6,7 @@
 
 import XCTest
 import ValueCoding
+import Marshal
 @testable import FeatureKit
 
 enum TestFeatureId: String, FeatureIdentifier, Comparable, ValueCoding {
@@ -51,15 +52,12 @@ class FeatureKitTestCase: XCTestCase {
     func setupServiceFromJSON() {
         service = TestFeatureService()
 
-        let mapper = TestFeature.mapper(searchForKey: "features")
-
         do {
             guard let path = Bundle(for: type(of: self)).url(forResource: "Features", withExtension: "json") else { return }
 
             let data = try Data(contentsOf: path, options: [])
-
-            let features = try mapper.map(input: data)
-
+            let json = try JSONSerialization.jsonObject(with: data, options: []) as! MarshalDictionary
+            let features: [TestFeature] = try json.value(for: "features")
             service.set(features: features)
         }
         catch { }
